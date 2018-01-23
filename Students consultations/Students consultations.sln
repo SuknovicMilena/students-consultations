@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students consultations", "Students consultations\Students consultations.csproj", "{2FBB5AD7-F7A3-4783-9A2D-639257346F3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentsConsultations", "Students consultations\StudentsConsultations.csproj", "{2FBB5AD7-F7A3-4783-9A2D-639257346F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsConsultations.Domain", "StudentsConsultations.Domain\StudentsConsultations.Domain.csproj", "{72176F1B-2B7D-48A4-9C48-6393089D002C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2FBB5AD7-F7A3-4783-9A2D-639257346F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FBB5AD7-F7A3-4783-9A2D-639257346F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FBB5AD7-F7A3-4783-9A2D-639257346F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72176F1B-2B7D-48A4-9C48-6393089D002C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72176F1B-2B7D-48A4-9C48-6393089D002C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72176F1B-2B7D-48A4-9C48-6393089D002C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72176F1B-2B7D-48A4-9C48-6393089D002C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
