@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using StudentsConsultations.Domain;
 
 namespace StudentsConsultations.Data.EF
 {
@@ -11,6 +12,13 @@ namespace StudentsConsultations.Data.EF
         public virtual DbSet<Nastavnik> Nastavnik { get; set; }
         public virtual DbSet<Razlog> Razlog { get; set; }
         public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<Korisnik> Korisnici { get; set; }
+        public virtual DbSet<Projekat> Projekti { get; set; }
+        public virtual DbSet<Ispit> Ispiti { get; set; }
+        public virtual DbSet<VrstaZadatka> VrsteZadataka { get; set; }
+        public virtual DbSet<Zadatak> Zadaci { get; set; }
+        public virtual DbSet<ZavrsniRad> ZavrsniRadovi { get; set; }
+
 
         public StudentskeKonsultacijeDbContext(DbContextOptions<StudentskeKonsultacijeDbContext> options) : base(options)
         {
@@ -23,7 +31,13 @@ namespace StudentsConsultations.Data.EF
             {
                 entity.HasKey(e => new { e.StudentId, e.NastavnikId, e.DatumKonsultacija });
 
-                entity.HasOne(d => d.DatumObjekat)
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Konsultacije)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Konsultacije_Student");
+
+                entity.HasOne(d => d.Datum)
                     .WithMany(p => p.Konsultacije)
                     .HasForeignKey(d => d.DatumKonsultacija)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -32,6 +46,7 @@ namespace StudentsConsultations.Data.EF
                 entity.HasOne(d => d.Nastavnik)
                     .WithMany(p => p.Konsultacije)
                     .HasForeignKey(d => d.NastavnikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Konsultacije_Nastavnik");
 
                 entity.HasOne(d => d.Razlog)
@@ -40,10 +55,6 @@ namespace StudentsConsultations.Data.EF
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Konsultacije_Razlog");
 
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.Konsultacije)
-                    .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK_Konsultacije_Student");
             });
         }
     }

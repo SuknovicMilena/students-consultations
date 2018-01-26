@@ -8,7 +8,6 @@ namespace StudentsConsultations.Domain
 {
     public class Konsultacije
     {
-        public string Vreme { get; set; }
 
         [Key]
         public int NastavnikId { get; set; }
