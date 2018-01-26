@@ -4,7 +4,8 @@ using System.Text;
 
 namespace StudentsConsultations.Domain
 {
-    public class Ispit
+    public class Ispit : Razlog
     {
+        public string Naziv { get; set; }
     }
 }
