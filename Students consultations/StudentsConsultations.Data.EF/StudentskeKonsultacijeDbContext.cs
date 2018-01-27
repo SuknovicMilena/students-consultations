@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudentsConsultations.Data.EF
 {
@@ -11,6 +13,12 @@ namespace StudentsConsultations.Data.EF
         public virtual DbSet<Nastavnik> Nastavnik { get; set; }
         public virtual DbSet<Razlog> Razlog { get; set; }
         public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<Zadatak> Zadatak { get; set; }
+        public virtual DbSet<VrstaZadatka> VrstaZadatak { get; set; }
+        public virtual DbSet<Ispit> Ispit { get; set; }
+        public virtual DbSet<ZavrsniRad> ZavrsniRad { get; set; }
+        public virtual DbSet<Projekat> Projekat { get; set; }
+
 
         public StudentskeKonsultacijeDbContext(DbContextOptions<StudentskeKonsultacijeDbContext> options) : base(options)
         {
@@ -19,6 +27,7 @@ namespace StudentsConsultations.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Konsultacije>(entity =>
             {
                 entity.HasKey(e => new { e.StudentId, e.NastavnikId, e.DatumKonsultacija });
@@ -43,6 +52,7 @@ namespace StudentsConsultations.Data.EF
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Konsultacije)
                     .HasForeignKey(d => d.StudentId)
+                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Konsultacije_Student");
             });
         }

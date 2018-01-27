@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace StudentsConsultations.Domain
+namespace StudentsConsultations.Data.EF
 {
-    public class VrstaZadatka : OpstiEntitet
+    public class VrstaZadatka
     {
+
+        public int Id { get; set; }
+
+        [Required]
         public string Naziv { get; set; }
 
         [InverseProperty("VrstaZadatka")]

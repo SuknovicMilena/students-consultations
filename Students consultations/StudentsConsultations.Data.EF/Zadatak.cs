@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace StudentsConsultations.Domain
+namespace StudentsConsultations.Data.EF
 {
-    public class Zadatak : OpstiEntitet
+    public class Zadatak
     {
-        [Required]
+        public int Id { get; set; }
+
         public int NastavnikId { get; set; }
 
-        [Required]
         public int StudentId { get; set; }
 
-        [Required]
         public DateTime DatumKonsultacija { get; set; }
 
         [Required]
@@ -24,16 +23,10 @@ namespace StudentsConsultations.Domain
 
         public string Opis { get; set; }
 
-        [ForeignKey("NastavnikId")]
-        [InverseProperty("Zadaci")]
         public Nastavnik Nastavnik { get; set; }
 
-        [ForeignKey("StudentId")]
-        [InverseProperty("Zadaci")]
         public Student Student { get; set; }
 
-        [ForeignKey("DatumKonsultacija")]
-        [InverseProperty("Zadaci")]
         public Datum Datum { get; set; }
 
         [ForeignKey("VrstaZadatkaId")]
