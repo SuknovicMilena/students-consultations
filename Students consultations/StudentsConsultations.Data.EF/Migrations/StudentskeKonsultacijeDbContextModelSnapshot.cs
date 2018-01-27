@@ -20,7 +20,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Datum", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Datum", b =>
                 {
                     b.Property<DateTime>("DatumKonsultacija");
 
@@ -29,7 +29,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Datum");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Ispit", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Ispit", b =>
                 {
                     b.Property<int>("RazlogId");
 
@@ -41,7 +41,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Ispit");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Konsultacije", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Konsultacije", b =>
                 {
                     b.Property<int>("StudentId");
 
@@ -62,7 +62,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Konsultacije");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Nastavnik", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Nastavnik", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -81,7 +81,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Nastavnik");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Projekat", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Projekat", b =>
                 {
                     b.Property<int>("RazlogId");
 
@@ -96,7 +96,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Projekat");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Razlog", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Razlog", b =>
                 {
                     b.Property<int>("RazlogId")
                         .ValueGeneratedOnAdd();
@@ -109,7 +109,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Razlog");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Student", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -128,7 +128,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.VrstaZadatka", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.VrstaZadatka", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -141,7 +141,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("VrstaZadatak");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Zadatak", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Zadatak", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -171,7 +171,7 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("Zadatak");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.ZavrsniRad", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.ZavrsniRad", b =>
                 {
                     b.Property<int>("RazlogId");
 
@@ -183,74 +183,74 @@ namespace StudentsConsultations.Data.EF.Migrations
                     b.ToTable("ZavrsniRad");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Ispit", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Ispit", b =>
                 {
-                    b.HasOne("StudentsConsultations.Data.EF.Razlog", "Razlog")
+                    b.HasOne("StudentsConsultations.Domain.Razlog", "Razlog")
                         .WithOne("Ispit")
-                        .HasForeignKey("StudentsConsultations.Data.EF.Ispit", "RazlogId")
+                        .HasForeignKey("StudentsConsultations.Domain.Ispit", "RazlogId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Konsultacije", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Konsultacije", b =>
                 {
-                    b.HasOne("StudentsConsultations.Data.EF.Datum", "DatumObjekat")
+                    b.HasOne("StudentsConsultations.Domain.Datum", "DatumObjekat")
                         .WithMany("Konsultacije")
                         .HasForeignKey("DatumKonsultacija")
                         .HasConstraintName("FK_Konsultacije_Datum");
 
-                    b.HasOne("StudentsConsultations.Data.EF.Nastavnik", "Nastavnik")
+                    b.HasOne("StudentsConsultations.Domain.Nastavnik", "Nastavnik")
                         .WithMany("Konsultacije")
                         .HasForeignKey("NastavnikId")
                         .HasConstraintName("FK_Konsultacije_Nastavnik")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StudentsConsultations.Data.EF.Razlog", "Razlog")
+                    b.HasOne("StudentsConsultations.Domain.Razlog", "Razlog")
                         .WithMany("Konsultacije")
                         .HasForeignKey("RazlogId")
                         .HasConstraintName("FK_Konsultacije_Razlog");
 
-                    b.HasOne("StudentsConsultations.Data.EF.Student", "Student")
+                    b.HasOne("StudentsConsultations.Domain.Student", "Student")
                         .WithMany("Konsultacije")
                         .HasForeignKey("StudentId")
                         .HasConstraintName("FK_Konsultacije_Student");
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Projekat", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Projekat", b =>
                 {
-                    b.HasOne("StudentsConsultations.Data.EF.Razlog", "Razlog")
+                    b.HasOne("StudentsConsultations.Domain.Razlog", "Razlog")
                         .WithOne("Projekat")
-                        .HasForeignKey("StudentsConsultations.Data.EF.Projekat", "RazlogId")
+                        .HasForeignKey("StudentsConsultations.Domain.Projekat", "RazlogId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.Zadatak", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.Zadatak", b =>
                 {
-                    b.HasOne("StudentsConsultations.Data.EF.Datum", "Datum")
+                    b.HasOne("StudentsConsultations.Domain.Datum", "Datum")
                         .WithMany()
                         .HasForeignKey("DatumKonsultacija")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StudentsConsultations.Data.EF.Nastavnik", "Nastavnik")
+                    b.HasOne("StudentsConsultations.Domain.Nastavnik", "Nastavnik")
                         .WithMany()
                         .HasForeignKey("NastavnikId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StudentsConsultations.Data.EF.Student", "Student")
+                    b.HasOne("StudentsConsultations.Domain.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StudentsConsultations.Data.EF.VrstaZadatka", "VrstaZadatka")
+                    b.HasOne("StudentsConsultations.Domain.VrstaZadatka", "VrstaZadatka")
                         .WithMany("Zadaci")
                         .HasForeignKey("VrstaZadatkaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("StudentsConsultations.Data.EF.ZavrsniRad", b =>
+            modelBuilder.Entity("StudentsConsultations.Domain.ZavrsniRad", b =>
                 {
-                    b.HasOne("StudentsConsultations.Data.EF.Razlog", "Razlog")
+                    b.HasOne("StudentsConsultations.Domain.Razlog", "Razlog")
                         .WithOne("ZavrsniRad")
-                        .HasForeignKey("StudentsConsultations.Data.EF.ZavrsniRad", "RazlogId")
+                        .HasForeignKey("StudentsConsultations.Domain.ZavrsniRad", "RazlogId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

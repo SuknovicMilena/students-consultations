@@ -11,7 +11,7 @@ namespace StudentsConsultations.Data.EF
         public virtual DbSet<Razlog> Razlog { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Zadatak> Zadatak { get; set; }
-        public virtual DbSet<VrstaZadatka> VrstaZadatak { get; set; }
+        public virtual DbSet<VrstaZadatka> VrstaZadataka { get; set; }
         public virtual DbSet<Ispit> Ispit { get; set; }
         public virtual DbSet<ZavrsniRad> ZavrsniRad { get; set; }
         public virtual DbSet<Projekat> Projekat { get; set; }
