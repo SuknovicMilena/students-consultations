@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentsConsultations.Data.EF
+namespace StudentsConsultations.Domain
 {
-    public class Nastavnik
+    public class Student
     {
         public int Id { get; set; }
 
@@ -15,10 +14,8 @@ namespace StudentsConsultations.Data.EF
         public string Prezime { get; set; }
 
         [Required]
-        public string BrojRadneKnjizice { get; set; }
+        public string BrojIndeksa { get; set; }
 
         public ICollection<Konsultacije> Konsultacije { get; set; } = new HashSet<Konsultacije>();
-
-
     }
 }

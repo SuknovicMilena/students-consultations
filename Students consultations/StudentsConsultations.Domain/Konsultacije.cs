@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace StudentsConsultations.Data.EF
+namespace StudentsConsultations.Domain
 {
     public class Konsultacije
     {

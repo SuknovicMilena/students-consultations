@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentsConsultations.Data.EF
+namespace StudentsConsultations.Domain
 {
     public class Datum
     {
