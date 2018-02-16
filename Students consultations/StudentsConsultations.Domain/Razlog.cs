@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using StudentsConsultations.Data.Domain;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentsConsultations.Domain
+namespace StudentsConsultations.Data.Domain
 {
     public class Razlog
     {

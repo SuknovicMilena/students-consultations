@@ -1,6 +1,7 @@
-﻿using System;
+﻿using StudentsConsultations.Data.Domain;
+using System;
 
-namespace StudentsConsultations.Domain
+namespace StudentsConsultations.Data.Domain
 {
     public class Konsultacije
     {

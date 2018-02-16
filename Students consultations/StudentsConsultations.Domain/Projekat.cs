@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StudentsConsultations.Data.Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudentsConsultations.Domain
+namespace StudentsConsultations.Data.Domain
 {
     public class Projekat
     {

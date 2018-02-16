@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudentsConsultations.Domain;
+using StudentsConsultations.Data.Domain;
 
 namespace StudentsConsultations.Data.EF
 {
