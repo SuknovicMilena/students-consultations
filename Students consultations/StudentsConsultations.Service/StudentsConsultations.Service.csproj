@@ -8,4 +8,8 @@
     <Folder Include="Automapper\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StudentsConsultations.Data.Interface\StudentsConsultations.Data.Interface.csproj" />
+  </ItemGroup>
+
 </Project>
