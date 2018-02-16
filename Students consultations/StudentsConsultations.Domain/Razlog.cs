@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class Razlog
+    public class Razlog 
     {
         [Key]
         public int RazlogId { get; set; }

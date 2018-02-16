@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class Ispit
+    public class Ispit 
     {
         [Key]
         [ForeignKey("Razlog")]

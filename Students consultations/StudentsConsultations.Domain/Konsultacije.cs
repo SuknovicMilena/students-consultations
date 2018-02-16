@@ -3,7 +3,7 @@ using System;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class Konsultacije
+    public class Konsultacije 
     {
         public int StudentId { get; set; }
         public int NastavnikId { get; set; }

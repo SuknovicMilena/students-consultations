@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class VrstaZadatka
+    public class VrstaZadatka 
     {
 
         public int Id { get; set; }

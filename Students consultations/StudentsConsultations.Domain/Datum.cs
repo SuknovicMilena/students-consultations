@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class Datum
+    public class Datum 
     {
         [Key]
         public DateTime DatumKonsultacija { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class Nastavnik
+    public class Nastavnik 
     {
         public int Id { get; set; }
 
