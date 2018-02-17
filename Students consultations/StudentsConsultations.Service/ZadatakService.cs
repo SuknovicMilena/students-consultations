@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentsConsultations.Service.Projekat
+namespace StudentsConsultations.Service
 {
-    public class ProjekatService
+    public class ZadatakService
     {
     }
 }

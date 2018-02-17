@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentsConsultations.Service.Konsultacije
+namespace StudentsConsultations.Service
 {
     public class KonsultacijeService
     {

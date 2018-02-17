@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentsConsultations.Service.Student
+namespace StudentsConsultations.Service
 {
-    public interface IStudentService
+    public class StudentService
     {
     }
 }

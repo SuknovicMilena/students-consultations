@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentsConsultations.Service.Datum
+namespace StudentsConsultations.Service
 {
-    public interface IDatumService
+    class ZavrsniRadService
     {
     }
 }

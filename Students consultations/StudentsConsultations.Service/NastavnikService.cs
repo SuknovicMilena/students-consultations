@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentsConsultations.Service.Ispit
+namespace StudentsConsultations.Service
 {
-    public interface IIspitService
+    public class NastavnikService
     {
     }
 }

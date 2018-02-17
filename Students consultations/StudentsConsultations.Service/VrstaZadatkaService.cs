@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentsConsultations.Service.Razlog
+namespace StudentsConsultations.Service
 {
-    public interface IRazlogService
+    public class VrstaZadatkaService
     {
     }
 }
