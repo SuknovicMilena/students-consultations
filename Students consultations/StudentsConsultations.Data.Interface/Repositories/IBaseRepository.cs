@@ -13,6 +13,8 @@ namespace StudentsConsultations.Data.Interface.Repositories
 
         void Delete(TEntity entity);
 
+        void Update(TEntity entity);
+
         IQueryable<TEntity> SearchFor(Expression<Func<TEntity, bool>> predicate);
 
         IQueryable<TEntity> GetAll();

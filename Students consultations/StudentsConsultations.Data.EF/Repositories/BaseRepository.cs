@@ -21,13 +21,16 @@ namespace StudentsConsultations.Data.EF.Repositories
         public void Insert(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
-            Context.SaveChanges();
         }
 
         public void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
-            Context.SaveChanges();
+        }
+
+        public void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Update(entity);
         }
 
         public IQueryable<TEntity> SearchFor(Expression<Func<TEntity, bool>> predicate)

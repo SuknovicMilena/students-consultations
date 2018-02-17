@@ -3,7 +3,7 @@ using System;
 
 namespace StudentsConsultations.Data.Interface
 {
-    public interface IDatabaseManager
+    public interface IDatabaseManager : IDisposable
     {
         IDatumRepository DatumRepository { get; }
 
@@ -24,5 +24,7 @@ namespace StudentsConsultations.Data.Interface
         IZadatakRepository ZadatakRepository { get; }
 
         IZavrsniRadRepository ZavrsniRadRepository { get; }
+
+        void SaveChanges();
     }
 }

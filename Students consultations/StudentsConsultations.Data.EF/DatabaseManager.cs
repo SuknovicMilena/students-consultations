@@ -9,7 +9,9 @@ namespace StudentsConsultations.Data.EF
 {
     public class DatabaseManager : IDatabaseManager
     {
-        private StudentskeKonsultacijeDbContext _contex;
+        private StudentskeKonsultacijeDbContext _context;
+
+        private bool _disposed;
 
         private IDatumRepository _datumRepository;
 
@@ -31,30 +33,53 @@ namespace StudentsConsultations.Data.EF
 
         private IZavrsniRadRepository _zavrsniRadRepository;
 
+        public IDatumRepository DatumRepository => _datumRepository ?? (_datumRepository = new DatumRepository(_context));
 
-        public IDatumRepository DatumRepository => _datumRepository ?? (_datumRepository = new DatumRepository(_contex));
+        public IIspitRepository IspitRepository => _ispitRepository ?? (_ispitRepository = new IspitRepository(_context));
 
-        public IIspitRepository IspitRepository => _ispitRepository ?? (_ispitRepository = new IspitRepository(_contex));
+        public IKonsultacijeRepository KonsultacijeRepository => _konsultacijeRepository ?? (_konsultacijeRepository = new KonsultacijeRepository(_context));
 
-        public IKonsultacijeRepository KonsultacijeRepository => _konsultacijeRepository ?? (_konsultacijeRepository = new KonsultacijeRepository(_contex));
+        public INastavnikRepository NastavnikRepository => _nastavnikRepository ?? (_nastavnikRepository = new NastavnikRepository(_context));
 
-        public INastavnikRepository NastavnikRepository => _nastavnikRepository ?? (_nastavnikRepository = new NastavnikRepository(_contex));
+        public IProjekatRepository ProjekatRepository => _projekatRepository ?? (_projekatRepository = new ProjekatRepository(_context));
 
-        public IProjekatRepository ProjekatRepository => _projekatRepository ?? (_projekatRepository = new ProjekatRepository(_contex));
+        public IRazlogRepository RazlogRepository => _razlogRepository ?? (_razlogRepository = new RazlogRepository(_context));
 
-        public IRazlogRepository RazlogRepository => _razlogRepository ?? (_razlogRepository = new RazlogRepository(_contex));
+        public IStudentRepository StudentRepository => _studentRepository ?? (_studentRepository = new StudentRepository(_context));
 
-        public IStudentRepository StudentRepository => _studentRepository ?? (_studentRepository = new StudentRepository(_contex));
+        public IVrstaZadatkaRepository VrstaZadatkaRepository => _vrstaZadatkaRepository ?? (_vrstaZadatkaRepository = new VrstaZadatkaRepository(_context));
 
-        public IVrstaZadatkaRepository VrstaZadatkaRepository => _vrstaZadatkaRepository ?? (_vrstaZadatkaRepository = new VrstaZadatkaRepository(_contex));
+        public IZadatakRepository ZadatakRepository => _zadatakRepository ?? (_zadatakRepository = new ZadatakRepository(_context));
 
-        public IZadatakRepository ZadatakRepository => _zadatakRepository ?? (_zadatakRepository = new ZadatakRepository(_contex));
+        public IZavrsniRadRepository ZavrsniRadRepository => _zavrsniRadRepository ?? (_zavrsniRadRepository = new ZavrsniRadRepository(_context));
 
-        public IZavrsniRadRepository ZavrsniRadRepository => _zavrsniRadRepository ?? (_zavrsniRadRepository = new ZavrsniRadRepository(_contex));
 
         public DatabaseManager(StudentskeKonsultacijeDbContext contex)
         {
-            _contex = contex;
+            _context = contex;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            _disposed = true;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }
