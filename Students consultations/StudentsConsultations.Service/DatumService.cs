@@ -16,29 +16,32 @@ namespace StudentsConsultations.Service
             _databaseManager = databaseManager;
         }
 
-        public void Delete(Datum entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Datum> GetAll()
         {
-            throw new NotImplementedException();
+            return _databaseManager.DatumRepository.GetAll();
         }
 
         public Datum GetById(int id)
         {
-            throw new NotImplementedException();
+            return _databaseManager.DatumRepository.GetById(id);
         }
 
-        public void Insert(Datum entity)
+        public void Insert(Datum datum)
         {
-            throw new NotImplementedException();
+            _databaseManager.DatumRepository.Insert(datum);
+            _databaseManager.SaveChanges();
         }
 
-        public void Update(Datum entity)
+        public void Update(Datum datum)
         {
-            throw new NotImplementedException();
+            _databaseManager.DatumRepository.Update(datum);
+            _databaseManager.SaveChanges();
+        }
+
+        public void Delete(Datum datum)
+        {
+            _databaseManager.DatumRepository.Delete(datum);
+            _databaseManager.SaveChanges();
         }
     }
 }

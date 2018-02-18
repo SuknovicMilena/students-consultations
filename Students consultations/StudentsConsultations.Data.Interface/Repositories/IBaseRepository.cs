@@ -20,5 +20,9 @@ namespace StudentsConsultations.Data.Interface.Repositories
         IQueryable<TEntity> GetAll();
 
         TEntity GetById(int id);
+
+        TEntity GetBy(Expression<Func<TEntity, bool>> filter);
+
+        IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter);
     }
 }

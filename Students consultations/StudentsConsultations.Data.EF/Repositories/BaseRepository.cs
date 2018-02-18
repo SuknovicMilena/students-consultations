@@ -47,5 +47,15 @@ namespace StudentsConsultations.Data.EF.Repositories
         {
             return Context.Set<TEntity>().Find(id);
         }
+
+        public TEntity GetBy(Expression<Func<TEntity, bool>> filter)
+        {
+            return Context.Set<TEntity>().FirstOrDefault(filter);
+        }
+
+        public IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
+        {
+            return Context.Set<TEntity>().Where(filter);
+        }
     }
 }
