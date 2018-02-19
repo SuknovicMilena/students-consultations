@@ -59,16 +59,16 @@ namespace Students_consultations
             services.AddScoped<ZadatakRepository>();
             services.AddScoped<ZavrsniRadRepository>();
 
-            services.AddScoped<DatumService>();
-            services.AddScoped<IspitService>();
-            services.AddScoped<KonsultacijeService>();
+            services.AddScoped<IDatumService, DatumService>();
+            services.AddScoped<IIspitService, IspitService>();
+            services.AddScoped<IKonsultacijeService, KonsultacijeService>();
             services.AddScoped<INastavnikService, NastavnikService>();
-            services.AddScoped<ProjekatService>();
-            services.AddScoped<RazlogService>();
-            services.AddScoped<StudentService>();
-            services.AddScoped<VrstaZadatkaService>();
-            services.AddScoped<ZadatakService>();
-            services.AddScoped<ZavrsniRadService>();
+            services.AddScoped<IProjekatService, ProjekatService>();
+            services.AddScoped<IRazlogService, RazlogService>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IVrstaZadatkaService, VrstaZadatkaService>();
+            services.AddScoped<IZadatakService, ZadatakService>();
+            services.AddScoped<IZavrsniRadService, ZavrsniRadService>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
