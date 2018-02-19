@@ -7,7 +7,7 @@ using System.Text;
 
 namespace StudentsConsultations.Service
 {
-    class ZavrsniRadService : IZavrsniRadService
+    public class ZavrsniRadService : IZavrsniRadService
     {
         private readonly IDatabaseManager _databaseManager;
 
