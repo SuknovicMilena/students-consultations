@@ -34,7 +34,6 @@ namespace StudentsConsultations.Service
 
         public void Update(Nastavnik nastavnik)
         {
-            _databaseManager.NastavnikRepository.Update(nastavnik);
             _databaseManager.SaveChanges();
         }
 

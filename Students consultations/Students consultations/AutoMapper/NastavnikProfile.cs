@@ -13,6 +13,10 @@ namespace StudentsConsultations.AutoMapper
         public NastavnikProfile()
         {
             CreateMap<Nastavnik, NastavnikRowDto>();
+
+            CreateMap<Nastavnik, NastavnikDto>();
+
+            CreateMap<NastavnikRequest, Nastavnik>();
         }
     }
 }
