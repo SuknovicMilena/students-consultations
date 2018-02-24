@@ -28,6 +28,13 @@ namespace StudentsConsultations.Service
 
         public void Insert(Konsultacije konsultacije)
         {
+            Datum datumKonsultacija = new Datum();
+            datumKonsultacija.DatumKonsultacija = DateTime.UtcNow;
+
+            _databaseManager.DatumRepository.Insert(datumKonsultacija);
+
+            konsultacije.DatumObjekat = datumKonsultacija;
+
             _databaseManager.KonsultacijeRepository.Insert(konsultacije);
             _databaseManager.SaveChanges();
         }
