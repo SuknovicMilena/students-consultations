@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using StudentsConsultations.Data.Domain;
-using StudentsConsultations.Models;
+using StudentsConsultations.Models.Nastavnik;
 using System;
 using System.Collections.Generic;
 using System.Linq;

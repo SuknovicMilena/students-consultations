@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudentsConsultations.Data.Domain;
-using StudentsConsultations.Models;
+using StudentsConsultations.Models.Nastavnik;
 using StudentsConsultations.Service.Interfaces;
 
 namespace StudentsConsultations.Controllers

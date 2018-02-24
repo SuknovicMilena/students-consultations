@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudentsConsultations.Models
+namespace StudentsConsultations.Models.Student
 {
-    public class NastavnikDto
+    public class StudentDto
     {
         public int Id { get; set; }
 
@@ -13,6 +13,6 @@ namespace StudentsConsultations.Models
 
         public string Prezime { get; set; }
 
-        public string BrojRadneKnjizice { get; set; }
+        public string BrojIndeksa { get; set; }
     }
 }
