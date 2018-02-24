@@ -49,22 +49,19 @@ namespace StudentsConsultations.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]NastavnikRequest request)
+        [HttpPut]
+        public IActionResult Update([FromBody]NastavnikRequest request)
         {
-            var nastavnikRequest = _iNastavnikService.GetById(id);
+            var nastavnikRequest = _iNastavnikService.GetById(request.Id);
 
             if (nastavnikRequest == null)
             {
                 return NotFound("Nastavnik ne postoj!.");
             }
 
-            nastavnikRequest.Ime = request.Ime;
-            nastavnikRequest.Prezime = request.Prezime;
-            nastavnikRequest.BrojRadneKnjizice = request.BrojRadneKnjizice;
+            _mapper.Map(request, nastavnikRequest);
 
-            var nastavnik = _mapper.Map<Nastavnik>(nastavnikRequest);
-            _iNastavnikService.Update(nastavnik);
+            _iNastavnikService.Update(nastavnikRequest);
 
             return new NoContentResult();
         }
@@ -83,7 +80,5 @@ namespace StudentsConsultations.Controllers
 
             return new NoContentResult();
         }
-
-
     }
 }

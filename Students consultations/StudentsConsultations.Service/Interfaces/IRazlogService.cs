@@ -7,5 +7,6 @@ namespace StudentsConsultations.Service.Interfaces
 {
     public interface IRazlogService : IBaseService<Razlog>
     {
+        int InsertAndReturnId(Razlog razlog);
     }
 }

@@ -48,22 +48,18 @@ namespace StudentsConsultations.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]StudentRequest request)
+        [HttpPut]
+        public IActionResult Update([FromBody]StudentRequest request)
         {
-            var studentRequest = _iStudentService.GetById(id);
+            var studentRequest = _iStudentService.GetById(request.Id);
 
             if (studentRequest == null)
             {
                 return NotFound("Student ne postoj!.");
             }
 
-            studentRequest.Ime = request.Ime;
-            studentRequest.Prezime = request.Prezime;
-            studentRequest.BrojIndeksa = request.BrojIndeksa;
-
-            var student = _mapper.Map<Student>(studentRequest);
-            _iStudentService.Update(student);
+            _mapper.Map(request, studentRequest);
+            _iStudentService.Update(studentRequest);
 
             return new NoContentResult();
         }

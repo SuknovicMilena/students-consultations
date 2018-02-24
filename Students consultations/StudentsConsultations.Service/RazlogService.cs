@@ -43,5 +43,13 @@ namespace StudentsConsultations.Service
             _databaseManager.RazlogRepository.Delete(razlog);
             _databaseManager.SaveChanges();
         }
+
+        public int InsertAndReturnId(Razlog razlog)
+        {
+            _databaseManager.RazlogRepository.Insert(razlog);
+            _databaseManager.SaveChanges();
+
+            return razlog.RazlogId;
+        }
     }
 }

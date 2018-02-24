@@ -30,7 +30,7 @@ namespace StudentsConsultations.Data.EF.Repositories
 
         public void Update(TEntity entity)
         {
-            Context.Set<TEntity>().Update(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public IQueryable<TEntity> SearchFor(Expression<Func<TEntity, bool>> predicate)
