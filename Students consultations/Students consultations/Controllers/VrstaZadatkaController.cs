@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace StudentsConsultations.Controllers
 {
+    [Route("vrstezadataka")]
     public class VrstaZadatkaController : Controller
     {
         private IVrstaZadatkaService _iVrstaZadatka;
@@ -49,7 +50,7 @@ namespace StudentsConsultations.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]VrstaZadatka request)
+        public IActionResult Update([FromBody]VrstaZadatkaRequest request)
         {
             var vrstaZadatkaRequest = _iVrstaZadatka.GetById(request.Id);
 
@@ -80,6 +81,4 @@ namespace StudentsConsultations.Controllers
             return new NoContentResult();
         }
     }
-
-}
 }

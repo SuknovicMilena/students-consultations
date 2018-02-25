@@ -7,6 +7,8 @@ namespace StudentsConsultations.Models.VrstaZadatka
 {
     public class VrstaZadatkaRequest
     {
+        public int Id { get; set; }
+
         public string Naziv { get; set; }
     }
 }
