@@ -57,7 +57,7 @@ namespace StudentsConsultations.Service
             var konsultacijeZaStudenta = GetAllKonsultacijeByStudentId(studentId);
 
             IEnumerable<IGrouping<object, Konsultacije>> groups = konsultacijeZaStudenta.GroupBy(x => new { x.Nastavnik.Ime });
-            IEnumerable<Konsultacije> konsultacije = groups.SelectMany(group => group);
+            IEnumerable<Konsultacije> konsultacije = groups.SelectMany(group => group).OrderBy(x => x.Nastavnik.Ime);
             return konsultacije.ToList();
         }
         public List<Konsultacije> GroupKonsultacijeByDatum(int studentId)
