@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudentsConsultations.Data.Domain;
 using StudentsConsultations.Models.Konsultacije;
+using StudentsConsultations.Models.Projekat;
 using StudentsConsultations.Service.Interfaces;
 
 namespace StudentsConsultations.Controllers
@@ -22,6 +23,16 @@ namespace StudentsConsultations.Controllers
             _iKonsultacijeService = iKonsultacijeService;
             _iDatumService = iDatumService;
             _mapper = mapper;
+        }
+
+        [HttpGet("{studentId}")]
+        public IActionResult GetAll(int studentId)
+        {
+            var konsultacije = _iKonsultacijeService.GetAllKonsultacijeByStudentId(studentId);
+
+            var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
         }
 
         [HttpPost]

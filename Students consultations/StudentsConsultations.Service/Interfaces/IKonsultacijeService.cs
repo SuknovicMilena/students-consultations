@@ -7,5 +7,8 @@ namespace StudentsConsultations.Service.Interfaces
 {
     public interface IKonsultacijeService : IBaseService<Konsultacije>
     {
+        List<Konsultacije> GetAllKonsultacijeByStudentId(int studentId);
+
+        List<Konsultacije> GroupKonsultacijeByNastavnik(int studentId, string nastavnikIme);
     }
 }

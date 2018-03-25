@@ -13,6 +13,10 @@ namespace StudentsConsultations.AutoMapper
         public KonsultacijeProfile()
         {
             CreateMap<KonsultacijeRequest, Konsultacije>();
+
+            CreateMap<Konsultacije, KonsultacijeRowDto>();
+
+            CreateMap<Datum, DatumKonsultacijaDto>();
         }
     }
 }

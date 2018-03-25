@@ -3,6 +3,7 @@ using StudentsConsultations.Data.Interface;
 using StudentsConsultations.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace StudentsConsultations.Service
@@ -50,5 +51,29 @@ namespace StudentsConsultations.Service
             _databaseManager.KonsultacijeRepository.Delete(konsultacije);
             _databaseManager.SaveChanges();
         }
+
+        public List<Konsultacije> GetAllKonsultacijeByStudentId(int studentId)
+        {
+            var konsultacije = _databaseManager.KonsultacijeRepository.GetAll(x => x.StudentId == studentId).ToList();
+
+            foreach (var k in konsultacije)
+            {
+                var nastavnik = _databaseManager.NastavnikRepository.GetById(k.NastavnikId);
+                var student = _databaseManager.StudentRepository.GetById(k.StudentId);
+                var razlog = _databaseManager.RazlogRepository.GetById(k.RazlogId);
+
+                k.Nastavnik = nastavnik;
+                k.Student = student;
+                k.Razlog = razlog;
+
+                var projekat = _databaseManager.ProjekatRepository.GetById(k.RazlogId);
+                if (projekat != null)
+                {
+                    k.Razlog.Projekat = projekat;
+                }
+            }
+            return konsultacije;
+        }
     }
+
 }

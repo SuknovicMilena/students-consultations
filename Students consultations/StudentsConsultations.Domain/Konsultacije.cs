@@ -3,11 +3,12 @@ using System;
 
 namespace StudentsConsultations.Data.Domain
 {
-    public class Konsultacije 
+    public class Konsultacije
     {
         public int StudentId { get; set; }
         public int NastavnikId { get; set; }
         public DateTime DatumKonsultacija { get; set; }
+        public bool Odrzane { get; set; }
 
         public int RazlogId { get; set; }
 

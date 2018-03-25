@@ -1,0 +1,26 @@
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a *ngIf="konsultacija.razlog.projekat" class="nav-link active" href="#">{{konsultacija.razlog.projekat.nazivProjekta}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div *ngIf="!konsultacija.odrzane" class="card">
+      <div class="card-body text-danger">
+        <h5 class="card-title"> &#x274C;</h5>
+        <p class="card-text">{{konsultacija.nastavnik.ime}} {{konsultacija.nastavnik.prezime}}</p>
+        <p class="card-text">{{konsultacija.datumKonsultacija | date}}</p>
+        <div class="btn btn-outline-success my-2 my-sm-0" (click)="odrzane()">Odrzane</div>
+      </div>
+    </div>
+    <div *ngIf="konsultacija.odrzane" class="card">
+      <div class="card-body text-success">
+        <h5 class="card-title">&#9989;</h5>
+        <p class="card-text">{{konsultacija.nastavnik.ime}} {{konsultacija.nastavnik.prezime}}</p>
+        <p class="card-text">{{konsultacija.datumKonsultacija | date}}</p>
+      </div>
+    </div>
+  </div>
+</div>

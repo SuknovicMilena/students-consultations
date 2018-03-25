@@ -11,9 +11,10 @@ using System;
 namespace StudentsConsultations.Data.EF.Migrations
 {
     [DbContext(typeof(StudentskeKonsultacijeDbContext))]
-    partial class StudentskeKonsultacijeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180323213548_AddedOdrzaneToKonsultacije")]
+    partial class AddedOdrzaneToKonsultacije
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
