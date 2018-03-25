@@ -52,6 +52,23 @@ namespace StudentsConsultations.Service
             _databaseManager.SaveChanges();
         }
 
+        public List<Konsultacije> GroupKonsultacijeByNastavnik(int studentId)
+        {
+            var konsultacijeZaStudenta = GetAllKonsultacijeByStudentId(studentId);
+
+            IEnumerable<IGrouping<object, Konsultacije>> groups = konsultacijeZaStudenta.GroupBy(x => new { x.Nastavnik.Ime });
+            IEnumerable<Konsultacije> konsultacije = groups.SelectMany(group => group);
+            return konsultacije.ToList();
+        }
+        public List<Konsultacije> GroupKonsultacijeByDatum(int studentId)
+        {
+            var konsultacijeZaStudenta = GetAllKonsultacijeByStudentId(studentId);
+
+            IEnumerable<IGrouping<object, Konsultacije>> groups = konsultacijeZaStudenta.GroupBy(x => new { x.Nastavnik.Ime });
+            IEnumerable<Konsultacije> konsultacije = groups.SelectMany(group => group);
+            return konsultacije.ToList();
+        }
+
         public List<Konsultacije> GetAllKonsultacijeByStudentId(int studentId)
         {
             var konsultacije = _databaseManager.KonsultacijeRepository.GetAll(x => x.StudentId == studentId).ToList();

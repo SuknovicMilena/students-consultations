@@ -35,6 +35,26 @@ namespace StudentsConsultations.Controllers
             return Ok(konsultacijeRowDtos);
         }
 
+        [HttpGet("groupbynastavnik/{studentId}")]
+        public IActionResult GroupKonsultacijeByNastavnik(int studentId)
+        {
+            var konsultacije = _iKonsultacijeService.GroupKonsultacijeByNastavnik(studentId);
+
+            var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
+        }
+
+        [HttpGet("groupbydatum/{studentId}")]
+        public IActionResult GroupKonsultacijeByDatum(int studentId)
+        {
+            var konsultacije = _iKonsultacijeService.GroupKonsultacijeByDatum(studentId);
+
+            var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody]KonsultacijeRequest request)
         {

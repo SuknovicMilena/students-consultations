@@ -12,8 +12,13 @@ export class StudentService {
     return this.http.get(`http://localhost:63561/konsultacije/${studentId}`).map(response => response.json() as Konsultacije[]);
   }
 
-  groupKonsultacijeByNastavnik(studentId: number, nastavnikIme: string): Observable<Konsultacije[]> {
-    return this.http.get(`http://localhost:63561/konsultacije/${studentId}/${nastavnikIme}`)
+  groupKonsultacijeByNastavnik(studentId: number): Observable<Konsultacije[]> {
+    return this.http.get(`http://localhost:63561/konsultacije/groupbynastavnik/${studentId}`)
+      .map(response => response.json() as Konsultacije[]);
+  }
+
+  groupKonsultacijeByDatum(studentId: number): Observable<Konsultacije[]> {
+    return this.http.get(`http://localhost:63561/konsultacije/groupbydatum/${studentId}`)
       .map(response => response.json() as Konsultacije[]);
   }
 

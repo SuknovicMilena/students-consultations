@@ -27,13 +27,19 @@ export class StudentKonsultacijeComponent implements OnInit {
     );
   }
 
-  // groupByNastavnik(nastavnikIme: string) {
-  //   this.studentService.groupKonsultacijeByNastavnik(1, 'Sasa').subscribe((response: Array<Konsultacije>) => {
-  //     this.konsultacijeZaStudenta = response;
-  //   });
-  // }
+  groupByNastavnik() {
+    this.studentService.groupKonsultacijeByNastavnik(1).subscribe((response: Array<Konsultacije>) => {
+      this.konsultacijeZaStudenta = response;
+      console.log('Group by nastavnik');
+    });
+  }
 
   groupByDatum() {
+    this.studentService.groupKonsultacijeByDatum(1).subscribe((response: Array<Konsultacije>) => {
+      debugger
+      this.konsultacijeZaStudenta = response;
+      console.log('Group by datum');
+    });
   }
 
   groupByRazlog() {
