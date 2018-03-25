@@ -36,7 +36,6 @@ export class StudentKonsultacijeComponent implements OnInit {
 
   groupByDatum() {
     this.studentService.groupKonsultacijeByDatum(1).subscribe((response: Array<Konsultacije>) => {
-      debugger
       this.konsultacijeZaStudenta = response;
       console.log('Group by datum');
     });
