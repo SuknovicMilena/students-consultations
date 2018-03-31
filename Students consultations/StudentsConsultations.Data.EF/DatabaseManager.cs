@@ -1,8 +1,11 @@
-﻿using StudentsConsultations.Data.EF.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentsConsultations.Data.Domain;
+using StudentsConsultations.Data.EF.Repositories;
 using StudentsConsultations.Data.Interface;
 using StudentsConsultations.Data.Interface.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace StudentsConsultations.Data.EF
@@ -79,7 +82,44 @@ namespace StudentsConsultations.Data.EF
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            try
+            {
+                // Attempt to save changes to the database
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                foreach (var entry in ex.Entries)
+                {
+                    if (entry.Entity is Konsultacije)
+                    {
+                        // Using a NoTracking query means we get the entity but it is not tracked by the context
+                        // and will not be merged with existing entities in the context.
+                        var databaseEntity = _context.Konsultacije.AsNoTracking().Single(p => p.StudentId == ((Konsultacije)entry.Entity).StudentId);
+                        var databaseEntry = _context.Entry(databaseEntity);
+
+                        foreach (var property in entry.Metadata.GetProperties())
+                        {
+                            var proposedValue = entry.Property(property.Name).CurrentValue;
+
+                            // TODO: Logic to decide which value should be written to database
+                            entry.Property(property.Name).CurrentValue = proposedValue;
+
+                            // Update original values to 
+                            entry.Property(property.Name).OriginalValue = databaseEntry.Property(property.Name).CurrentValue;
+                        }
+                    }
+                    else
+                    {
+                        throw new NotSupportedException("Don't know how to handle concurrency conflicts for " + entry.Metadata.Name);
+                    }
+                }
+
+                // Retry the save operation
+                _context.SaveChanges();
+
+            }
         }
     }
+
 }

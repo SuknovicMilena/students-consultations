@@ -64,5 +64,14 @@ namespace StudentsConsultations.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        public IActionResult Update([FromBody]KonsultacijeRequest request)
+        {
+            var konsultacije = _mapper.Map<Konsultacije>(request);
+            _iKonsultacijeService.Update(konsultacije);
+
+            return Ok();
+        }
+
     }
 }

@@ -8,7 +8,7 @@ import { HttpModule } from '@angular/http';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { NastavnikKonsultacijeComponent } from './components/nastavnik-konsultacije/nastavnik-konsultacije.component';
 import { StudentKonsultacijeComponent } from './components/student-konsultacije/student-konsultacije.component';
-import { KonsultacijaComponent } from './components/student-konsultacije/konsultacija/konsultacija.component';
+import { KonsultacijaBoxComponent } from './components/student-konsultacije/konsultacija-box/konsultacija-box.component';
 
 const appRoutes: Routes = [
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent }
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     AppComponent,
     NastavnikKonsultacijeComponent,
     StudentKonsultacijeComponent,
-    KonsultacijaComponent,
+    KonsultacijaBoxComponent,
     // pipes
   ],
   imports: [

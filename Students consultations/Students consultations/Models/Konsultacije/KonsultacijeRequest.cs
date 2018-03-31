@@ -12,5 +12,7 @@ namespace StudentsConsultations.Models.Konsultacije
         public int NastavnikId { get; set; }
 
         public int RazlogId { get; set; }
+
+        public bool Odrzane { get; set; }
     }
 }

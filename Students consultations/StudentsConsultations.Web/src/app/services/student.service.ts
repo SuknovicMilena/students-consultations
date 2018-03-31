@@ -22,4 +22,7 @@ export class StudentService {
       .map(response => response.json() as Konsultacije[]);
   }
 
+  updateKonsultacije(konsultacija: Konsultacije): Observable<void> {
+    return this.http.put(`http://localhost:63561/konsultacije`, konsultacija).map(response => response.json());
+  }
 }
