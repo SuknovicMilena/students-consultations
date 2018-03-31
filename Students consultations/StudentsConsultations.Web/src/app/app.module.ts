@@ -9,9 +9,17 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import { NastavnikKonsultacijeComponent } from './components/nastavnik-konsultacije/nastavnik-konsultacije.component';
 import { StudentKonsultacijeComponent } from './components/student-konsultacije/student-konsultacije.component';
 import { KonsultacijaBoxComponent } from './components/student-konsultacije/konsultacija-box/konsultacija-box.component';
+import { KonsultacijaComponent } from './components/student-konsultacije/konsultacija/konsultacija.component';
+import { FormsModule } from '@angular/forms';
+import { NastavnikService } from './services/nastavnik.service';
+import { MyDatePickerModule } from 'mydatepicker';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const appRoutes: Routes = [
-  { path: 'student-konsultacije', component: StudentKonsultacijeComponent }
+  { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
+  { path: 'dodaj-konsultaciju', component: KonsultacijaComponent }
 ];
 
 @NgModule({
@@ -21,18 +29,23 @@ const appRoutes: Routes = [
     NastavnikKonsultacijeComponent,
     StudentKonsultacijeComponent,
     KonsultacijaBoxComponent,
+    KonsultacijaComponent,
     // pipes
   ],
   imports: [
     AlertModule.forRoot(),
+    ToastrModule.forRoot(),
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MyDatePickerModule,
     FullCalendarModule,
     HttpModule,
     RouterModule.forRoot(
       appRoutes
     )
   ],
-  providers: [StudentService],
+  providers: [StudentService, NastavnikService],
   bootstrap: [AppComponent]
 })
 

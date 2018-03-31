@@ -5,6 +5,7 @@ import { Options } from 'fullcalendar';
 import { Konsultacije } from '../../models/konsultacije';
 import { StudentService } from '../../services/student.service';
 import { debug } from 'util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-konsultacije',
@@ -18,7 +19,8 @@ export class StudentKonsultacijeComponent implements OnInit {
   calendarOptions: Options;
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService,
+    private router: Router) { }
 
   ngOnInit() {
     this.konsultacijeZaStudenta = new Array<Konsultacije>();
@@ -42,5 +44,9 @@ export class StudentKonsultacijeComponent implements OnInit {
   }
 
   groupByRazlog() {
+  }
+
+  addKonsultacija() {
+    this.router.navigate(['/dodaj-konsultaciju']);
   }
 }

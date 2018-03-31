@@ -1,34 +1,67 @@
- .card {
-     width: 20%;
-     margin: 50px;
- }
+         .card {
+             width: 20%;
+             margin: 50px;
+         }
 
- .border-danger {
-     width: 98%;
-     margin-left: 2px;
-     margin-top: 3px;
- }
+         .border-danger {
+             width: 98%;
+             margin-left: 2px;
+             margin-top: 3px;
+         }
 
- .border-success {
-     width: 98%;
-     margin-left: 2px;
-     margin-top: 3px;
- }
+         .border-success {
+             width: 98%;
+             margin-left: 2px;
+             margin-top: 3px;
+         }
 
- .column {
-     margin-left: 30px;
-     margin-top: 30px;
-     float: left;
-     width: 15%;
-     padding: 10px;
- }
+         .column {
+             margin-left: 30px;
+             margin-top: 30px;
+             float: left;
+             width: 15%;
+             padding: 10px;
+         }
 
- .row:after {
-     content: "";
-     display: table;
-     clear: both;
- }
+         .row:after {
+             content: "";
+             display: table;
+             clear: both;
+         }
 
- .container-fluid {
-     margin-top: 15px;
- }
+         .container-fluid {
+             margin-top: 15px;
+         }
+
+         .float {
+             position: fixed;
+             width: 60px;
+             height: 60px;
+             bottom: 40px;
+             right: 40px;
+             background-color: #28a745;
+             color: #FFF;
+             border-radius: 50px;
+             text-align: center;
+             box-shadow: 2px 2px 3px #999;
+             cursor: pointer;
+         }
+
+         .plus {
+             color: white;
+             position: absolute;
+             top: 0;
+             display: block;
+             bottom: 0;
+             left: 0;
+             right: 0;
+             text-align: center;
+             padding: 0;
+             margin: 0;
+             line-height: 59px;
+             font-size: 41px;
+             font-family: 'Roboto';
+             font-weight: 300;
+             animation: plus-out 0.3s;
+             transition: all 0.3s;
+         }

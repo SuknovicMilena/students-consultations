@@ -23,4 +23,17 @@ export class Razlog {
   projekat: Projekat;
   ispit: Ispit;
   zavrsniRad: ZavrsniRad;
+
+  type: RazlogType;
+  nazivTipa: string;
+  nazivIspita: string;
+  tipZavrsnogRada: string;
+}
+
+export enum RazlogType {
+  Ispit = 0,
+
+  ZavrsniRad,
+
+  Projekat
 }
