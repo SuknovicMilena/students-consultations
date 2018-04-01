@@ -1,4 +1,6 @@
-﻿using StudentsConsultations.Models.Projekat;
+﻿using StudentsConsultations.Models.Ispit;
+using StudentsConsultations.Models.Projekat;
+using StudentsConsultations.Models.ZavrsniRad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,10 @@ namespace StudentsConsultations.Models.Razlog
         public int RazlogId { get; set; }
 
         public string Opis { get; set; }
+
+        public IspitDto Ispit { get; set; }
+
+        public ZavrsniRadDto ZavrsniRad { get; set; }
 
         public ProjekatDto Projekat { get; set; }
     }

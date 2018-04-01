@@ -104,6 +104,8 @@ namespace StudentsConsultations.Controllers
             }
 
             var konsultacije = _mapper.Map<Konsultacije>(request);
+
+            konsultacije.RazlogId = razlogId;
             _iKonsultacijeService.Insert(konsultacije);
 
             return Ok();

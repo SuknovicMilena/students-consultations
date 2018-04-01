@@ -4,6 +4,12 @@
       <li class="nav-item">
         <a *ngIf="konsultacija.razlog.projekat" class="nav-link active" href="#">{{konsultacija.razlog.projekat.nazivProjekta}}</a>
       </li>
+      <li class="nav-item">
+        <a *ngIf="konsultacija.razlog.ispit" class="nav-link active" href="#">{{konsultacija.razlog.ispit.naziv}}</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="konsultacija.razlog.zavrsniRad" class="nav-link active" href="#">{{konsultacija.razlog.zavrsniRad.nazivZavrsnogRada}}</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">

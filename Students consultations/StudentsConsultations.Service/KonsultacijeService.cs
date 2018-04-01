@@ -88,6 +88,18 @@ namespace StudentsConsultations.Service
                 {
                     k.Razlog.Projekat = projekat;
                 }
+
+                var ispit = _databaseManager.IspitRepository.GetById(k.RazlogId);
+                if (ispit != null)
+                {
+                    k.Razlog.Ispit = ispit;
+                }
+
+                var zavrsniRad = _databaseManager.ZavrsniRadRepository.GetById(k.RazlogId);
+                if (zavrsniRad != null)
+                {
+                    k.Razlog.ZavrsniRad = zavrsniRad;
+                }
             }
             return konsultacije;
         }

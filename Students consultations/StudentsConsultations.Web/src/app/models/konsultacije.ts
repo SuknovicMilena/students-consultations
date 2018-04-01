@@ -20,6 +20,7 @@ export class Konsultacije {
 export class Razlog {
   razlogId: number;
   opis: string;
+
   projekat: Projekat;
   ispit: Ispit;
   zavrsniRad: ZavrsniRad;
