@@ -15,9 +15,13 @@ import { NastavnikService } from './services/nastavnik.service';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegistracijaComponent } from './components/registracija/registracija.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/registracija', pathMatch: 'full' },
+  { path: 'registracija', component: RegistracijaComponent },
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
   { path: 'dodaj-konsultaciju', component: KonsultacijaComponent }
 ];
@@ -30,6 +34,8 @@ const appRoutes: Routes = [
     StudentKonsultacijeComponent,
     KonsultacijaBoxComponent,
     KonsultacijaComponent,
+    RegistracijaComponent,
+    NavBarComponent
     // pipes
   ],
   imports: [
