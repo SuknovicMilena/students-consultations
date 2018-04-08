@@ -35,10 +35,20 @@ namespace StudentsConsultations.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{studentId}")]
-        public IActionResult GetAll(int studentId)
+        [HttpGet("bystudent/{studentId}")]
+        public IActionResult GetAllByStudent(int studentId)
         {
             var konsultacije = _iKonsultacijeService.GetAllKonsultacijeByStudentId(studentId);
+
+            var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
+        }
+
+        [HttpGet("bynastavnik/{nastavnikId}")]
+        public IActionResult GetAllByNastavnik(int nastavnikId)
+        {
+            var konsultacije = _iKonsultacijeService.GetAllKonsultacijeByNastavnik(nastavnikId);
 
             var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
 
@@ -48,7 +58,7 @@ namespace StudentsConsultations.Controllers
         [HttpGet("groupbynastavnik/{studentId}")]
         public IActionResult GroupKonsultacijeByNastavnik(int studentId)
         {
-            var konsultacije = _iKonsultacijeService.GroupKonsultacijeByNastavnik(studentId);
+            var konsultacije = _iKonsultacijeService.GroupKonsultacijeByNastavnikForStudent(studentId);
 
             var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
 
@@ -58,7 +68,7 @@ namespace StudentsConsultations.Controllers
         [HttpGet("groupbydatum/{studentId}")]
         public IActionResult GroupKonsultacijeByDatum(int studentId)
         {
-            var konsultacije = _iKonsultacijeService.GroupKonsultacijeByDatum(studentId);
+            var konsultacije = _iKonsultacijeService.GroupKonsultacijeByDatumForStudent(studentId);
 
             var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
 
@@ -68,36 +78,36 @@ namespace StudentsConsultations.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]KonsultacijeRequest request)
         {
-            var razlogZaBazu = _mapper.Map<Razlog>(request.razlog);
+            var razlogZaBazu = _mapper.Map<Razlog>(request.Razlog);
             var razlogId = _iRazlogService.InsertAndReturnId(razlogZaBazu);
 
-            if (request.razlog.Type == RazlogType.Ispit)
+            if (request.Razlog.Type == RazlogType.Ispit)
             {
                 var ispitZaBazu = new Ispit();
 
-                ispitZaBazu.Naziv = request.razlog.NazivTipa;
+                ispitZaBazu.Naziv = request.Razlog.NazivTipa;
                 ispitZaBazu.RazlogId = razlogId;
 
                 _iIspitService.Insert(ispitZaBazu);
             }
 
-            if (request.razlog.Type == RazlogType.Projekat)
+            if (request.Razlog.Type == RazlogType.Projekat)
             {
                 var projekatZaBazu = new Projekat();
 
-                projekatZaBazu.NazivIspita = request.razlog.NazivIspita;
-                projekatZaBazu.NazivProjekta = request.razlog.NazivTipa;
+                projekatZaBazu.NazivIspita = request.Razlog.NazivIspita;
+                projekatZaBazu.NazivProjekta = request.Razlog.NazivTipa;
                 projekatZaBazu.RazlogId = razlogId;
 
                 _iProjekatService.Insert(projekatZaBazu);
             }
 
-            if (request.razlog.Type == RazlogType.ZavrsniRad)
+            if (request.Razlog.Type == RazlogType.ZavrsniRad)
             {
                 var zavrsniRadZaBazu = new ZavrsniRad();
 
-                zavrsniRadZaBazu.NazivZavrsnogRada = request.razlog.NazivTipa;
-                zavrsniRadZaBazu.Tip = request.razlog.TipZavrsnogRada;
+                zavrsniRadZaBazu.NazivZavrsnogRada = request.Razlog.NazivTipa;
+                zavrsniRadZaBazu.Tip = request.Razlog.TipZavrsnogRada;
                 zavrsniRadZaBazu.RazlogId = razlogId;
 
                 _iZavrsniRadService.Insert(zavrsniRadZaBazu);
@@ -106,7 +116,7 @@ namespace StudentsConsultations.Controllers
             var konsultacije = _mapper.Map<Konsultacije>(request);
 
             konsultacije.RazlogId = razlogId;
-            _iKonsultacijeService.Insert(konsultacije);
+            _iKonsultacijeService.Insert(konsultacije, request.DatumKonsultacija);
 
             return Ok();
         }

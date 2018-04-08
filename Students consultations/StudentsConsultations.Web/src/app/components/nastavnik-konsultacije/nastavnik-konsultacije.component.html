@@ -1,3 +1,40 @@
-<p>
-  nastavnik-konsultacije works!
-</p>
+<app-nav-bar></app-nav-bar>
+<h5>Agenda konsultacija</h5>
+
+<div class="agenda-konsultacija">
+  <h6 class="sort">Sortiraj konsultacije po:</h6>
+  <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByRazlog()">Studentu</button>
+  <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByDatum()">Datumu</button>
+</div>
+
+<div class="konsultacije">
+  <ul class="list-group">
+    <div *ngFor="let konsultacija of konsultacije">
+      <li *ngIf="konsultacija.odrzane" class="list-group-item list-group-item-success">
+        <ul>
+          <li>
+            Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
+          </li>
+          <li>
+            Datum odrzavanja konsultacija: {{konsultacija.datumKonsultacija | date}}
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="!konsultacija.odrzane" class="list-group-item list-group-item-danger">
+        <ul>
+          <li>
+            Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
+          </li>
+          <li>
+            Datum odrzavanja konsultacija: {{konsultacija.datumKonsultacija | date }}
+          </li>
+        </ul>
+      </li>
+    </div>
+  </ul>
+</div>
+
+
+<div class="float">
+  <p class="plus" (click)="addKonsultacija()">+</p>
+</div>

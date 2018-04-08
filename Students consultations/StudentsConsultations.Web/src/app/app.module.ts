@@ -9,7 +9,6 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import { NastavnikKonsultacijeComponent } from './components/nastavnik-konsultacije/nastavnik-konsultacije.component';
 import { StudentKonsultacijeComponent } from './components/student-konsultacije/student-konsultacije.component';
 import { KonsultacijaBoxComponent } from './components/student-konsultacije/konsultacija-box/konsultacija-box.component';
-import { KonsultacijaComponent } from './components/student-konsultacije/konsultacija/konsultacija.component';
 import { FormsModule } from '@angular/forms';
 import { NastavnikService } from './services/nastavnik.service';
 import { MyDatePickerModule } from 'mydatepicker';
@@ -17,13 +16,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistracijaComponent } from './components/registracija/registracija.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { KonsultacijaComponent } from './components/konsultacija/konsultacija.component';
+import { DateFormatPipe } from './pipes/date.pipe';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/registracija', pathMatch: 'full' },
   { path: 'registracija', component: RegistracijaComponent },
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
-  { path: 'dodaj-konsultaciju', component: KonsultacijaComponent }
+  { path: 'dodaj-konsultaciju', component: KonsultacijaComponent },
+  { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent },
 ];
 
 @NgModule({
@@ -35,8 +37,9 @@ const appRoutes: Routes = [
     KonsultacijaBoxComponent,
     KonsultacijaComponent,
     RegistracijaComponent,
-    NavBarComponent
+    NavBarComponent,
     // pipes
+    DateFormatPipe
   ],
   imports: [
     AlertModule.forRoot(),

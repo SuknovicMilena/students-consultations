@@ -9,8 +9,16 @@ namespace StudentsConsultations.Service.Interfaces
     {
         List<Konsultacije> GetAllKonsultacijeByStudentId(int studentId);
 
-        List<Konsultacije> GroupKonsultacijeByNastavnik(int studentId);
+        List<Konsultacije> GetAllKonsultacijeByNastavnik(int nastavnikId);
 
-        List<Konsultacije> GroupKonsultacijeByDatum(int studentId);
+        List<Konsultacije> GroupKonsultacijeByNastavnikForStudent(int studentId);
+
+        List<Konsultacije> GroupKonsultacijeByDatumForStudent(int studentId);
+
+        List<Konsultacije> GroupKonsultacijeByDatumForNastavnik(int nastavnikId);
+
+        List<Konsultacije> GroupKonsultacijeByStundentForNastavnik(int nastavnikId);
+
+        void Insert(Konsultacije konsultacije, DateTime datum);
     }
 }

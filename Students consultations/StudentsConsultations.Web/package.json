@@ -27,6 +27,7 @@
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "fullcalendar": "^3.6.1",
+    "moment": "^2.22.0",
     "mydatepicker": "^2.6.3",
     "ng-fullcalendar": "^1.5.5",
     "ng2-toastr": "^4.1.2",

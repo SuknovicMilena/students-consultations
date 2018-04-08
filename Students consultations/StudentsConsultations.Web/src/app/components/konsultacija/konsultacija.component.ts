@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { NastavnikService } from '../../../services/nastavnik.service';
-import { Nastavnik } from '../../../models/nastavnik';
-import { Konsultacije, Razlog, RazlogType } from '../../../models/konsultacije';
-import { StudentKonsultacijeComponent } from '../student-konsultacije.component';
-import { StudentService } from '../../../services/student.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Nastavnik } from '../../models/nastavnik';
+import { Konsultacije, Razlog, RazlogType } from '../../models/konsultacije';
+import { NastavnikService } from '../../services/nastavnik.service';
+import { StudentService } from '../../services/student.service';
+import { DatePipe } from '@angular/common';
+import { DateFormatPipe } from '../../pipes/date.pipe';
 
 @Component({
   selector: 'app-konsultacija',
   templateUrl: './konsultacija.component.html',
-  styleUrls: ['./konsultacija.component.scss']
+  styleUrls: ['./konsultacija.component.scss'],
+  providers: [DateFormatPipe]
 })
 export class KonsultacijaComponent implements OnInit {
 
@@ -28,7 +30,8 @@ export class KonsultacijaComponent implements OnInit {
   constructor(private nastavnikService: NastavnikService,
     private studentService: StudentService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private dateFormatPipe: DateFormatPipe
   ) {
   }
 
@@ -49,7 +52,7 @@ export class KonsultacijaComponent implements OnInit {
   }
 
   onDateChanged($event) {
-    this.konsultacija.datumKonsultacija = $event;
+    this.konsultacija.datumKonsultacija = new Date(this.dateFormatPipe.transform($event.date));
     console.log(this.konsultacija.datumKonsultacija);
   }
 

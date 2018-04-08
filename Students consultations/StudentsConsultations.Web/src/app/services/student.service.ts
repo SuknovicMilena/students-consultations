@@ -9,7 +9,7 @@ export class StudentService {
   constructor(public http: Http) { }
 
   getAllKonsultacijeByStudentId(studentId: number): Observable<Konsultacije[]> {
-    return this.http.get(`http://localhost:63561/konsultacije/${studentId}`).map(response => response.json() as Konsultacije[]);
+    return this.http.get(`http://localhost:63561/konsultacije/bystudent/${studentId}`).map(response => response.json() as Konsultacije[]);
   }
 
   groupKonsultacijeByNastavnik(studentId: number): Observable<Konsultacije[]> {
@@ -26,7 +26,7 @@ export class StudentService {
     return this.http.put(`http://localhost:63561/konsultacije`, konsultacija).map(response => response.json());
   }
 
-  insertKonsultacije(kosultacija: Konsultacije) {
-    return this.http.post(`http://localhost:63561/konsultacije`, kosultacija);
+  insertKonsultacije(konsultacija: Konsultacije) {
+    return this.http.post(`http://localhost:63561/konsultacije`, konsultacija);
   }
 }
