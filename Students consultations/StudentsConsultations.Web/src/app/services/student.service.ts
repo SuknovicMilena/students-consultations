@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Konsultacije, Razlog } from '../models/konsultacije';
 import { Observable } from 'rxjs/Observable';
+import { Student } from '../models/student';
 
 @Injectable()
 export class StudentService {
@@ -28,5 +29,10 @@ export class StudentService {
 
   insertKonsultacije(konsultacija: Konsultacije) {
     return this.http.post(`http://localhost:63561/konsultacije`, konsultacija);
+  }
+
+  getAllStudenti(): Observable<Array<Student>> {
+    return this.http.get('http://localhost:63561/studenti')
+      .map(response => response.json() as Array<Student>);
   }
 }

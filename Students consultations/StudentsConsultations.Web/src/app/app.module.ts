@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/registracija', pathMatch: 'full' },
   { path: 'registracija', component: RegistracijaComponent },
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
-  { path: 'dodaj-konsultaciju', component: KonsultacijaComponent },
+  { path: 'dodaj-konsultaciju/:userType', component: KonsultacijaComponent },
   { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent },
 ];
 

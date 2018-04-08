@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NastavnikService } from '../../services/nastavnik.service';
 import { Konsultacije } from '../../models/konsultacije';
+import { Router } from '@angular/router';
+import { UserType } from '../../enums/userType.enum';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
@@ -11,7 +13,8 @@ export class NastavnikKonsultacijeComponent implements OnInit {
 
   konsultacije: Array<Konsultacije>;
 
-  constructor(private nastavnikService: NastavnikService) { }
+  constructor(private nastavnikService: NastavnikService,
+    private router: Router) { }
 
   ngOnInit() {
     this.nastavnikService.getAllKonsultacijeByNastavnikId(1).subscribe(response => {
@@ -19,4 +22,7 @@ export class NastavnikKonsultacijeComponent implements OnInit {
     });
   }
 
+  addKonsultacija() {
+    this.router.navigate(['/dodaj-konsultaciju', UserType.Nastavnik]);
+  }
 }

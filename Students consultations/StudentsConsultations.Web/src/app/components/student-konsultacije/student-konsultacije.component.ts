@@ -6,6 +6,7 @@ import { Konsultacije } from '../../models/konsultacije';
 import { StudentService } from '../../services/student.service';
 import { debug } from 'util';
 import { Router } from '@angular/router';
+import { UserType } from '../../enums/userType.enum';
 
 @Component({
   selector: 'app-student-konsultacije',
@@ -47,6 +48,6 @@ export class StudentKonsultacijeComponent implements OnInit {
   }
 
   addKonsultacija() {
-    this.router.navigate(['/dodaj-konsultaciju']);
+    this.router.navigate(['/dodaj-konsultaciju', UserType.Student]);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Nastavnik } from '../../models/nastavnik';
 import { Konsultacije, Razlog, RazlogType } from '../../models/konsultacije';
@@ -7,6 +7,8 @@ import { NastavnikService } from '../../services/nastavnik.service';
 import { StudentService } from '../../services/student.service';
 import { DatePipe } from '@angular/common';
 import { DateFormatPipe } from '../../pipes/date.pipe';
+import { UserType } from '../../enums/userType.enum';
+import { Student } from '../../models/student';
 
 @Component({
   selector: 'app-konsultacija',
@@ -17,6 +19,7 @@ import { DateFormatPipe } from '../../pipes/date.pipe';
 export class KonsultacijaComponent implements OnInit {
 
   nastavnici: Nastavnik[];
+  studenti: Student[];
 
   razlozi: any[] = [{ id: 0, naziv: 'Ispit' }, { id: 1, naziv: 'Zavrsni rad' }, { id: 2, naziv: 'Projekat' }];
 
@@ -26,28 +29,52 @@ export class KonsultacijaComponent implements OnInit {
   isIspit: boolean;
   isZavrsniRad: boolean;
   isProjekat: boolean;
+  userType: UserType;
+  UserType = UserType;
 
   constructor(private nastavnikService: NastavnikService,
     private studentService: StudentService,
     private router: Router,
     private toastrService: ToastrService,
-    private dateFormatPipe: DateFormatPipe
+    private dateFormatPipe: DateFormatPipe,
+    private route: ActivatedRoute
   ) {
+
+    const userType = route.snapshot.params.userType;
+    if (userType === '0') {
+      this.userType = UserType.Student;
+    } else {
+      this.userType = UserType.Nastavnik;
+    }
   }
 
   ngOnInit() {
     this.nastavnikService.getAllNastavnici().subscribe(response => {
       this.nastavnici = response;
     });
+    this.studentService.getAllStudenti().subscribe(response => {
+      this.studenti = response;
+    });
   }
 
   save() {
     console.log('Konsultacije is saving...');
-    this.konsultacija.studentId = 1;
+
+    if (this.userType === UserType.Student) {
+      this.konsultacija.studentId = 1;
+    } else {
+      this.konsultacija.nastavnikId = 1;
+    }
+
     this.konsultacija.razlog = this.razlog;
     this.studentService.insertKonsultacije(this.konsultacija).subscribe(response => {
       this.toastrService.success('Konsultacija dodata!', 'Uspesno!');
-      this.router.navigate(['/student-konsultacije']);
+
+      if (this.userType === UserType.Student) {
+        this.router.navigate(['/student-konsultacije']);
+      } else {
+        this.router.navigate(['/nastavnik-konsultacije']);
+      }
     });
   }
 
@@ -84,6 +111,10 @@ export class KonsultacijaComponent implements OnInit {
 
   changeNastavnik($event) {
     this.konsultacija.nastavnikId = $event.target.value;
+  }
+
+  changeStudent($event) {
+    this.konsultacija.studentId = $event.target.value;
   }
 
   cancel() {
