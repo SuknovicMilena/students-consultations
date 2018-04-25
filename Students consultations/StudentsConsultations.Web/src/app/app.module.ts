@@ -18,10 +18,12 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { KonsultacijaComponent } from './components/konsultacija/konsultacija.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { PrijavljivanjeComponent } from './components/prijavljivanje/prijavljivanje.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/registracija', pathMatch: 'full' },
+  { path: '', redirectTo: '/prijavljivanje', pathMatch: 'full' },
   { path: 'registracija', component: RegistracijaComponent },
+  { path: 'prijavljivanje', component: PrijavljivanjeComponent },
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
   { path: 'dodaj-konsultaciju/:userType', component: KonsultacijaComponent },
   { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent },
@@ -37,8 +39,9 @@ const appRoutes: Routes = [
     KonsultacijaComponent,
     RegistracijaComponent,
     NavBarComponent,
+    PrijavljivanjeComponent,
     // pipes
-    DateFormatPipe
+    DateFormatPipe,
   ],
   imports: [
     AlertModule.forRoot(),
