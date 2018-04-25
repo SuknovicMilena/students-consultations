@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
 import { StudentService } from './services/student.service';
-import { HttpModule } from '@angular/http';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { NastavnikKonsultacijeComponent } from './components/nastavnik-konsultacije/nastavnik-konsultacije.component';
 import { StudentKonsultacijeComponent } from './components/student-konsultacije/student-konsultacije.component';
@@ -18,7 +17,7 @@ import { RegistracijaComponent } from './components/registracija/registracija.co
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { KonsultacijaComponent } from './components/konsultacija/konsultacija.component';
 import { DateFormatPipe } from './pipes/date.pipe';
-
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/registracija', pathMatch: 'full' },
@@ -49,7 +48,7 @@ const appRoutes: Routes = [
     FormsModule,
     MyDatePickerModule,
     FullCalendarModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes
     )
