@@ -16,6 +16,10 @@ namespace StudentsConsultations.Data.Domain
         [Required]
         public string BrojIndeksa { get; set; }
 
+        public string KorisnickoIme { get; set; }
+
+        public string Lozinka { get; set; }
+
         public ICollection<Konsultacije> Konsultacije { get; set; } = new HashSet<Konsultacije>();
     }
 }

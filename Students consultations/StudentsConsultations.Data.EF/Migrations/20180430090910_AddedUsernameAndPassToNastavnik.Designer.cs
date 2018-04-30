@@ -11,9 +11,10 @@ using System;
 namespace StudentsConsultations.Data.EF.Migrations
 {
     [DbContext(typeof(StudentskeKonsultacijeDbContext))]
-    partial class StudentskeKonsultacijeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180430090910_AddedUsernameAndPassToNastavnik")]
+    partial class AddedUsernameAndPassToNastavnik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,10 +126,6 @@ namespace StudentsConsultations.Data.EF.Migrations
 
                     b.Property<string>("Ime")
                         .IsRequired();
-
-                    b.Property<string>("KorisnickoIme");
-
-                    b.Property<string>("Lozinka");
 
                     b.Property<string>("Prezime")
                         .IsRequired();

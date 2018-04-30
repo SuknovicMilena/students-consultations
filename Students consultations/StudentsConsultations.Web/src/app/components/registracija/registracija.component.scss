@@ -6,3 +6,33 @@
 .btn {
     margin-right: 10px;
 }
+
+.register-form-for-teacher,
+.register-form-for-student {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.register-form-for-teacher {
+    padding-left: 50px;
+}
+
+.register-form-for-student {
+    padding-left: 20px;
+}
+
+.forms {
+    display: table;
+    height: 300px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.student,
+.teacher {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+}
