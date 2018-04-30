@@ -164,6 +164,12 @@ namespace StudentsConsultations.Service
         {
             throw new NotImplementedException();
         }
+
+        public List<Konsultacije> SearchByNastavnik(string searchText, int studentId)
+        {
+            return GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
+            || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+        }
     }
 
 }

@@ -41,8 +41,6 @@ namespace StudentsConsultations.Service
 
         public void Insert(Nastavnik nastavnik)
         {
-           
-
             _databaseManager.NastavnikRepository.Insert(nastavnik);
             _databaseManager.SaveChanges();
         }
@@ -58,6 +56,5 @@ namespace StudentsConsultations.Service
             _databaseManager.NastavnikRepository.Delete(nastavnik);
             _databaseManager.SaveChanges();
         }
-
     }
 }

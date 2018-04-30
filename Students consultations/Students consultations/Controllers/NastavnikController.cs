@@ -14,6 +14,7 @@ using StudentsConsultations.Data.Domain;
 using StudentsConsultations.Models.Nastavnik;
 using StudentsConsultations.Models.Nastavnik.Prijavljivanje;
 using StudentsConsultations.Models.Nastavnik.Registracija;
+using StudentsConsultations.Models.Search;
 using StudentsConsultations.Service.Interfaces;
 
 namespace StudentsConsultations.Controllers

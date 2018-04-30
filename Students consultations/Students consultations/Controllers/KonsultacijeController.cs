@@ -8,6 +8,7 @@ using StudentsConsultations.Data.Domain;
 using StudentsConsultations.Models.Konsultacije;
 using StudentsConsultations.Models.Projekat;
 using StudentsConsultations.Models.Razlog;
+using StudentsConsultations.Models.Search;
 using StudentsConsultations.Service.Interfaces;
 
 namespace StudentsConsultations.Controllers
@@ -130,5 +131,14 @@ namespace StudentsConsultations.Controllers
             return Ok();
         }
 
+
+        [HttpPost("pretragaponastavniku/{studentId}")]
+        public IActionResult SearchByNastavnik([FromBody]SearchRequest request, int studentId)
+        {
+            var konsultacije = _iKonsultacijeService.SearchByNastavnik(request.SearchText, studentId);
+            var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
+        }
     }
 }
