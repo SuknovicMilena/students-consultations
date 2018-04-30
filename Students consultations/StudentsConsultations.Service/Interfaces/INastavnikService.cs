@@ -7,5 +7,6 @@ namespace StudentsConsultations.Service.Interfaces
 {
     public interface INastavnikService : IBaseService<Nastavnik>
     {
+        Nastavnik Authenticate(string korisnickoIme, string lozinka);
     }
 }

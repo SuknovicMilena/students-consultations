@@ -50,4 +50,7 @@ export class StudentKonsultacijeComponent implements OnInit {
   addKonsultacija() {
     this.router.navigate(['/dodaj-konsultaciju', UserType.Student]);
   }
+
+  pretrazi(searchText: string) {
+  }
 }

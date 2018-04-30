@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using StudentsConsultations.Data.Domain;
 using StudentsConsultations.Models.Student;
+using StudentsConsultations.Models.Student.Prijavljivanje;
+using StudentsConsultations.Models.Student.Registracija;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,10 @@ namespace StudentsConsultations.AutoMapper
             CreateMap<Student, StudentRowDto>();
 
             CreateMap<StudentRequest, Student>();
+
+            CreateMap<PrijavljivanjeRequest, Nastavnik>();
+
+            CreateMap<RegistracijaRequest, Nastavnik>();
         }
     }
 }

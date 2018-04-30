@@ -16,6 +16,19 @@ namespace StudentsConsultations.Service
             _databaseManager = databaseManager;
         }
 
+        public Nastavnik Authenticate(string korisnickoIme, string lozinka)
+        {
+            if (string.IsNullOrEmpty(korisnickoIme) || string.IsNullOrEmpty(lozinka))
+                return null;
+
+            var nastavnik = _databaseManager.NastavnikRepository.GetBy(x => x.KorisnickoIme == korisnickoIme);
+
+            if (nastavnik == null)
+                return null;
+
+            return nastavnik;
+        }
+
         public IEnumerable<Nastavnik> GetAll()
         {
             return _databaseManager.NastavnikRepository.GetAll();
@@ -28,6 +41,8 @@ namespace StudentsConsultations.Service
 
         public void Insert(Nastavnik nastavnik)
         {
+           
+
             _databaseManager.NastavnikRepository.Insert(nastavnik);
             _databaseManager.SaveChanges();
         }

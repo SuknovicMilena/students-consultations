@@ -1,18 +1,22 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using StudentsConsultations;
 using StudentsConsultations.Data.EF;
 using StudentsConsultations.Data.EF.Repositories;
 using StudentsConsultations.Data.Interface;
 using StudentsConsultations.Data.Interface.Repositories;
 using StudentsConsultations.Service;
 using StudentsConsultations.Service.Interfaces;
+using System.Text;
 
 namespace Students_consultations
 {
@@ -25,6 +29,7 @@ namespace Students_consultations
                  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                  .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                  .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -58,6 +63,7 @@ namespace Students_consultations
             services.AddScoped<VrstaZadatkaRepository>();
             services.AddScoped<ZadatakRepository>();
             services.AddScoped<ZavrsniRadRepository>();
+            services.AddScoped<AppSettings>();
 
             services.AddScoped<IDatumService, DatumService>();
             services.AddScoped<IIspitService, IspitService>();
@@ -78,6 +84,30 @@ namespace Students_consultations
             });
             services.AddAutoMapper();
 
+            // configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +122,8 @@ namespace Students_consultations
             app.UseDeveloperExceptionPage();
 
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
