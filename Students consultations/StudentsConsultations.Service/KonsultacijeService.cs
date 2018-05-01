@@ -170,6 +170,12 @@ namespace StudentsConsultations.Service
             return GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
             || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
         }
+
+        public List<Konsultacije> SearchByStudent(string searchText, int nastavnikId)
+        {
+            return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
+            || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+        }
     }
 
 }

@@ -140,5 +140,14 @@ namespace StudentsConsultations.Controllers
 
             return Ok(konsultacijeRowDtos);
         }
+
+        [HttpPost("pretragapostudentu/{nastavnikId}")]
+        public IActionResult SearchByStudent([FromBody]SearchRequest request, int nastavnikId)
+        {
+            var konsultacije = _iKonsultacijeService.SearchByStudent(request.SearchText, nastavnikId);
+            var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
+        }
     }
 }

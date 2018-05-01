@@ -22,5 +22,7 @@ namespace StudentsConsultations.Service.Interfaces
         void Insert(Konsultacije konsultacije, DateTime datum);
 
         List<Konsultacije> SearchByNastavnik(string searchText, int studentId);
+
+        List<Konsultacije> SearchByStudent(string searchText, int nastavnikId);
     }
 }
