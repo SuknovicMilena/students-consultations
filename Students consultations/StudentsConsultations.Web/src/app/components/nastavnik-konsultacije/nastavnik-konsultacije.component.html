@@ -1,4 +1,16 @@
-<app-nav-bar></app-nav-bar>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Konsultacije</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="form-inline">
+      <input #searchText class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Pretraga">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="pretrazi(searchText.value)">Pretraga</button>
+    </form>
+  </div>
+</nav>
+
 <h5>Agenda konsultacija</h5>
 
 <div class="agenda-konsultacija">

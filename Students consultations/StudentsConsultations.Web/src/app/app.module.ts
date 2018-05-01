@@ -14,7 +14,6 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistracijaComponent } from './components/registracija/registracija.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { KonsultacijaComponent } from './components/konsultacija/konsultacija.component';
 import { DateFormatPipe } from './pipes/date.pipe';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,7 +37,6 @@ const appRoutes: Routes = [
     KonsultacijaBoxComponent,
     KonsultacijaComponent,
     RegistracijaComponent,
-    NavBarComponent,
     PrijavljivanjeComponent,
     // pipes
     DateFormatPipe,

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Nastavnik } from '../models/nastavnik';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import { Konsultacije } from '../models/konsultacije';
 import { HttpClient } from '@angular/common/http';
+import { Search } from '../models/search';
 
 @Injectable()
 export class NastavnikService {
@@ -16,5 +16,9 @@ export class NastavnikService {
 
   getAllKonsultacijeByNastavnikId(nastavnikId: number): Observable<Konsultacije[]> {
     return this.http.get<Konsultacije[]>(`http://localhost:63561/konsultacije/bynastavnik/${nastavnikId}`);
+  }
+
+  searchByStudent(searchRequest: Search, nastavnikId: number) {
+    return this.http.post<Konsultacije[]>(`http://localhost:63561/konsultacije/pretragapostudentu/${nastavnikId}`, searchRequest);
   }
 }

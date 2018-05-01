@@ -3,6 +3,7 @@ import { NastavnikService } from '../../services/nastavnik.service';
 import { Konsultacije } from '../../models/konsultacije';
 import { Router } from '@angular/router';
 import { UserType } from '../../enums/userType.enum';
+import { Search } from '../../models/search';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
@@ -24,5 +25,13 @@ export class NastavnikKonsultacijeComponent implements OnInit {
 
   addKonsultacija() {
     this.router.navigate(['/dodaj-konsultaciju', UserType.Nastavnik]);
+  }
+
+  pretrazi(searchText: string) {
+    const search = new Search();
+    search.searchText = searchText;
+    this.nastavnikService.searchByStudent(search, 1).subscribe(response => {
+      this.konsultacije = response;
+    });
   }
 }

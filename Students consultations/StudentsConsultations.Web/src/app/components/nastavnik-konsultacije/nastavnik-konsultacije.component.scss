@@ -72,3 +72,7 @@ h5 {
     animation: plus-out 0.3s;
     transition: all 0.3s;
 }
+
+.navbar-collapse {
+    justify-content: flex-end;
+}

@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { DateFormatPipe } from '../../pipes/date.pipe';
 import { UserType } from '../../enums/userType.enum';
 import { Student } from '../../models/student';
+import { Search } from '../../models/search';
 
 @Component({
   selector: 'app-konsultacija',
