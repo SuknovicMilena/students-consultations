@@ -16,6 +16,19 @@ namespace StudentsConsultations.Service
             _databaseManager = databaseManager;
         }
 
+        public Student Authenticate(string korisnickoIme, string lozinka)
+        {
+            if (string.IsNullOrEmpty(korisnickoIme) || string.IsNullOrEmpty(lozinka))
+                return null;
+
+            var student = _databaseManager.StudentRepository.GetBy(x => x.KorisnickoIme == korisnickoIme);
+
+            if (student == null)
+                return null;
+
+            return student;
+        }
+
         public IEnumerable<Student> GetAll()
         {
             return _databaseManager.StudentRepository.GetAll();

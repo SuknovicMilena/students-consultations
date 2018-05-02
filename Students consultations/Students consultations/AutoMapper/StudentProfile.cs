@@ -20,9 +20,9 @@ namespace StudentsConsultations.AutoMapper
 
             CreateMap<StudentRequest, Student>();
 
-            CreateMap<PrijavljivanjeRequest, Nastavnik>();
+            CreateMap<PrijavljivanjeRequest, Student>();
 
-            CreateMap<RegistracijaRequest, Nastavnik>();
+            CreateMap<RegistracijaRequest, Student>();
         }
     }
 }

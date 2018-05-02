@@ -11,7 +11,7 @@ namespace StudentsConsultations.Models.Student.Registracija
 
         public string Prezime { get; set; }
 
-        public string BrojRadneKnjizice { get; set; }
+        public string BrojIndeksa { get; set; }
 
         public string KorisnickoIme { get; set; }
 
