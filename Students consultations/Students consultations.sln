@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentsConsultations", "Students consultations\StudentsConsultations.csproj", "{2FBB5AD7-F7A3-4783-9A2D-639257346F3D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD0D55A3-577A-497B-B223-47FD717FD52E} = {CD0D55A3-577A-497B-B223-47FD717FD52E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentsConsultations.Data.Domain", "StudentsConsultations.Domain\StudentsConsultations.Data.Domain.csproj", "{72176F1B-2B7D-48A4-9C48-6393089D002C}"
 EndProject
@@ -11,13 +14,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentsConsultations.Data.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{CA17C4DC-F7A8-481E-ACEE-AFBCEEFCF4A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsConsultations.Data.Interface", "StudentsConsultations.Data.Interface\StudentsConsultations.Data.Interface.csproj", "{24CACC8A-B59C-4281-AF0F-C8A8523AEE39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentsConsultations.Data.Interface", "StudentsConsultations.Data.Interface\StudentsConsultations.Data.Interface.csproj", "{24CACC8A-B59C-4281-AF0F-C8A8523AEE39}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{2292811C-2938-409B-8C6C-44E77AD169C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsConsultations.Service", "StudentsConsultations.Service\StudentsConsultations.Service.csproj", "{7FDEC321-6663-47D6-8767-6A33A8B4B899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentsConsultations.Service", "StudentsConsultations.Service\StudentsConsultations.Service.csproj", "{7FDEC321-6663-47D6-8767-6A33A8B4B899}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StudentsConsultations.Api", "StudentsConsultations.Api", "{55B1F7FB-D66A-406C-8F78-BFBA2ABFDAB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{A777B869-6BED-4F10-B2B0-5427C189D6AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "PasswordHelper\Helpers.csproj", "{CD0D55A3-577A-497B-B223-47FD717FD52E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +52,10 @@ Global
 		{7FDEC321-6663-47D6-8767-6A33A8B4B899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FDEC321-6663-47D6-8767-6A33A8B4B899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FDEC321-6663-47D6-8767-6A33A8B4B899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD0D55A3-577A-497B-B223-47FD717FD52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0D55A3-577A-497B-B223-47FD717FD52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0D55A3-577A-497B-B223-47FD717FD52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0D55A3-577A-497B-B223-47FD717FD52E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +66,7 @@ Global
 		{BA2A3B4B-4C3C-48DB-BF38-3D696BAD0B7D} = {CA17C4DC-F7A8-481E-ACEE-AFBCEEFCF4A7}
 		{24CACC8A-B59C-4281-AF0F-C8A8523AEE39} = {CA17C4DC-F7A8-481E-ACEE-AFBCEEFCF4A7}
 		{7FDEC321-6663-47D6-8767-6A33A8B4B899} = {2292811C-2938-409B-8C6C-44E77AD169C4}
+		{CD0D55A3-577A-497B-B223-47FD717FD52E} = {A777B869-6BED-4F10-B2B0-5427C189D6AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1DC1F4A-CD50-40EF-B1BE-1210AB4FA71F}

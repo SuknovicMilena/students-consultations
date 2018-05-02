@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PasswordHelper\Helpers.csproj" />
     <ProjectReference Include="..\StudentsConsultations.Data.EF\StudentsConsultations.Data.EF.csproj" />
     <ProjectReference Include="..\StudentsConsultations.Service\StudentsConsultations.Service.csproj" />
   </ItemGroup>

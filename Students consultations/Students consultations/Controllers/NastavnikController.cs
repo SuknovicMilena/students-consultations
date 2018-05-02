@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using StudentsConsultations.Data.Domain;
+using StudentsConsultations.Helpers;
 using StudentsConsultations.Models.Nastavnik;
 using StudentsConsultations.Models.Nastavnik.Prijavljivanje;
 using StudentsConsultations.Models.Nastavnik.Registracija;
@@ -43,19 +44,26 @@ namespace StudentsConsultations.Controllers
             if (nastavnik == null)
                 return Unauthorized();
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var verifyPassword = PasswordHelper.VerifyPassword(request.Lozinka, nastavnik.Lozinka);
+
+            var tokenString = "";
+
+            if (verifyPassword)
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
                 {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
                     new Claim(ClaimTypes.Name, request.KorisnickoIme.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                tokenString = tokenHandler.WriteToken(token);
+            }
 
             return Ok(new
             {
@@ -71,7 +79,11 @@ namespace StudentsConsultations.Controllers
         [HttpPost("registracija")]
         public IActionResult Register([FromBody]RegistracijaRequest request)
         {
+            var createPassword = PasswordHelper.CreateHash(request.Lozinka);
+
             var nastavnik = _mapper.Map<Nastavnik>(request);
+
+            nastavnik.Lozinka = createPassword;
 
             if (string.IsNullOrWhiteSpace(nastavnik.Lozinka))
                 return new BadRequestObjectResult("Lozinka je obavezna!");
