@@ -24,5 +24,7 @@ namespace StudentsConsultations.Service.Interfaces
         List<Konsultacije> SearchByNastavnik(string searchText, int studentId);
 
         List<Konsultacije> SearchByStudent(string searchText, int nastavnikId);
+
+        Konsultacije GetKonsultacija(int studentId, int nastavnikId, DateTime datum);
     }
 }

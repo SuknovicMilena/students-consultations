@@ -13,50 +13,50 @@
       <label for="exampleInputEmail1">Datum konsultacija</label>
       <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>
     </div>
-    <div class="form-group">
-      <label for="razlog">Razlog</label>
-      <select class="form-control" (change)="changeRazlog($event)">
-        <option selected="true" disabled="disabled">Izaberite razlog konsultacija</option>
-        <option *ngFor="let razlog of razlozi" [value]="razlog.id">{{razlog.naziv}}</option>
-      </select>
+    <div class="form-group" *ngIf="!isLoading">
+      <div class="form-group addition-div">
+        <label for="razlog">Razlog</label>
+        <input type="naziv-ispita" [readonly]="true" [(ngModel)]="nazivRazloga" class="form-control" id="naziv-ispita">
+      </div>
       <div *ngIf="isIspit" class="form-group addition-div">
         <label for="naziv-ispita">Naziv ispita</label>
-        <input type="naziv-ispita" [(ngModel)]="razlog.nazivTipa" class="form-control" id="naziv-ispita" placeholder="Naziv ispita">
+        <input type="naziv-ispita" [readonly]="true" [(ngModel)]="konsultacija.razlog.ispit.naziv" class="form-control" id="naziv-ispita">
       </div>
       <div *ngIf="isProjekat" class="form-group addition-div">
         <label for="naziv-projekta">Naziv projekta</label>
-        <input type="naziv-projekta" [(ngModel)]="razlog.nazivTipa" class="form-control" id="naziv-projekta" placeholder="Naziv projekta">
+        <input type="naziv-projekta" [readonly]="true" [(ngModel)]="konsultacija.razlog.projekat.nazivProjekta" class="form-control" id="naziv-projekta">
 
         <label class="naziv-ispita" for="naziv-ispita">Naziv ispita</label>
-        <input type="naziv-ispita" [(ngModel)]="razlog.nazivIspita" class="form-control" id="naziv-ispita" placeholder="Naziv ispita">
+        <input type="naziv-ispita" [readonly]="true" [(ngModel)]="konsultacija.razlog.projekat.nazivIspita" class="form-control" id="naziv-ispita">
       </div>
       <div *ngIf="isZavrsniRad" class="form-group addition-div">
         <label for="tip-zavrsnog-rada">Tip zavrsnog rada</label>
-        <input type="tip-zavrsnog-rada" [(ngModel)]="razlog.tipZavrsnogRada" class="form-control" id="tip-zavrsnog-rada" placeholder="Tip zavrsnog rada">
+        <input type="tip-zavrsnog-rada" [readonly]="true" [(ngModel)]="konsultacija.razlog.zavrsniRad.tip" class="form-control" id="tip-zavrsnog-rada">
 
         <label class="naziv-zavrsnog-rada" for="naziv-zavrsnog-rada">Naziv zavrsnog rada</label>
-        <input type="naziv-zavrsnog-rada" [(ngModel)]="razlog.nazivTipa" class="form-control" id="naziv-zavrsnog-rada" placeholder="Naziv zavrsnog rada">
+        <input type="naziv-zavrsnog-rada" [readonly]="true" [(ngModel)]="konsultacija.razlog.zavrsniRad.naziv" class="form-control" id="naziv-zavrsnog-rada">
       </div>
     </div>
     <div class="form-group">
       <label for="razlog-opis">Opis razloga</label>
-      <input type="razlog-opis" [(ngModel)]="razlog.opis" class="form-control" id="opis-razloga" placeholder="Opis razloga">
+      <input type="razlog-opis" [(ngModel)]="razlog.opis" class="form-control" id="opis-razloga">
     </div>
-    <div *ngIf="userType==UserType.Student" class="form-group">
+    <div *ngIf="userType==UserType.Student && !isLoading" class="form-group">
       <label for="nastavnik">Nastavnik</label>
       <select class="form-control" (change)="changeNastavnik($event)">
-        <option selected="true" disabled="disabled">Izaberite nastavnika</option>
+        <option selected="true">{{konsultacija.nastavnik.ime}} {{konsultacija.nastavnik.prezime}}</option>
         <option *ngFor="let nastavnik of nastavnici" [value]="nastavnik.id">{{nastavnik.ime}} {{nastavnik.prezime}}</option>
       </select>
     </div>
-    <div *ngIf="userType==UserType.Nastavnik" class="form-group">
+    <div *ngIf="userType==UserType.Nastavnik && !isLoading" class="form-group">
       <label for="nastavnik">Student</label>
       <select class="form-control" (change)="changeStudent($event)">
-        <option selected="true" disabled="disabled">Izaberite studenta</option>
+        <option selected="true">{{konsultacija.student.ime}} {{konsultacija.student.prezime}}</option>
         <option *ngFor="let student of studenti" [value]="student.id">{{student.ime}} {{student.prezime}}</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="save()">Sacuvaj</button>
-    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="cancel()">Odustani</button>
+    <button *ngIf="!isNew" type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="update()">Izmeni</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="delete()">Obrisi</button>
+    <button class="btn btn-outline-warning my-2 my-sm-0" (click)="cancel()">Odustani</button>
   </div>
 </div>

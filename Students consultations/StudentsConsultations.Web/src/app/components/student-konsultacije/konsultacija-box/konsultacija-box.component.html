@@ -1,4 +1,4 @@
-<div class="card text-center">
+<div class="card text-center" (click)="updateKonsultaciju(konsultacija)">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -18,7 +18,7 @@
         <h5 class="card-title"> &#x274C;</h5>
         <p class="card-text">Prof. {{konsultacija.nastavnik.ime}} {{konsultacija.nastavnik.prezime}}</p>
         <p class="card-text">{{konsultacija.datumKonsultacija | date}}</p>
-        <div class="btn btn-outline-success my-2 my-sm-0" (click)="odrzane()">Odrzane</div>
+        <div class="btn btn-outline-success my-2 my-sm-0" (click)="odrzane(); $event.stopPropagation();">Odrzane</div>
       </div>
     </div>
     <div *ngIf="konsultacija.odrzane" class="card">

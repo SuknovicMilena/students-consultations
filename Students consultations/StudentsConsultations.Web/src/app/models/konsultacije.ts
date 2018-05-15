@@ -11,6 +11,7 @@ export class Konsultacije {
   razlogId: number;
   odrzane: boolean;
   datumKonsultacija: Date;
+  datumString: string;
 
   student: Student;
   nastavnik: Nastavnik;

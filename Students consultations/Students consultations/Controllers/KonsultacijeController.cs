@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -34,6 +35,18 @@ namespace StudentsConsultations.Controllers
             _iProjekatService = iProjekatService;
             _iZavrsniRadService = iZavrsniRadService;
             _mapper = mapper;
+        }
+
+
+        [HttpPost("getkonsultacija/{studentId}/{nastavnikId}")]
+        public IActionResult GetKonsultacija(int studentId, int nastavnikId, [FromBody]DatumKonsultacijaRequest request)
+        {
+            //DateTime datumTicks = new DateTime(datumKonsultacija);
+            //String datum = datumTicks.ToString("yyyy-MM-dd");
+
+            var konsultacija = _iKonsultacijeService.GetKonsultacija(studentId, nastavnikId, DateTime.Parse(request.DatumString));
+
+            return Ok(_mapper.Map<KonsultacijeRowDto>(konsultacija));
         }
 
         [HttpGet("bystudent/{studentId}")]
@@ -116,6 +129,8 @@ namespace StudentsConsultations.Controllers
 
             var konsultacije = _mapper.Map<Konsultacije>(request);
 
+            request.DatumKonsultacija = DateTime.Parse(request.DatumString);
+
             konsultacije.RazlogId = razlogId;
             _iKonsultacijeService.Insert(konsultacije, request.DatumKonsultacija);
 
@@ -125,8 +140,21 @@ namespace StudentsConsultations.Controllers
         [HttpPut]
         public IActionResult Update([FromBody]KonsultacijeRequest request)
         {
-            var konsultacije = _mapper.Map<Konsultacije>(request);
-            _iKonsultacijeService.Update(konsultacije);
+            var razlogZaUpdate = _mapper.Map<Razlog>(request.Razlog);
+            _iRazlogService.Update(razlogZaUpdate);
+
+            var konsultacijaIzBaze = _iKonsultacijeService.GetKonsultacija(request.StudentId, request.Nastavnik.Id, request.DatumKonsultacija);
+
+            if (konsultacijaIzBaze == null)
+            {
+                return new NotFoundResult();
+            }
+
+            konsultacijaIzBaze.Nastavnik.Id = request.NastavnikId;
+            konsultacijaIzBaze.Student.Id = request.StudentId;
+            konsultacijaIzBaze.Odrzane = request.Odrzane;
+
+            _iKonsultacijeService.Update(konsultacijaIzBaze);
 
             return Ok();
         }
@@ -148,6 +176,16 @@ namespace StudentsConsultations.Controllers
             var konsultacijeRowDtos = _mapper.Map<List<KonsultacijeRowDto>>(konsultacije);
 
             return Ok(konsultacijeRowDtos);
+        }
+
+        [HttpPost("delete")]
+        public IActionResult Delete([FromBody]KonsultacijeRequest request)
+        {
+            var konsultacija = _mapper.Map<Konsultacije>(request);
+
+            _iKonsultacijeService.Delete(konsultacija);
+
+            return Ok();
         }
     }
 }

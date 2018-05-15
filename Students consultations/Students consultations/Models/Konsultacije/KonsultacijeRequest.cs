@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using StudentsConsultations.Models.Nastavnik;
 using StudentsConsultations.Models.Razlog;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,17 @@ namespace StudentsConsultations.Models.Konsultacije
 
         public bool Odrzane { get; set; }
 
+        public string DatumString { get; set; }
+
         public DateTime DatumKonsultacija { get; set; }
 
         public RazlogRequest Razlog { get; set; }
+
+        public NastavnikDto Nastavnik { get; set; }
+
+        //ukoliko vrsimo update, trebaju nam nove vrednosti
+        public int StudentIdNew { get; set; }
+
+        public int NastavnikNew { get; set; }
     }
 }

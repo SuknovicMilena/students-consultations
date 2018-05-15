@@ -10,14 +10,15 @@ import { DateFormatPipe } from '../../pipes/date.pipe';
 import { UserType } from '../../enums/userType.enum';
 import { Student } from '../../models/student';
 import { Search } from '../../models/search';
+import { DatumKonsultacija } from '../../models/datum-konsultacija';
 
 @Component({
-  selector: 'app-konsultacija',
-  templateUrl: './konsultacija.component.html',
-  styleUrls: ['./konsultacija.component.scss'],
+  selector: 'app-izmena-konsultacije',
+  templateUrl: './izmena-konsultacije.component.html',
+  styleUrls: ['./izmena-konsultacije.component.scss'],
   providers: [DateFormatPipe]
 })
-export class KonsultacijaComponent implements OnInit {
+export class IzmenaKonsultacijeComponent implements OnInit {
 
   nastavnici: Nastavnik[];
   studenti: Student[];
@@ -32,20 +33,52 @@ export class KonsultacijaComponent implements OnInit {
   isProjekat: boolean;
   userType: UserType;
   UserType = UserType;
+  nazivRazloga: string;
 
-  constructor(private nastavnikService: NastavnikService,
+  isLoading = true;
+
+  constructor(
+    private nastavnikService: NastavnikService,
     private studentService: StudentService,
     private router: Router,
     private toastrService: ToastrService,
     private dateFormatPipe: DateFormatPipe,
     private route: ActivatedRoute
   ) {
-
     const userType = route.snapshot.params.userType;
+    const nastavnikId = route.snapshot.params.nastavnikId;
+    const datumKonsultacija = route.snapshot.params.datumKonsultacija;
+
     if (userType === '0') {
       this.userType = UserType.Student;
     } else {
       this.userType = UserType.Nastavnik;
+    }
+
+    if (nastavnikId !== undefined && datumKonsultacija !== undefined) {
+      const datum = new DatumKonsultacija();
+      datum.datumString = datumKonsultacija;
+      this.studentService.getKonsultacija(1, nastavnikId, datum).subscribe(response => {
+
+        this.razlog = response.razlog;
+        console.log(this.razlog);
+        this.konsultacija = response;
+        console.log(this.konsultacija);
+
+        if (this.konsultacija.razlog.ispit != null) {
+          this.nazivRazloga = 'Ispit';
+          this.isIspit = true;
+        }
+        if (this.konsultacija.razlog.projekat != null) {
+          this.nazivRazloga = 'Projekat';
+          this.isProjekat = true;
+        }
+        if (this.konsultacija.razlog.zavrsniRad != null) {
+          this.nazivRazloga = 'Zavrsni rad';
+          this.isZavrsniRad = true;
+        }
+        this.isLoading = false;
+      });
     }
   }
 
@@ -55,27 +88,6 @@ export class KonsultacijaComponent implements OnInit {
     });
     this.studentService.getAllStudenti().subscribe(response => {
       this.studenti = response;
-    });
-  }
-
-  save() {
-    console.log('Konsultacije is saving...');
-
-    if (this.userType === UserType.Student) {
-      this.konsultacija.studentId = 1;
-    } else {
-      this.konsultacija.nastavnikId = 1;
-    }
-
-    this.konsultacija.razlog = this.razlog;
-    this.studentService.insertKonsultacije(this.konsultacija).subscribe(response => {
-      this.toastrService.success('Konsultacija dodata!', 'Uspesno!');
-
-      if (this.userType === UserType.Student) {
-        this.router.navigate(['/student-konsultacije']);
-      } else {
-        this.router.navigate(['/nastavnik-konsultacije']);
-      }
     });
   }
 
@@ -120,5 +132,37 @@ export class KonsultacijaComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/student-konsultacije']);
+  }
+
+  update() {
+    console.log('Konsultacije is updating...');
+    debugger
+    if (this.userType === UserType.Student) {
+      this.konsultacija.studentId = 1;
+    } else {
+      this.konsultacija.nastavnikId = 1;
+    }
+    
+    this.studentService.updateKonsultacije(this.konsultacija).subscribe(response => {
+      this.toastrService.success('Konsultacija izmenjena!', 'Uspesno!');
+
+      if (this.userType === UserType.Student) {
+        this.router.navigate(['/student-konsultacije']);
+      } else {
+        this.router.navigate(['/nastavnik-konsultacije']);
+      }
+    });
+  }
+
+  delete() {
+    this.studentService.deleteKonsultacija(this.konsultacija).subscribe(response => {
+      this.toastrService.success('Konsultacija obrisana!', 'Uspesno!');
+
+      if (this.userType === UserType.Student) {
+        this.router.navigate(['/student-konsultacije']);
+      } else {
+        this.router.navigate(['/nastavnik-konsultacije']);
+      }
+    });
   }
 }

@@ -1,23 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
-import { AlertModule } from 'ngx-bootstrap';
-import { StudentService } from './services/student.service';
-import { FullCalendarModule } from 'ng-fullcalendar';
-import { NastavnikKonsultacijeComponent } from './components/nastavnik-konsultacije/nastavnik-konsultacije.component';
-import { StudentKonsultacijeComponent } from './components/student-konsultacije/student-konsultacije.component';
-import { KonsultacijaBoxComponent } from './components/student-konsultacije/konsultacija-box/konsultacija-box.component';
-import { FormsModule } from '@angular/forms';
-import { NastavnikService } from './services/nastavnik.service';
-import { MyDatePickerModule } from 'mydatepicker';
-import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RegistracijaComponent } from './components/registracija/registracija.component';
-import { KonsultacijaComponent } from './components/konsultacija/konsultacija.component';
-import { DateFormatPipe } from './pipes/date.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { MyDatePickerModule } from 'mydatepicker';
+import { FullCalendarModule } from 'ng-fullcalendar';
+import { AlertModule } from 'ngx-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
+
+import { AppComponent } from './app.component';
+import { KonsultacijaComponent } from './components/dodavanje-konsultacija/konsultacija.component';
+import { IzmenaKonsultacijeComponent } from './components/izmena-konsultacije/izmena-konsultacije.component';
+import { NastavnikKonsultacijeComponent } from './components/nastavnik-konsultacije/nastavnik-konsultacije.component';
 import { PrijavljivanjeComponent } from './components/prijavljivanje/prijavljivanje.component';
+import { RegistracijaComponent } from './components/registracija/registracija.component';
+import { KonsultacijaBoxComponent } from './components/student-konsultacije/konsultacija-box/konsultacija-box.component';
+import { StudentKonsultacijeComponent } from './components/student-konsultacije/student-konsultacije.component';
+import { DateFormatPipe } from './pipes/date.pipe';
+import { NastavnikService } from './services/nastavnik.service';
+import { StudentService } from './services/student.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/prijavljivanje', pathMatch: 'full' },
@@ -25,6 +27,8 @@ const appRoutes: Routes = [
   { path: 'prijavljivanje', component: PrijavljivanjeComponent },
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
   { path: 'dodaj-konsultaciju/:userType', component: KonsultacijaComponent },
+  { path: 'dodaj-konsultaciju/:userType/:konsultacija', component: KonsultacijaComponent },
+  { path: 'izmeni-konsultaciju/:userType/nastavnikId/:nastavnikId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent },
   { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent },
 ];
 
@@ -40,6 +44,7 @@ const appRoutes: Routes = [
     PrijavljivanjeComponent,
     // pipes
     DateFormatPipe,
+    IzmenaKonsultacijeComponent,
   ],
   imports: [
     AlertModule.forRoot(),

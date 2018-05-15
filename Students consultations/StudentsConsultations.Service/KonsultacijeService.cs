@@ -176,6 +176,44 @@ namespace StudentsConsultations.Service
             return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
             || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
         }
+
+        public Konsultacije GetKonsultacija(int studentId, int nastavnikId, DateTime datum)
+        {
+
+            var nastavnik = _databaseManager.NastavnikRepository.GetById(nastavnikId);
+            var student = _databaseManager.StudentRepository.GetById(studentId);
+
+
+            var konsultacija = _databaseManager.KonsultacijeRepository.GetAll(x => x.NastavnikId == nastavnikId && x.StudentId == studentId && x.DatumKonsultacija.Date == datum.Date).FirstOrDefault();
+
+            konsultacija.Nastavnik = nastavnik;
+            konsultacija.Student = student;
+
+            var razlog = _databaseManager.RazlogRepository.GetById(konsultacija.RazlogId);
+
+            konsultacija.Razlog = razlog;
+
+
+            var projekat = _databaseManager.ProjekatRepository.GetById(konsultacija.RazlogId);
+            if (projekat != null)
+            {
+                konsultacija.Razlog.Projekat = projekat;
+            }
+
+            var ispit = _databaseManager.IspitRepository.GetById(konsultacija.RazlogId);
+            if (ispit != null)
+            {
+                konsultacija.Razlog.Ispit = ispit;
+            }
+
+            var zavrsniRad = _databaseManager.ZavrsniRadRepository.GetById(konsultacija.RazlogId);
+            if (zavrsniRad != null)
+            {
+                konsultacija.Razlog.ZavrsniRad = zavrsniRad;
+            }
+
+            return konsultacija;
+        }
     }
 
 }

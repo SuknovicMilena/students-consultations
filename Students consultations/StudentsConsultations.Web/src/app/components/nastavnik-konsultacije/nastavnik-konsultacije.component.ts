@@ -13,6 +13,7 @@ import { Search } from '../../models/search';
 export class NastavnikKonsultacijeComponent implements OnInit {
 
   konsultacije: Array<Konsultacije>;
+  konsultacijeKojeNisuOdrzane: Array<Konsultacije>;
 
   constructor(private nastavnikService: NastavnikService,
     private router: Router) { }

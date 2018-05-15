@@ -21,6 +21,8 @@ namespace StudentsConsultations.Models.Konsultacije
 
         public DateTime DatumKonsultacija { get; set; }
 
+        public string DatumString { get; set; }
+
         public RazlogDto Razlog { get; set; }
 
         public StudentDto Student { get; set; }

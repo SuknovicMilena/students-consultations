@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Konsultacije, Razlog } from '../models/konsultacije';
 import { Observable } from 'rxjs/Observable';
 import { Student } from '../models/student';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Search } from '../models/search';
+import { DatumKonsultacija } from '../models/datum-konsultacija';
+import * as moment from 'moment';
 
 @Injectable()
 export class StudentService {
@@ -27,6 +29,7 @@ export class StudentService {
   }
 
   insertKonsultacije(konsultacija: Konsultacije) {
+    konsultacija.datumString = moment(konsultacija.datumKonsultacija).format();
     return this.http.post(`http://localhost:63561/konsultacije`, konsultacija);
   }
 
@@ -37,4 +40,13 @@ export class StudentService {
   searchByNastavnik(searchRequest: Search, studentId: number) {
     return this.http.post<Konsultacije[]>(`http://localhost:63561/konsultacije/pretragaponastavniku/${studentId}`, searchRequest);
   }
+
+  getKonsultacija(studentId: number, nastavnikId: number, datumKonsultacija: DatumKonsultacija): Observable<Konsultacije> {
+    return this.http.post<Konsultacije>(`http://localhost:63561/konsultacije/getkonsultacija/${studentId}/${nastavnikId}`, datumKonsultacija);
+  }
+
+  deleteKonsultacija(konsultacija: Konsultacije): Observable<void> {
+    return this.http.post<void>(`http://localhost:63561/konsultacije/delete`, konsultacija);
+  }
+
 }
