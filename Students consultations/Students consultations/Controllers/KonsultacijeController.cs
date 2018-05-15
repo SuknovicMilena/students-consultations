@@ -143,7 +143,7 @@ namespace StudentsConsultations.Controllers
             var razlogZaUpdate = _mapper.Map<Razlog>(request.Razlog);
             _iRazlogService.Update(razlogZaUpdate);
 
-            var konsultacijaIzBaze = _iKonsultacijeService.GetKonsultacija(request.StudentId, request.Nastavnik.Id, request.DatumKonsultacija);
+            var konsultacijaIzBaze = _iKonsultacijeService.GetKonsultacija(request.StudentId, request.NastavnikId, request.DatumKonsultacija);
 
             if (konsultacijaIzBaze == null)
             {

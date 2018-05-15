@@ -25,12 +25,5 @@ namespace StudentsConsultations.Models.Konsultacije
         public DateTime DatumKonsultacija { get; set; }
 
         public RazlogRequest Razlog { get; set; }
-
-        public NastavnikDto Nastavnik { get; set; }
-
-        //ukoliko vrsimo update, trebaju nam nove vrednosti
-        public int StudentIdNew { get; set; }
-
-        public int NastavnikNew { get; set; }
     }
 }

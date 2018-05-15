@@ -136,13 +136,12 @@ export class IzmenaKonsultacijeComponent implements OnInit {
 
   update() {
     console.log('Konsultacije is updating...');
-    debugger
     if (this.userType === UserType.Student) {
       this.konsultacija.studentId = 1;
     } else {
       this.konsultacija.nastavnikId = 1;
     }
-    
+
     this.studentService.updateKonsultacije(this.konsultacija).subscribe(response => {
       this.toastrService.success('Konsultacija izmenjena!', 'Uspesno!');
 
