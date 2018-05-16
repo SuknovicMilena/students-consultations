@@ -48,13 +48,19 @@ const appRoutes: Routes = [
   ],
   imports: [
     AlertModule.forRoot(),
-    ToastrModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     MyDatePickerModule,
     FullCalendarModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+      newestOnTop: true,
+      timeOut: 3000,
+      iconClasses: {},
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true
+    }),
     RouterModule.forRoot(
       appRoutes
     )
