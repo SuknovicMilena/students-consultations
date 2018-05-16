@@ -29,6 +29,7 @@ const appRoutes: Routes = [
   { path: 'dodaj-konsultaciju/:userType', component: KonsultacijaComponent },
   { path: 'dodaj-konsultaciju/:userType/:konsultacija', component: KonsultacijaComponent },
   { path: 'izmeni-konsultaciju/:userType/nastavnikId/:nastavnikId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent },
+  { path: 'izmeni-konsultaciju/:userType/studentId/:studentId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent },
   { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent },
 ];
 

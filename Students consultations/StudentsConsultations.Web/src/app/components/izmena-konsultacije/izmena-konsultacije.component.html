@@ -9,9 +9,11 @@
 
 <div class="form">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 com-md-offset-2 form-center">
-    <div class="form-group">
+    <div class="form-group" *ngIf="!isLoading">
       <label for="exampleInputEmail1">Datum konsultacija</label>
-      <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>
+      <!-- <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker> -->
+
+      <input [readonly]="true" [(ngModel)]="konsultacija.datumKonsultacija" class="form-control" id="datum">
     </div>
     <div class="form-group" *ngIf="!isLoading">
       <div class="form-group addition-div">

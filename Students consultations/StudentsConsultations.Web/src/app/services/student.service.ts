@@ -48,5 +48,4 @@ export class StudentService {
   deleteKonsultacija(konsultacija: Konsultacije): Observable<void> {
     return this.http.post<void>(`http://localhost:63561/konsultacije/delete`, konsultacija);
   }
-
 }

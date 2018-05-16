@@ -37,6 +37,10 @@ export class IzmenaKonsultacijeComponent implements OnInit {
 
   isLoading = true;
 
+  currentNastavnik: number;
+  currentStudent: number;
+  datumKonsultacija: string;
+
   constructor(
     private nastavnikService: NastavnikService,
     private studentService: StudentService,
@@ -46,19 +50,46 @@ export class IzmenaKonsultacijeComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     const userType = route.snapshot.params.userType;
-    const nastavnikId = route.snapshot.params.nastavnikId;
     const datumKonsultacija = route.snapshot.params.datumKonsultacija;
 
     if (userType === '0') {
       this.userType = UserType.Student;
+      this.currentNastavnik = route.snapshot.params.nastavnikId;
     } else {
       this.userType = UserType.Nastavnik;
+      this.currentStudent = route.snapshot.params.studentId;
     }
 
-    if (nastavnikId !== undefined && datumKonsultacija !== undefined) {
+    if (this.currentNastavnik !== undefined && datumKonsultacija !== undefined) {
       const datum = new DatumKonsultacija();
       datum.datumString = datumKonsultacija;
-      this.studentService.getKonsultacija(1, nastavnikId, datum).subscribe(response => {
+      this.studentService.getKonsultacija(1, this.currentNastavnik, datum).subscribe(response => {
+
+        this.razlog = response.razlog;
+        console.log(this.razlog);
+        this.konsultacija = response;
+        console.log(this.konsultacija);
+
+        if (this.konsultacija.razlog.ispit != null) {
+          this.nazivRazloga = 'Ispit';
+          this.isIspit = true;
+        }
+        if (this.konsultacija.razlog.projekat != null) {
+          this.nazivRazloga = 'Projekat';
+          this.isProjekat = true;
+        }
+        if (this.konsultacija.razlog.zavrsniRad != null) {
+          this.nazivRazloga = 'Zavrsni rad';
+          this.isZavrsniRad = true;
+        }
+        this.isLoading = false;
+      });
+    }
+
+    if (this.currentStudent !== undefined && datumKonsultacija !== undefined) {
+      const datum = new DatumKonsultacija();
+      datum.datumString = datumKonsultacija;
+      this.nastavnikService.getKonsultacija(this.currentStudent, 1, datum).subscribe(response => {
 
         this.razlog = response.razlog;
         console.log(this.razlog);

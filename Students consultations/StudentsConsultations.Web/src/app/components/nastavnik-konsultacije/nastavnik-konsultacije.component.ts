@@ -4,11 +4,13 @@ import { Konsultacije } from '../../models/konsultacije';
 import { Router } from '@angular/router';
 import { UserType } from '../../enums/userType.enum';
 import { Search } from '../../models/search';
+import { DateFormatPipe } from '../../pipes/date.pipe';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
   templateUrl: './nastavnik-konsultacije.component.html',
-  styleUrls: ['./nastavnik-konsultacije.component.scss']
+  styleUrls: ['./nastavnik-konsultacije.component.scss'],
+  providers: [DateFormatPipe]
 })
 export class NastavnikKonsultacijeComponent implements OnInit {
 
@@ -16,7 +18,8 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   konsultacijeKojeNisuOdrzane: Array<Konsultacije>;
 
   constructor(private nastavnikService: NastavnikService,
-    private router: Router) { }
+    private router: Router,
+    private dateFormatPipe: DateFormatPipe) { }
 
   ngOnInit() {
     this.nastavnikService.getAllKonsultacijeByNastavnikId(1).subscribe(response => {
@@ -34,5 +37,9 @@ export class NastavnikKonsultacijeComponent implements OnInit {
     this.nastavnikService.searchByStudent(search, 1).subscribe(response => {
       this.konsultacije = response;
     });
+  }
+
+  updateKonsultaciju(konsultacija: Konsultacije) {
+    this.router.navigate(['/izmeni-konsultaciju', UserType.Nastavnik, 'studentId', konsultacija.studentId, 'datumKonsultacija', this.dateFormatPipe.transform(konsultacija.datumKonsultacija)]);
   }
 }
