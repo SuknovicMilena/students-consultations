@@ -10,6 +10,7 @@ using StudentsConsultations.Models.Konsultacije;
 using StudentsConsultations.Models.Projekat;
 using StudentsConsultations.Models.Razlog;
 using StudentsConsultations.Models.Search;
+using StudentsConsultations.Service;
 using StudentsConsultations.Service.Interfaces;
 
 namespace StudentsConsultations.Controllers
@@ -23,10 +24,11 @@ namespace StudentsConsultations.Controllers
         private IIspitService _iIspitService;
         private IZavrsniRadService _iZavrsniRadService;
         private IProjekatService _iProjekatService;
+        private IPDFGenerator _iPDFGenerator;
         private IMapper _mapper;
 
         public KonsultacijeController(IKonsultacijeService iKonsultacijeService, IIspitService iIspitService, IZavrsniRadService iZavrsniRadService,
-        IProjekatService iProjekatService, IRazlogService iRazlogService, IDatumService iDatumService, IMapper mapper)
+        IProjekatService iProjekatService, IRazlogService iRazlogService, IDatumService iDatumService, IPDFGenerator iPDFGenerator, IMapper mapper)
         {
             _iKonsultacijeService = iKonsultacijeService;
             _iDatumService = iDatumService;
@@ -34,6 +36,7 @@ namespace StudentsConsultations.Controllers
             _iIspitService = iIspitService;
             _iProjekatService = iProjekatService;
             _iZavrsniRadService = iZavrsniRadService;
+            _iPDFGenerator = iPDFGenerator;
             _mapper = mapper;
         }
 
@@ -186,6 +189,25 @@ namespace StudentsConsultations.Controllers
             _iKonsultacijeService.Delete(konsultacija);
 
             return Ok();
+        }
+
+        [HttpPost("generatepdfforstudent/{studentId}")]
+        public IActionResult GeneratePDFForStudent([FromBody]SearchRequest request, int studentId)
+        {
+            var konsultacije = _iKonsultacijeService.GeneratePDFForStudent(request.SearchText, studentId);
+            var pdf = _iPDFGenerator.GeneratePDF(konsultacije, UserType.Student);
+
+            return File(pdf, "application/pdf", "konsultacije.pdf");
+        }
+
+
+        [HttpPost("generatepdffornastavnik/{nastavnikId}")]
+        public IActionResult GeneratePDFForNastavnik([FromBody]SearchRequest request, int nastavnikId)
+        {
+            var konsultacije = _iKonsultacijeService.GeneratePDFForNastavnik(request.SearchText, nastavnikId);
+            var pdf = _iPDFGenerator.GeneratePDF(konsultacije, UserType.Nastavnik);
+
+            return File(pdf, "application/pdf", "konsultacije.pdf");
         }
     }
 }

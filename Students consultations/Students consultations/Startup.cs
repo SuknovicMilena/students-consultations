@@ -76,6 +76,8 @@ namespace Students_consultations
             services.AddScoped<IZadatakService, ZadatakService>();
             services.AddScoped<IZavrsniRadService, ZavrsniRadService>();
 
+            services.AddScoped<IPDFGenerator, PDFGenerator>();
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

@@ -214,6 +214,36 @@ namespace StudentsConsultations.Service
 
             return konsultacija;
         }
+
+        public List<Konsultacije> GeneratePDFForStudent(string searchText, int studentId)
+        {
+            var konsultacije = new List<Konsultacije>();
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                return konsultacije = GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
+            || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+            }
+            else
+            {
+                return konsultacije = GetAllKonsultacijeByStudentId(studentId);
+            }
+        }
+
+        public List<Konsultacije> GeneratePDFForNastavnik(string searchText, int nastavnikId)
+        {
+            var konsultacije = new List<Konsultacije>();
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                return konsultacije = GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
+            || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+            }
+            else
+            {
+                return konsultacije = GetAllKonsultacijeByNastavnik(nastavnikId);
+            }
+        }
     }
 
 }

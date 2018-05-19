@@ -25,6 +25,10 @@ namespace StudentsConsultations.Service.Interfaces
 
         List<Konsultacije> SearchByStudent(string searchText, int nastavnikId);
 
+        List<Konsultacije> GeneratePDFForStudent(string searchText, int nastavnikId);
+
+        List<Konsultacije> GeneratePDFForNastavnik(string searchText, int nastavnikId);
+
         Konsultacije GetKonsultacija(int studentId, int nastavnikId, DateTime datum);
     }
 }
