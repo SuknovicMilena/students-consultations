@@ -16,11 +16,12 @@
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByNastavnik()">Nastavniku</button>
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByRazlog()">Razlogu</button>
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByDatum()">Datumu</button>
+  <button class="btn btn-outline-success my-2 my-sm-0 pdf" (click)="konsultacijeToPDF()">PDF</button>
 </div>
 
 <div class="row">
   <div *ngFor="let konsultacija of konsultacijeZaStudenta" class="column">
-    <app-student-konsultacija-box  [konsultacija]="konsultacija">
+    <app-student-konsultacija-box [konsultacija]="konsultacija">
     </app-student-konsultacija-box>
   </div>
 </div>

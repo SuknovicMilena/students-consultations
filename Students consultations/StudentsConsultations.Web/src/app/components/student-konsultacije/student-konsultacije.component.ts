@@ -59,4 +59,8 @@ export class StudentKonsultacijeComponent implements OnInit {
       this.konsultacijeZaStudenta = response;
     });
   }
+
+  konsultacijeToPDF() {
+
+  }
 }

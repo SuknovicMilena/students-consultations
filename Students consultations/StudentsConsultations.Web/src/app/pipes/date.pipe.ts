@@ -5,6 +5,6 @@ import * as moment from 'moment';
 export class DateFormatPipe implements PipeTransform {
 
   transform(date: string | Date, format: string = 'YYYY-MM-DD'): string {
-    return moment.utc(date).local().format(format);
+    return moment.utc(date).subtract(1, 'month').local().format(format);
   }
 }
