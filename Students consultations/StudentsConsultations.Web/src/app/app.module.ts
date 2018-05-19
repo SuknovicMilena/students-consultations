@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,17 +20,22 @@ import { StudentKonsultacijeComponent } from './components/student-konsultacije/
 import { DateFormatPipe } from './pipes/date.pipe';
 import { NastavnikService } from './services/nastavnik.service';
 import { StudentService } from './services/student.service';
+import { AuthService } from './services/auth.service';
+import { AnonymousGuardService } from './guards/anonymous.guard';
+import { AuthGuardService } from './guards/auth.guard';
+import { UtilService } from './services/util.service';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/prijavljivanje', pathMatch: 'full' },
-  { path: 'registracija', component: RegistracijaComponent },
-  { path: 'prijavljivanje', component: PrijavljivanjeComponent },
-  { path: 'student-konsultacije', component: StudentKonsultacijeComponent },
-  { path: 'dodaj-konsultaciju/:userType', component: KonsultacijaComponent },
-  { path: 'dodaj-konsultaciju/:userType/:konsultacija', component: KonsultacijaComponent },
-  { path: 'izmeni-konsultaciju/:userType/nastavnikId/:nastavnikId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent },
-  { path: 'izmeni-konsultaciju/:userType/studentId/:studentId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent },
-  { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent },
+  { path: 'registracija', component: RegistracijaComponent, canActivate: [AnonymousGuardService] },
+  { path: 'prijavljivanje', component: PrijavljivanjeComponent, canActivate: [AnonymousGuardService] },
+  { path: 'student-konsultacije', component: StudentKonsultacijeComponent, canActivate: [AuthGuardService] },
+  { path: 'dodaj-konsultaciju/:userType', component: KonsultacijaComponent, canActivate: [AuthGuardService] },
+  { path: 'dodaj-konsultaciju/:userType/:konsultacija', component: KonsultacijaComponent, canActivate: [AuthGuardService] },
+  { path: 'izmeni-konsultaciju/:userType/nastavnikId/:nastavnikId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent, canActivate: [AuthGuardService] },
+  { path: 'izmeni-konsultaciju/:userType/studentId/:studentId/datumKonsultacija/:datumKonsultacija', component: IzmenaKonsultacijeComponent, canActivate: [AuthGuardService] },
+  { path: 'nastavnik-konsultacije', component: NastavnikKonsultacijeComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({
@@ -66,7 +71,12 @@ const appRoutes: Routes = [
       appRoutes
     )
   ],
-  providers: [StudentService, NastavnikService],
+  providers: [StudentService, NastavnikService, AuthService, AnonymousGuardService, AuthGuardService, UtilService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 

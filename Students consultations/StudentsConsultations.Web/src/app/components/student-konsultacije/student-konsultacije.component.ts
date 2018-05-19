@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 import { UserType } from '../../enums/userType.enum';
 import { Search } from '../../models/search';
 import { saveAs } from 'file-saver';
+import { UtilService } from '../../services/util.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-student-konsultacije',
   templateUrl: './student-konsultacije.component.html',
-  styleUrls: ['./student-konsultacije.component.scss']
+  styleUrls: ['./student-konsultacije.component.scss'],
 })
 export class StudentKonsultacijeComponent implements OnInit {
 
@@ -23,24 +25,26 @@ export class StudentKonsultacijeComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
   constructor(private studentService: StudentService,
+    private authService: AuthService,
+    private utilService: UtilService,
     private router: Router) { }
 
   ngOnInit() {
     this.konsultacijeZaStudenta = new Array<Konsultacije>();
-    this.studentService.getAllKonsultacijeByStudentId(1).subscribe((response: Array<Konsultacije>) =>
+    this.studentService.getAllKonsultacijeByStudentId(this.utilService.getStudentId()).subscribe((response: Array<Konsultacije>) =>
       this.konsultacijeZaStudenta = response
     );
   }
 
   groupByNastavnik() {
-    this.studentService.groupKonsultacijeByNastavnik(1).subscribe((response: Array<Konsultacije>) => {
+    this.studentService.groupKonsultacijeByNastavnik(this.utilService.getStudentId()).subscribe((response: Array<Konsultacije>) => {
       this.konsultacijeZaStudenta = response;
       console.log('Group by nastavnik');
     });
   }
 
   groupByDatum() {
-    this.studentService.groupKonsultacijeByDatum(1).subscribe((response: Array<Konsultacije>) => {
+    this.studentService.groupKonsultacijeByDatum(this.utilService.getStudentId()).subscribe((response: Array<Konsultacije>) => {
       this.konsultacijeZaStudenta = response;
       console.log('Group by datum');
     });
@@ -56,7 +60,7 @@ export class StudentKonsultacijeComponent implements OnInit {
   pretrazi(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    this.studentService.searchByNastavnik(search, 1).subscribe(response => {
+    this.studentService.searchByNastavnik(search, this.utilService.getStudentId()).subscribe(response => {
       this.konsultacijeZaStudenta = response;
     });
   }
@@ -64,8 +68,12 @@ export class StudentKonsultacijeComponent implements OnInit {
   konsultacijeToPDF(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    this.studentService.getPdf(search, 1).subscribe((response) => {
+    this.studentService.getPdf(search, this.utilService.getStudentId()).subscribe((response) => {
       saveAs(response, 'konsultacije.pdf');
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

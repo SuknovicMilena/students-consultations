@@ -6,6 +6,8 @@ import { UserType } from '../../enums/userType.enum';
 import { Search } from '../../models/search';
 import * as moment from 'moment';
 import { saveAs } from 'file-saver';
+import { UtilService } from '../../services/util.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
@@ -18,10 +20,12 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   konsultacijeKojeNisuOdrzaneINisuIstekle: Array<Konsultacije> = new Array<Konsultacije>();
 
   constructor(private nastavnikService: NastavnikService,
+    private utilService: UtilService,
+    private authService: AuthService,
     private router: Router) { }
 
   ngOnInit() {
-    this.nastavnikService.getAllKonsultacijeByNastavnikId(1).subscribe(response => {
+    this.nastavnikService.getAllKonsultacijeByNastavnikId(this.utilService.getNastavnikId()).subscribe(response => {
       this.konsultacije = response;
       console.log(this.konsultacije);
       // narandzaste
@@ -39,7 +43,7 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   pretrazi(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    this.nastavnikService.searchByStudent(search, 1).subscribe(response => {
+    this.nastavnikService.searchByStudent(search, this.utilService.getNastavnikId()).subscribe(response => {
       this.konsultacije = response;
       // narandzaste
       this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
@@ -56,8 +60,12 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   konsultacijeToPDF(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    this.nastavnikService.getPdf(search, 1).subscribe((response) => {
+    this.nastavnikService.getPdf(search, this.utilService.getNastavnikId()).subscribe((response) => {
       saveAs(response, 'konsultacije.pdf');
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

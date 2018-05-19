@@ -11,6 +11,7 @@ import { UserType } from '../../enums/userType.enum';
 import { Student } from '../../models/student';
 import { Search } from '../../models/search';
 import { DatumKonsultacija } from '../../models/datum-konsultacija';
+import { UtilService } from '../../services/util.service';
 
 @Component({
   selector: 'app-konsultacija',
@@ -40,7 +41,8 @@ export class KonsultacijaComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     private dateFormatPipe: DateFormatPipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilService: UtilService
   ) {
     const userType = route.snapshot.params.userType;
     const nastavnikId = route.snapshot.params.nastavnikId;
@@ -66,9 +68,9 @@ export class KonsultacijaComponent implements OnInit {
     console.log('Konsultacije is saving...');
 
     if (this.userType === UserType.Student) {
-      this.konsultacija.studentId = 1;
+      this.konsultacija.studentId = this.utilService.getStudentId();
     } else {
-      this.konsultacija.nastavnikId = 1;
+      this.konsultacija.nastavnikId = this.utilService.getNastavnikId();
     }
 
     this.konsultacija.razlog = this.razlog;

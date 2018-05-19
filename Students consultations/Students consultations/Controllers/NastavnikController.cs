@@ -20,7 +20,7 @@ using StudentsConsultations.Service.Interfaces;
 
 namespace StudentsConsultations.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("nastavnici")]
     public class NastavnikController : Controller
     {
@@ -67,10 +67,7 @@ namespace StudentsConsultations.Controllers
 
             return Ok(new
             {
-                Id = nastavnik.Id,
-                FirstName = nastavnik.Ime,
-                LastName = nastavnik.Prezime,
-                Username = nastavnik.KorisnickoIme,
+                nastavnikId = nastavnik.Id,
                 Token = tokenString
             });
         }

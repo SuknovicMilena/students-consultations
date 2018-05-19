@@ -11,6 +11,7 @@ import { UserType } from '../../enums/userType.enum';
 import { Student } from '../../models/student';
 import { Search } from '../../models/search';
 import { DatumKonsultacija } from '../../models/datum-konsultacija';
+import { UtilService } from '../../services/util.service';
 
 @Component({
   selector: 'app-izmena-konsultacije',
@@ -47,7 +48,8 @@ export class IzmenaKonsultacijeComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     private dateFormatPipe: DateFormatPipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilService: UtilService
   ) {
     const userType = route.snapshot.params.userType;
     const datumKonsultacija = route.snapshot.params.datumKonsultacija;
@@ -63,7 +65,7 @@ export class IzmenaKonsultacijeComponent implements OnInit {
     if (this.currentNastavnik !== undefined && datumKonsultacija !== undefined) {
       const datum = new DatumKonsultacija();
       datum.datumString = datumKonsultacija;
-      this.studentService.getKonsultacija(1, this.currentNastavnik, datum).subscribe(response => {
+      this.studentService.getKonsultacija(this.utilService.getStudentId(), this.currentNastavnik, datum).subscribe(response => {
 
         this.razlog = response.razlog;
         console.log(this.razlog);
@@ -89,7 +91,7 @@ export class IzmenaKonsultacijeComponent implements OnInit {
     if (this.currentStudent !== undefined && datumKonsultacija !== undefined) {
       const datum = new DatumKonsultacija();
       datum.datumString = datumKonsultacija;
-      this.nastavnikService.getKonsultacija(this.currentStudent, 1, datum).subscribe(response => {
+      this.nastavnikService.getKonsultacija(this.currentStudent, this.utilService.getNastavnikId(), datum).subscribe(response => {
 
         this.razlog = response.razlog;
         console.log(this.razlog);
@@ -168,9 +170,9 @@ export class IzmenaKonsultacijeComponent implements OnInit {
   update() {
     console.log('Konsultacije is updating...');
     if (this.userType === UserType.Student) {
-      this.konsultacija.studentId = 1;
+      this.konsultacija.studentId = this.utilService.getStudentId();
     } else {
-      this.konsultacija.nastavnikId = 1;
+      this.konsultacija.nastavnikId = this.utilService.getNastavnikId();
     }
 
     this.studentService.updateKonsultacije(this.konsultacija).subscribe(response => {
