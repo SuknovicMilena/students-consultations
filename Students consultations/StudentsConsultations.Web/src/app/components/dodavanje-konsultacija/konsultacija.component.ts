@@ -127,7 +127,12 @@ export class KonsultacijaComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/student-konsultacije']);
+    if (this.userType === UserType.Student) {
+      this.router.navigate(['/student-konsultacije']);
+    } else {
+      this.router.navigate(['/nastavnik-konsultacije']);
+    }
+
   }
 
   convertTicksToDate(time, format) {

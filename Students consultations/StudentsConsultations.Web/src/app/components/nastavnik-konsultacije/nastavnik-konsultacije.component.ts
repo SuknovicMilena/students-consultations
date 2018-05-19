@@ -31,7 +31,7 @@ export class NastavnikKonsultacijeComponent implements OnInit {
       // narandzaste
       this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
       console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
-      this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date());
+      this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date() || x.odrzane);
       console.log(this.konsultacije);
     });
   }
@@ -48,7 +48,7 @@ export class NastavnikKonsultacijeComponent implements OnInit {
       // narandzaste
       this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
       console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
-      this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date());
+      this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date() || x.odrzane);
       console.log(this.konsultacije);
     });
   }

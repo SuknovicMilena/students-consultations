@@ -1,61 +1,58 @@
+<div class="registration-type">
+  <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Student" (click)="izaberiRegKaoStudent()">
+  <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Nastavnik" (click)="izaberiRegKaoNastavnik()">
+</div>
+
 <div class="forms">
-  <div class="register-form-for-student">
-    <div class="form-group">
-      <a class="btn btn-outline-success my-2 my-sm-0 student" [routerLink]="['/student-konsultacije']">Student</a>
-    </div>
+  <div class="register-form-for-student" *ngIf="prikaziRegFormuStudent">
     <div class="form-group">
       <label for="name">Ime</label>
-      <input type="text" class="form-control" id="name-student" placeholder="Unesite ime">
+      <input type="text" class="form-control" id="name-student" [(ngModel)]="registracijaStudenta.ime" placeholder="Unesite ime">
     </div>
     <div class="form-group">
       <label for="surname">Prezime</label>
-      <input type="text" class="form-control" id="surname-student" placeholder="Unesite prezime">
+      <input type="text" class="form-control" id="surname-student" [(ngModel)]="registracijaStudenta.prezime" placeholder="Unesite prezime">
     </div>
     <div class="form-group">
       <label for="index-number">Broj indeksa</label>
-      <input type="text" class="form-control" id="index-number" placeholder="Unesite broj indeksa">
+      <input type="text" class="form-control" id="index-number" [(ngModel)]="registracijaStudenta.brojIndeksa" placeholder="Unesite broj indeksa">
     </div>
     <div class="form-group">
       <label for="username">Korisnicko ime</label>
-      <input type="text" class="form-control" id="username-student" placeholder="Unesite korisnicko ime">
+      <input type="text" class="form-control" id="username-student" [(ngModel)]="registracijaStudenta.korisnickoIme" placeholder="Unesite korisnicko ime">
     </div>
     <div class="form-group">
       <label for="password">Lozinka</label>
-      <input type="password" class="form-control" id="password-student" placeholder="Unesite lozinku">
+      <input type="password" class="form-control" id="password-student" [(ngModel)]="registracijaStudenta.lozinka" placeholder="Unesite lozinku">
     </div>
     <div class="form-group">
-      <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Registruj se" (click)="registrujSe()">
+      <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Registruj se" (click)="registrujStudenta()">
     </div>
   </div>
 
-
-  <div class="register-form-for-teacher">
-    <div class="form-group">
-      <a class="btn btn-outline-success my-2 my-sm-0 teacher" [routerLink]="['/nastavnik-konsultacije']">Nastavnik</a>
-    </div>
+  <div class="register-form-for-teacher" *ngIf="prikaziRegFormuNastavnik">
     <div class="form-group">
       <label for="name">Ime</label>
-      <input type="text" class="form-control" id="name-nastavnik" placeholder="Unesite ime">
+      <input type="text" class="form-control" id="name-nastavnik" [(ngModel)]="registracijaNastavnika.ime" placeholder="Unesite ime">
     </div>
     <div class="form-group">
       <label for="surname">Prezime</label>
-      <input type="text" class="form-control" id="surname-nastavnik" placeholder="Unesite prezime">
+      <input type="text" class="form-control" id="surname-nastavnik" [(ngModel)]="registracijaNastavnika.prezime" placeholder="Unesite prezime">
     </div>
     <div class="form-group">
       <label for="number-of-work-card">Broj radne knjizice</label>
-      <input type="number" class="form-control" id="number-of-work-card" placeholder="Unesite broj radne knjizice">
+      <input type="number" class="form-control" id="number-of-work-card" [(ngModel)]="registracijaNastavnika.brojRadneKnjizice" placeholder="Unesite broj radne knjizice">
     </div>
     <div class="form-group">
       <label for="username">Korisnicko ime</label>
-      <input type="text" class="form-control" id="username-nastavnik" placeholder="Unesite korisnicko ime">
+      <input type="text" class="form-control" id="username-nastavnik" [(ngModel)]="registracijaNastavnika.korisnickoIme" placeholder="Unesite korisnicko ime">
     </div>
     <div class="form-group">
       <label for="password">Lozinka</label>
-      <input type="password" class="form-control" id="password-nastavnik" placeholder="Unesite lozinku">
+      <input type="password" class="form-control" id="password-nastavnik" [(ngModel)]="registracijaNastavnika.lozinka" placeholder="Unesite lozinku">
     </div>
     <div class="form-group">
-      <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Registruj se" (click)="registrujSe()">
+      <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Registruj se" (click)="registrujNastavnika()">
     </div>
   </div>
-
 </div>

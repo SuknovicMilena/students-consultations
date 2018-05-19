@@ -6,6 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { ObserveOnMessage } from 'rxjs/operators/observeOn';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { UserType } from '../enums/userType.enum';
+import { Observable } from 'rxjs/Observable';
+import { RegistracijaStudenta, RegistracijaNastavnika } from '../models/registracija';
 
 @Injectable()
 export class AuthService {
@@ -57,5 +59,19 @@ export class AuthService {
 
   getToken(): string {
     return localStorage.getItem('token');
+  }
+
+  registracijaStudenta(registracija: RegistracijaStudenta) {
+    const url = ' http://localhost:63561/studenti/registracija';
+    return this.http
+      .post(url, registracija)
+      .map((response) => { });
+  }
+
+  registracijaNastavnika(registracija: RegistracijaNastavnika) {
+    const url = ' http://localhost:63561/nastavnici/registracija';
+    return this.http
+      .post(url, registracija)
+      .map((response) => { });
   }
 }
