@@ -7,7 +7,7 @@
     <form class="form-inline">
       <input #searchText class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Pretraga">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="pretrazi(searchText.value)">Pretraga</button>
-      <button class="btn btn-outline-success my-2 my-sm-0 pdf" (click)="konsultacijeToPDF()">PDF</button>
+      <button class="btn btn-outline-success my-2 my-sm-0 pdf" (click)="konsultacijeToPDF(searchText.value)">PDF</button>
     </form>
   </div>
 </nav>

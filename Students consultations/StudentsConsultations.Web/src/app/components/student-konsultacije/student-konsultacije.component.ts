@@ -8,6 +8,7 @@ import { debug } from 'util';
 import { Router } from '@angular/router';
 import { UserType } from '../../enums/userType.enum';
 import { Search } from '../../models/search';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-student-konsultacije',
@@ -60,7 +61,11 @@ export class StudentKonsultacijeComponent implements OnInit {
     });
   }
 
-  konsultacijeToPDF() {
-
+  konsultacijeToPDF(searchText: string) {
+    const search = new Search();
+    search.searchText = searchText;
+    this.studentService.getPdf(search, 1).subscribe((response) => {
+      saveAs(response, 'konsultacije.pdf');
+    });
   }
 }

@@ -30,4 +30,10 @@ export class NastavnikService {
   getKonsultacija(studentId: number, nastavnikId: number, datumKonsultacija: DatumKonsultacija): Observable<Konsultacije> {
     return this.http.post<Konsultacije>(`http://localhost:63561/konsultacije/getkonsultacija/${studentId}/${nastavnikId}`, datumKonsultacija);
   }
+
+  getPdf(searchRequest: Search, nastavnikId: number): Observable<Blob> {
+    return this.http.post(`http://localhost:63561/konsultacije/generatepdffornastavnik/${nastavnikId}`, searchRequest, {
+      responseType: 'blob'
+    });
+  }
 }

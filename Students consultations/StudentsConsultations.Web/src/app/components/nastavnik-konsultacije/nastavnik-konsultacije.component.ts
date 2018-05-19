@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserType } from '../../enums/userType.enum';
 import { Search } from '../../models/search';
 import * as moment from 'moment';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
@@ -40,10 +41,23 @@ export class NastavnikKonsultacijeComponent implements OnInit {
     search.searchText = searchText;
     this.nastavnikService.searchByStudent(search, 1).subscribe(response => {
       this.konsultacije = response;
+      // narandzaste
+      this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
+      console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
+      this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date());
+      console.log(this.konsultacije);
     });
   }
 
   updateKonsultaciju(konsultacija: Konsultacije) {
     this.router.navigate(['/izmeni-konsultaciju', UserType.Nastavnik, 'studentId', konsultacija.studentId, 'datumKonsultacija', moment.utc(konsultacija.datumKonsultacija).local().format()]);
+  }
+
+  konsultacijeToPDF(searchText: string) {
+    const search = new Search();
+    search.searchText = searchText;
+    this.nastavnikService.getPdf(search, 1).subscribe((response) => {
+      saveAs(response, 'konsultacije.pdf');
+    });
   }
 }

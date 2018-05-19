@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Konsultacije, Razlog } from '../models/konsultacije';
 import { Observable } from 'rxjs/Observable';
 import { Student } from '../models/student';
+import { RequestOptions, Request, RequestMethod, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Search } from '../models/search';
 import { DatumKonsultacija } from '../models/datum-konsultacija';
@@ -47,5 +48,11 @@ export class StudentService {
 
   deleteKonsultacija(konsultacija: Konsultacije): Observable<void> {
     return this.http.post<void>(`http://localhost:63561/konsultacije/delete`, konsultacija);
+  }
+
+  getPdf(searchRequest: Search, studentId: number): Observable<Blob> {
+    return this.http.post(`http://localhost:63561/konsultacije/generatepdfforstudent/${studentId}`, searchRequest, {
+      responseType: 'blob'
+    });
   }
 }
