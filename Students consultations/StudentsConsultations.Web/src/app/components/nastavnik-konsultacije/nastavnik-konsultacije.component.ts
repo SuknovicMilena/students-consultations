@@ -14,7 +14,7 @@ import * as moment from 'moment';
 export class NastavnikKonsultacijeComponent implements OnInit {
 
   konsultacije: Array<Konsultacije>;
-  konsultacijeKojeNisuOdrzane: Array<Konsultacije> = new Array<Konsultacije>();
+  konsultacijeKojeNisuOdrzaneINisuIstekle: Array<Konsultacije> = new Array<Konsultacije>();
 
   constructor(private nastavnikService: NastavnikService,
     private router: Router) { }
@@ -22,8 +22,12 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   ngOnInit() {
     this.nastavnikService.getAllKonsultacijeByNastavnikId(1).subscribe(response => {
       this.konsultacije = response;
-      this.konsultacijeKojeNisuOdrzane = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date());
-      console.log(this.konsultacijeKojeNisuOdrzane);
+      console.log(this.konsultacije);
+      // narandzaste
+      this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
+      console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
+      this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date());
+      console.log(this.konsultacije);
     });
   }
 

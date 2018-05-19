@@ -7,6 +7,7 @@
     <form class="form-inline">
       <input #searchText class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Pretraga">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="pretrazi(searchText.value)">Pretraga</button>
+      <button class="btn btn-outline-success my-2 my-sm-0 pdf" (click)="konsultacijeToPDF()">PDF</button>
     </form>
   </div>
 </nav>
@@ -16,7 +17,6 @@
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByNastavnik()">Nastavniku</button>
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByRazlog()">Razlogu</button>
   <button class="btn btn-outline-success my-2 my-sm-0" (click)="groupByDatum()">Datumu</button>
-  <button class="btn btn-outline-success my-2 my-sm-0 pdf" (click)="konsultacijeToPDF()">PDF</button>
 </div>
 
 <div class="row">
