@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { data } from 'jquery';
 import { Options } from 'fullcalendar';
-import { Konsultacije } from '../../models/konsultacije';
+import { StudentKonsultacije } from '../../models/student-konsultacije';
 import { StudentService } from '../../services/student.service';
 import { debug } from 'util';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class StudentKonsultacijeComponent implements OnInit {
 
-  konsultacijeZaStudenta: Array<Konsultacije>;
+  konsultacijeZaStudenta: Array<StudentKonsultacije>;
 
   calendarOptions: Options;
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
@@ -30,21 +30,21 @@ export class StudentKonsultacijeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.konsultacijeZaStudenta = new Array<Konsultacije>();
-    this.studentService.getAllKonsultacijeByStudentId(this.utilService.getStudentId()).subscribe((response: Array<Konsultacije>) =>
+    this.konsultacijeZaStudenta = new Array<StudentKonsultacije>();
+    this.studentService.getAllKonsultacijeByStudentId(this.utilService.getStudentId()).subscribe((response: Array<StudentKonsultacije>) =>
       this.konsultacijeZaStudenta = response
     );
   }
 
   groupByNastavnik() {
-    this.studentService.groupKonsultacijeByNastavnik(this.utilService.getStudentId()).subscribe((response: Array<Konsultacije>) => {
+    this.studentService.groupKonsultacijeByNastavnik(this.utilService.getStudentId()).subscribe((response: Array<StudentKonsultacije>) => {
       this.konsultacijeZaStudenta = response;
       console.log('Group by nastavnik');
     });
   }
 
   groupByDatum() {
-    this.studentService.groupKonsultacijeByDatum(this.utilService.getStudentId()).subscribe((response: Array<Konsultacije>) => {
+    this.studentService.groupKonsultacijeByDatum(this.utilService.getStudentId()).subscribe((response: Array<StudentKonsultacije>) => {
       this.konsultacijeZaStudenta = response;
       console.log('Group by datum');
     });

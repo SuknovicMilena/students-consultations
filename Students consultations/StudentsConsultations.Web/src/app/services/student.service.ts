@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Konsultacije, Razlog } from '../models/konsultacije';
+import { StudentKonsultacije, Razlog } from '../models/student-konsultacije';
 import { Observable } from 'rxjs/Observable';
 import { Student } from '../models/student';
 import { RequestOptions, Request, RequestMethod, ResponseContentType } from '@angular/http';
@@ -13,23 +13,23 @@ export class StudentService {
 
   constructor(public http: HttpClient) { }
 
-  getAllKonsultacijeByStudentId(studentId: number): Observable<Konsultacije[]> {
-    return this.http.get<Konsultacije[]>(`http://localhost:63561/konsultacije/bystudent/${studentId}`);
+  getAllKonsultacijeByStudentId(studentId: number): Observable<StudentKonsultacije[]> {
+    return this.http.get<StudentKonsultacije[]>(`http://localhost:63561/konsultacije/bystudent/${studentId}`);
   }
 
-  groupKonsultacijeByNastavnik(studentId: number): Observable<Konsultacije[]> {
-    return this.http.get<Konsultacije[]>(`http://localhost:63561/konsultacije/groupbynastavnik/${studentId}`);
+  groupKonsultacijeByNastavnik(studentId: number): Observable<StudentKonsultacije[]> {
+    return this.http.get<StudentKonsultacije[]>(`http://localhost:63561/konsultacije/groupbynastavnik/${studentId}`);
   }
 
-  groupKonsultacijeByDatum(studentId: number): Observable<Konsultacije[]> {
-    return this.http.get<Konsultacije[]>(`http://localhost:63561/konsultacije/groupbydatum/${studentId}`);
+  groupKonsultacijeByDatum(studentId: number): Observable<StudentKonsultacije[]> {
+    return this.http.get<StudentKonsultacije[]>(`http://localhost:63561/konsultacije/groupbydatum/${studentId}`);
   }
 
-  updateKonsultacije(konsultacija: Konsultacije): Observable<void> {
+  updateKonsultacije(konsultacija: StudentKonsultacije): Observable<void> {
     return this.http.put<void>(`http://localhost:63561/konsultacije`, konsultacija);
   }
 
-  insertKonsultacije(konsultacija: Konsultacije) {
+  insertKonsultacije(konsultacija: StudentKonsultacije) {
     konsultacija.datumString = moment(konsultacija.datumKonsultacija).format();
     return this.http.post(`http://localhost:63561/konsultacije`, konsultacija);
   }
@@ -39,14 +39,14 @@ export class StudentService {
   }
 
   searchByNastavnik(searchRequest: Search, studentId: number) {
-    return this.http.post<Konsultacije[]>(`http://localhost:63561/konsultacije/pretragaponastavniku/${studentId}`, searchRequest);
+    return this.http.post<StudentKonsultacije[]>(`http://localhost:63561/konsultacije/pretragaponastavniku/${studentId}`, searchRequest);
   }
 
-  getKonsultacija(studentId: number, nastavnikId: number, datumKonsultacija: DatumKonsultacija): Observable<Konsultacije> {
-    return this.http.post<Konsultacije>(`http://localhost:63561/konsultacije/getkonsultacija/${studentId}/${nastavnikId}`, datumKonsultacija);
+  getKonsultacija(studentId: number, nastavnikId: number, datumKonsultacija: DatumKonsultacija): Observable<StudentKonsultacije> {
+    return this.http.post<StudentKonsultacije>(`http://localhost:63561/konsultacije/getkonsultacija/${studentId}/${nastavnikId}`, datumKonsultacija);
   }
 
-  deleteKonsultacija(konsultacija: Konsultacije): Observable<void> {
+  deleteKonsultacija(konsultacija: StudentKonsultacije): Observable<void> {
     return this.http.post<void>(`http://localhost:63561/konsultacije/delete`, konsultacija);
   }
 

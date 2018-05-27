@@ -5,11 +5,11 @@ namespace StudentsConsultations.Data.Interface
 {
     public interface IDatabaseManager : IDisposable
     {
-        IDatumRepository DatumRepository { get; }
-
         IIspitRepository IspitRepository { get; }
 
-        IKonsultacijeRepository KonsultacijeRepository { get; }
+        IStudentKonsultacijaRepository StudentKonsultacijaRepository { get; }
+
+        IKonsultacijaRepository KonsultacijaRepository { get; }
 
         INastavnikRepository NastavnikRepository { get; }
 

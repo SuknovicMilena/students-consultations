@@ -1,13 +1,12 @@
 ﻿using StudentsConsultations.Data.Domain;
-using StudentsConsultations.Models.Konsultacije;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace StudentsConsultations.Service.Interfaces
 {
-    public interface IPDFGenerator
+    public interface IKonsultacijaService : IBaseService<Konsultacija>
     {
-        byte[] GeneratePDF(List<StudentKonsultacija> konsultacije, UserType userType);
+        List<Konsultacija> GetAllByNastavnik(int nastavnikId);
     }
 }

@@ -53,9 +53,8 @@ namespace Students_consultations
 
             services.AddScoped<IDatabaseManager, DatabaseManager>();
 
-            services.AddScoped<DatumRepository>();
             services.AddScoped<IspitRepository>();
-            services.AddScoped<KonsultacijeRepository>();
+            services.AddScoped<StudentKonsultacijaRepository>();
             services.AddScoped<NastavnikRepository>();
             services.AddScoped<ProjekatRepository>();
             services.AddScoped<RazlogRepository>();
@@ -63,11 +62,11 @@ namespace Students_consultations
             services.AddScoped<VrstaZadatkaRepository>();
             services.AddScoped<ZadatakRepository>();
             services.AddScoped<ZavrsniRadRepository>();
+            services.AddScoped<KonsultacijaRepository>();
             services.AddScoped<AppSettings>();
 
-            services.AddScoped<IDatumService, DatumService>();
             services.AddScoped<IIspitService, IspitService>();
-            services.AddScoped<IKonsultacijeService, KonsultacijeService>();
+            services.AddScoped<IStudentKonsultacijaService, StudentKonsultacijaService>();
             services.AddScoped<INastavnikService, NastavnikService>();
             services.AddScoped<IProjekatService, ProjekatService>();
             services.AddScoped<IRazlogService, RazlogService>();
@@ -75,6 +74,7 @@ namespace Students_consultations
             services.AddScoped<IVrstaZadatkaService, VrstaZadatkaService>();
             services.AddScoped<IZadatakService, ZadatakService>();
             services.AddScoped<IZavrsniRadService, ZavrsniRadService>();
+            services.AddScoped<IKonsultacijaService, KonsultacijaService>();
 
             services.AddScoped<IPDFGenerator, PDFGenerator>();
 

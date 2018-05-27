@@ -20,8 +20,8 @@ namespace StudentsConsultations.Data.Domain
 
         public string Lozinka { get; set; }
 
-        public ICollection<Konsultacije> Konsultacije { get; set; } = new HashSet<Konsultacije>();
+        public ICollection<StudentKonsultacija> StudentKonsultacija { get; set; } = new HashSet<StudentKonsultacija>();
 
-
+        public ICollection<Konsultacija> Konsultacija { get; set; } = new HashSet<Konsultacija>();
     }
 }

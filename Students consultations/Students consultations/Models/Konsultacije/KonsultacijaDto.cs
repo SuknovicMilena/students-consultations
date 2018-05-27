@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StudentsConsultations.Models.Konsultacije
 {
-    public class KonsultacijeRowDto
+    public class KonsultacijaDto
     {
         public int Id { get; set; }
 

@@ -25,8 +25,6 @@ namespace StudentsConsultations.Data.Domain
 
         public Student Student { get; set; }
 
-        public Datum Datum { get; set; }
-
         [ForeignKey("VrstaZadatkaId")]
         [InverseProperty("Zadaci")]
         public VrstaZadatka VrstaZadatka { get; set; }

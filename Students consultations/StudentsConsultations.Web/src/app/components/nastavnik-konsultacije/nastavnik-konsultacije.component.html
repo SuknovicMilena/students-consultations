@@ -13,6 +13,23 @@
   </div>
 </nav>
 
+<div class="container">
+  <div *ngFor="let konsultacija of nastavnikTerminiKonsultacija" class="row" (click)="updateKonsultaciju(konsultacija.id)">
+    <div class="col-sm">
+      Termin konsultacija
+    </div>
+    <div class="col-sm">
+      Dan u nedelji: {{konsultacija.danUNedelji | dayOfWeek }}
+    </div>
+    <div class="col-sm">
+      Vreme od: {{konsultacija.vremeOd  | dateFormat }}
+    </div>
+    <div class="col-sm">
+      Vreme do: {{konsultacija.vremeDo | dateFormat}}
+    </div>
+  </div>
+</div>
+
 <h5>Agenda konsultacija</h5>
 
 <div class="agenda-konsultacija">
@@ -23,8 +40,8 @@
 
 <div class="konsultacije">
   <ul class="list-group">
-    <div *ngFor="let konsultacija of konsultacijeKojeNisuOdrzaneINisuIstekle">
-      <li class="list-group-item list-group-item-warning" (click)="updateKonsultaciju(konsultacija)">
+    <!-- <div *ngFor="let konsultacija of konsultacijeKojeNisuOdrzaneINisuIstekle">
+      <li class="list-group-item list-group-item-warning" (click)="updateKonsultaciju(konsultacija.id)">
         <ul>
           <li>
             Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
@@ -34,26 +51,31 @@
           </li>
         </ul>
       </li>
-
-    </div>
+    </div> -->
     <div *ngFor="let konsultacija of konsultacije">
-      <li *ngIf="konsultacija.odrzane" class="list-group-item list-group-item-success" (click)="updateKonsultaciju(konsultacija)">
+      <li *ngIf="konsultacija.odrzane" class="list-group-item list-group-item-success" (click)="updateKonsultaciju(konsultacija.id)">
         <ul>
           <li>
-            Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
+            Dan u nedelji: {{konsultacija.danUNedelji}}
           </li>
           <li>
-            Datum odrzavanja konsultacija: {{konsultacija.datumKonsultacija | date}}
+            Vreme od {{konsultacija.vremeOd}}
+          </li>
+          <li>
+            Vreme do {{konsultacija.vremeDo}}
           </li>
         </ul>
       </li>
-      <li *ngIf="!konsultacija.odrzane" class="list-group-item list-group-item-danger" (click)="updateKonsultaciju(konsultacija)">
+      <li *ngIf="!konsultacija.odrzane" class="list-group-item list-group-item-danger" (click)="updateKonsultaciju(konsultacija.id)">
         <ul>
           <li>
-            Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
+            Dan u nedelji: {{konsultacija.danUNedelji}}
           </li>
           <li>
-            Datum odrzavanja konsultacija: {{konsultacija.datumKonsultacija | date }}
+            Vreme od {{konsultacija.vremeOd}}
+          </li>
+          <li>
+            Vreme do {{konsultacija.vremeDo}}
           </li>
         </ul>
       </li>

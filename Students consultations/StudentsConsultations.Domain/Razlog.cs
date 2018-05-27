@@ -18,6 +18,6 @@ namespace StudentsConsultations.Data.Domain
 
         public Projekat Projekat { get; set; }
 
-        public ICollection<Konsultacije> Konsultacije { get; set; } = new HashSet<Konsultacije>();
+        public ICollection<StudentKonsultacija> StudentKonsultacija { get; set; } = new HashSet<StudentKonsultacija>();
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Konsultacije } from '../../../models/konsultacije';
+import { StudentKonsultacije } from '../../../models/student-konsultacije';
 import { StudentService } from '../../../services/student.service';
 import { Router } from '@angular/router';
 import { UserType } from '../../../enums/userType.enum';
@@ -12,7 +12,7 @@ import * as moment from 'moment';
 })
 export class KonsultacijaBoxComponent implements OnInit {
 
-  @Input() konsultacija: Konsultacije;
+  @Input() konsultacija: StudentKonsultacije;
 
   constructor(private studentKonsultacijeService: StudentService,
     private router: Router) { }
@@ -28,7 +28,7 @@ export class KonsultacijaBoxComponent implements OnInit {
     });
   }
 
-  updateKonsultaciju(konsultacija: Konsultacije) {
+  updateKonsultaciju(konsultacija: StudentKonsultacije) {
     this.router.navigate(['/izmeni-konsultaciju', UserType.Student, 'nastavnikId', konsultacija.nastavnikId, 'datumKonsultacija', moment.utc(konsultacija.datumKonsultacija).local().format()]);
   }
 }

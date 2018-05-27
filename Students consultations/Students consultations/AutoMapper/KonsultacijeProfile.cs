@@ -13,11 +13,20 @@ namespace StudentsConsultations.AutoMapper
     {
         public KonsultacijeProfile()
         {
-            CreateMap<KonsultacijeRequest, Konsultacije>();
+            CreateMap<Konsultacija, KonsultacijaDto>();
 
-            CreateMap<Konsultacije, KonsultacijeRowDto>();
+            CreateMap<Konsultacija, KonsultacijeRowDto>();
 
-            CreateMap<Datum, DatumKonsultacijaDto>();
+            CreateMap<KonsultacijaRequest, Konsultacija>().AfterMap((src, dest) =>
+            {
+                var vremeOd = TimeSpan.Parse(src.VremeOd);
+                dest.VremeOd = DateTime.Today.Add(vremeOd);
+
+                var vremeDo = TimeSpan.Parse(src.VremeDo);
+                dest.VremeDo = DateTime.Today.Add(vremeDo);
+            });
         }
+
     }
 }
+

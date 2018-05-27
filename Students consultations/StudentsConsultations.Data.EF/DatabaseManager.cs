@@ -16,11 +16,11 @@ namespace StudentsConsultations.Data.EF
 
         private bool _disposed;
 
-        private IDatumRepository _datumRepository;
-
         private IIspitRepository _ispitRepository;
 
-        private IKonsultacijeRepository _konsultacijeRepository;
+        private IStudentKonsultacijaRepository _studentKonsultacijaRepository;
+
+        private IKonsultacijaRepository _konsultacijaRepository;
 
         private INastavnikRepository _nastavnikRepository;
 
@@ -36,11 +36,11 @@ namespace StudentsConsultations.Data.EF
 
         private IZavrsniRadRepository _zavrsniRadRepository;
 
-        public IDatumRepository DatumRepository => _datumRepository ?? (_datumRepository = new DatumRepository(_context));
-
         public IIspitRepository IspitRepository => _ispitRepository ?? (_ispitRepository = new IspitRepository(_context));
 
-        public IKonsultacijeRepository KonsultacijeRepository => _konsultacijeRepository ?? (_konsultacijeRepository = new KonsultacijeRepository(_context));
+        public IStudentKonsultacijaRepository StudentKonsultacijaRepository => _studentKonsultacijaRepository ?? (_studentKonsultacijaRepository = new StudentKonsultacijaRepository(_context));
+
+        public IKonsultacijaRepository KonsultacijaRepository => _konsultacijaRepository ?? (_konsultacijaRepository = new KonsultacijaRepository(_context));
 
         public INastavnikRepository NastavnikRepository => _nastavnikRepository ?? (_nastavnikRepository = new NastavnikRepository(_context));
 

@@ -12,7 +12,7 @@ namespace StudentsConsultations.Service
 {
     public class PDFGenerator : IPDFGenerator
     {
-        public byte[] GeneratePDF(List<Konsultacije> konsultacije, UserType userType)
+        public byte[] GeneratePDF(List<StudentKonsultacija> konsultacije, UserType userType)
         {
             using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
             {
@@ -50,7 +50,7 @@ namespace StudentsConsultations.Service
             }
         }
 
-        private void KonsultacijeZaStudenta(Document document, List<Konsultacije> konsultacije)
+        private void KonsultacijeZaStudenta(Document document, List<StudentKonsultacija> konsultacije)
         {
             Paragraph paragraphForStudent = new Paragraph("Student:" + " " + konsultacije.FirstOrDefault().Student.Ime + " " + konsultacije.FirstOrDefault().Student.Prezime + " " + konsultacije.FirstOrDefault().Student.BrojIndeksa);
             paragraphForStudent.SpacingBefore = 15;
@@ -77,7 +77,6 @@ namespace StudentsConsultations.Service
             {
 
                 table.AddCell(k.Nastavnik.Ime + " " + k.Nastavnik.Prezime);
-                table.AddCell(k.DatumKonsultacija.Date.ToString());
 
                 if (k.Odrzane)
                 {
@@ -91,7 +90,7 @@ namespace StudentsConsultations.Service
             document.Add(table);
         }
 
-        private void KonsultacijeZaNastavnika(Document document, List<Konsultacije> konsultacije)
+        private void KonsultacijeZaNastavnika(Document document, List<StudentKonsultacija> konsultacije)
         {
             Paragraph paragraphForStudent = new Paragraph("Nastavnik:" + " " + konsultacije.FirstOrDefault().Nastavnik.Ime + " " + konsultacije.FirstOrDefault().Nastavnik.Prezime + " " + konsultacije.FirstOrDefault().Nastavnik.BrojRadneKnjizice);
             paragraphForStudent.SpacingBefore = 15;
@@ -118,7 +117,6 @@ namespace StudentsConsultations.Service
             {
 
                 table.AddCell(k.Student.Ime + " " + k.Student.Prezime);
-                table.AddCell(k.DatumKonsultacija.Date.ToString());
 
                 if (k.Odrzane)
                 {

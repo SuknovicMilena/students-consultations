@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Konsultacije</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  </div>
+</nav>
+
+<div class="form">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 com-md-offset-2 form-center">
+    <div class="form-group">
+      <div class="form-group">
+        <label for="razlog">Dan u nedelji</label>
+        <select class="form-control" (change)="promeniDanUnedelji($event)">
+          <option selected="true" disabled="disabled">{{konsultacija.danUNedelji | dayOfWeek}}</option>
+          <option *ngFor="let dan of daniUNedelji" [value]="dan.id">{{ dan.naziv }}</option>
+        </select>
+      </div>
+      <label for="exampleInputEmail1">Vreme od</label>
+      <input id="vremeOd" type="time" [(ngModel)]="konsultacija.vremeOd">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Vreme do</label>
+      <input id="vremeDo" type="time" [(ngModel)]="konsultacija.vremeDo">
+    </div>
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="update()">Izmeni</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="delete()">Obrisi</button>
+    <button class="btn btn-outline-warning my-2 my-sm-0" (click)="cancel()">Odustani</button>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Nastavnik } from '../models/nastavnik';
 import { Observable } from 'rxjs/Observable';
-import { Konsultacije } from '../models/konsultacije';
 import { HttpClient } from '@angular/common/http';
 import { Search } from '../models/search';
 import { DatumKonsultacija } from '../models/datum-konsultacija';
+import { NastavnikKonsultacije } from '../models/nastavnik-konsultacije';
 
 @Injectable()
 export class NastavnikService {
@@ -15,20 +15,28 @@ export class NastavnikService {
     return this.http.get<Nastavnik[]>('http://localhost:63561/nastavnici');
   }
 
-  getAllKonsultacijeByNastavnikId(nastavnikId: number): Observable<Konsultacije[]> {
-    return this.http.get<Konsultacije[]>(`http://localhost:63561/konsultacije/bynastavnik/${nastavnikId}`);
+  getAllKonsultacijeByNastavnikId(nastavnikId: number): Observable<NastavnikKonsultacije[]> {
+    return this.http.get<NastavnikKonsultacije[]>(`http://localhost:63561/konsultacije/getallbynastavnik/${nastavnikId}`);
   }
 
-  searchByStudent(searchRequest: Search, nastavnikId: number) {
-    return this.http.post<Konsultacije[]>(`http://localhost:63561/konsultacije/pretragapostudentu/${nastavnikId}`, searchRequest);
+  // searchByStudent(searchRequest: Search, nastavnikId: number) {
+  //   return this.http.post<Konsultacije[]>(`http://localhost:63561/konsultacije/pretragapostudentu/${nastavnikId}`, searchRequest);
+  // }
+
+  deleteKonsultacija(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:63561/konsultacije/${id}`);
   }
 
-  deleteKonsultacija(konsultacija: Konsultacije): Observable<void> {
-    return this.http.post<void>(`http://localhost:63561/konsultacije/delete`, konsultacija);
+  addKonsultacija(konsultacija: NastavnikKonsultacije): Observable<void> {
+    return this.http.post<void>(`http://localhost:63561/konsultacije`, konsultacija);
   }
 
-  getKonsultacija(studentId: number, nastavnikId: number, datumKonsultacija: DatumKonsultacija): Observable<Konsultacije> {
-    return this.http.post<Konsultacije>(`http://localhost:63561/konsultacije/getkonsultacija/${studentId}/${nastavnikId}`, datumKonsultacija);
+  updateKonsultacija(konsultacija: NastavnikKonsultacije): Observable<void> {
+    return this.http.put<void>(`http://localhost:63561/konsultacije`, konsultacija);
+  }
+
+  getKonsultacija(id: number): Observable<NastavnikKonsultacije> {
+    return this.http.get<NastavnikKonsultacije>(`http://localhost:63561/konsultacije/${id}`);
   }
 
   getPdf(searchRequest: Search, nastavnikId: number): Observable<Blob> {

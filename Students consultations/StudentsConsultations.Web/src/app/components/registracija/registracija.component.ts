@@ -35,10 +35,10 @@ export class RegistracijaComponent implements OnInit {
   }
 
   registrujNastavnika() {
-    this.authService.registracijaNastavnika(this.registracijaNastavnika).subscribe(response =>
+    this.authService.registracijaNastavnika(this.registracijaNastavnika).subscribe(
       data => {
-        this.router.navigate(['/prijavljivanje']);
         this.toastService.success('Uspesno ste se registrovali. Mozete se prijaviti.');
+        this.router.navigate(['/prijavljivanje']);
       },
       error => {
         this.toastService.error('Niste se uspesno registrovali.');
@@ -47,7 +47,7 @@ export class RegistracijaComponent implements OnInit {
   }
 
   registrujStudenta() {
-    this.authService.registracijaStudenta(this.registracijaStudenta).subscribe(response => data => {
+    this.authService.registracijaStudenta(this.registracijaStudenta).subscribe(data => {
       this.router.navigate(['/prijavljivanje']);
       this.toastService.success('Uspesno ste se registrovali. Mozete se prijaviti.');
     },
