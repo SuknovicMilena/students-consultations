@@ -4,18 +4,23 @@ import { DateObject } from 'ngx-bootstrap/chronos/types';
 import { Projekat } from './projekat';
 import { Ispit } from './ispit';
 import { ZavrsniRad } from './zavrsniRad';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class StudentKonsultacije {
   studentId: number;
   nastavnikId: number;
   razlogId: number;
   odrzane: boolean;
+  datumKonsultacijaZaView: NgbDateStruct;
   datumKonsultacija: Date;
   datumString: string;
 
   student: Student;
   nastavnik: Nastavnik;
   razlog: Razlog;
+
+  vremeOd: string;
+  vremeDo: string;
 }
 
 export class Razlog {

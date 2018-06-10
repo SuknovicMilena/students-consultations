@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Nastavnik } from '../../models/nastavnik';
@@ -12,12 +12,18 @@ import { Student } from '../../models/student';
 import { Search } from '../../models/search';
 import { DatumKonsultacija } from '../../models/datum-konsultacija';
 import { UtilService } from '../../services/util.service';
+import { NastavnikKonsultacije } from '../../models/nastavnik-konsultacije';
+import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
+import { NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { ZakazaneKonsultacijeResponse } from '../../models/zakazane-konsultacije-response';
+import { ZakazaneKonsultacijeRequest } from '../../models/zakazane-konsultacije-reguest';
 
 @Component({
   selector: 'app-konsultacija',
   templateUrl: './student-konsultacija.component.html',
   styleUrls: ['./student-konsultacija.component.scss'],
-  providers: [DateFormatPipe]
+  providers: [DayOfWeekPipe, NgbDatepickerConfig]
 })
 export class StudentKonsultacijaComponent implements OnInit {
 
@@ -27,13 +33,35 @@ export class StudentKonsultacijaComponent implements OnInit {
   razlozi: any[] = [{ id: 0, naziv: 'Ispit' }, { id: 1, naziv: 'Zavrsni rad' }, { id: 2, naziv: 'Projekat' }];
 
   konsultacija = new StudentKonsultacije();
+  terminiKonsultacije = new Array<number>();
+  zakazaneKonsultacije = new Array<ZakazaneKonsultacijeResponse>();
+  slobodneKonsultacije = new Array<ZakazaneKonsultacijeResponse>();
+  sveKonsultacijeNastavnika: NastavnikKonsultacije[];
   razlog = new Razlog();
+  errorInSelection: string;
 
   isIspit: boolean;
   isZavrsniRad: boolean;
   isProjekat: boolean;
   userType: UserType;
   UserType = UserType;
+
+  @ViewChild('trajanjeSelect') trajanjeSelect: ElementRef;
+
+  daniUNedelji: any[] =
+    [
+      { id: 1, naziv: 'Ponedeljak' },
+      { id: 2, naziv: 'Utorak' },
+      { id: 3, naziv: 'Sreda' },
+      { id: 4, naziv: 'Cetvrtak' },
+      { id: 5, naziv: 'Petak' },
+      { id: 6, naziv: 'Subota' },
+      { id: 7, naziv: 'Nedelja' }
+    ];
+
+  minDate: Date;
+  maxDate: Date;
+  wholeMonth: Array<Date>;
 
   constructor(
     private nastavnikService: NastavnikService,
@@ -42,11 +70,19 @@ export class StudentKonsultacijaComponent implements OnInit {
     private toastrService: ToastrService,
     private dateFormatPipe: DateFormatPipe,
     private route: ActivatedRoute,
-    private utilService: UtilService
+    private utilService: UtilService,
+    config: NgbDatepickerConfig
   ) {
     const userType = route.snapshot.params.userType;
     const nastavnikId = route.snapshot.params.nastavnikId;
     const datumKonsultacija = route.snapshot.params.datumKonsultacija;
+
+    this.minDate = new Date();
+    this.maxDate = moment().add(1, 'month').toDate();
+
+    config.minDate = { day: this.minDate.getUTCDate(), month: this.minDate.getUTCMonth() + 1, year: this.minDate.getUTCFullYear() };
+    config.maxDate = { day: this.maxDate.getUTCDate(), month: this.maxDate.getUTCMonth() + 1, year: this.maxDate.getUTCFullYear() };
+    config.firstDayOfWeek = this.minDate.getUTCDay();
 
     if (userType === '0') {
       this.userType = UserType.Student;
@@ -55,6 +91,8 @@ export class StudentKonsultacijaComponent implements OnInit {
     }
   }
 
+  isDisabled = this.isDisabledStub.bind(this);
+
   ngOnInit() {
     this.nastavnikService.getAllNastavnici().subscribe(response => {
       this.nastavnici = response;
@@ -62,6 +100,14 @@ export class StudentKonsultacijaComponent implements OnInit {
     this.studentService.getAllStudenti().subscribe(response => {
       this.studenti = response;
     });
+  }
+
+  isDisabledStub(date: NgbDateStruct, current: { month: number }): boolean {
+    const daysDisabled = this.terminiKonsultacije.filter(d => {
+      return d.toString() === moment(`${date.day}/${date.month}/${date.year}`, 'DD/MM/YYYY').format('e');
+    });
+
+    return daysDisabled.length === 0;
   }
 
   save() {
@@ -85,11 +131,83 @@ export class StudentKonsultacijaComponent implements OnInit {
     });
   }
 
+  onDateSelection(newDate) {
+    this.konsultacija.datumKonsultacijaZaView = newDate;
 
+    const zakazaneKonsultacijeRequest = new ZakazaneKonsultacijeRequest();
+    zakazaneKonsultacijeRequest.nastavnikId = this.konsultacija.nastavnikId;
+    zakazaneKonsultacijeRequest.zeljeniDatum = new Date(Date.UTC(newDate.year, newDate.month - 1, newDate.day));
 
-  onDateChanged($event) {
-    this.konsultacija.datumKonsultacija = new Date(this.dateFormatPipe.transform($event.date));
-    console.log(this.konsultacija.datumKonsultacija);
+    this.studentService.getAllZakazaneKonsultacijeByNastavnikId(zakazaneKonsultacijeRequest).subscribe((konsultacije) => {
+      this.zakazaneKonsultacije = konsultacije;
+      this.changeTrajanje(null);
+    });
+  }
+
+  changeTrajanje($event) {
+    if (!$event && !this.trajanjeSelect) {
+      return;
+    }
+
+    const trajanje = $event ? +$event.target.value : this.trajanjeSelect.nativeElement.value;
+
+    if (!trajanje) {
+      return;
+    }
+
+    const vremeOdSaDatumom = moment(this.konsultacija.vremeOd, 'HH:mm').toDate();
+    vremeOdSaDatumom.setDate(this.konsultacija.datumKonsultacijaZaView.day);
+    vremeOdSaDatumom.setMonth(this.konsultacija.datumKonsultacijaZaView.month - 1);
+    vremeOdSaDatumom.setFullYear(this.konsultacija.datumKonsultacijaZaView.year);
+
+    const potencijalnoVremeOd = moment(vremeOdSaDatumom);
+    const potencijalnoVremeDo = potencijalnoVremeOd.clone().add(trajanje, 'minutes');
+
+    const preklapanje = this.zakazaneKonsultacije.filter(k => {
+      const vremeOd = moment.utc(k.vremeOd).local();
+      const vremeDo = moment.utc(k.vremeDo).local();
+
+      const potencijalnoOdIsBeforeOd = potencijalnoVremeOd.isBefore(vremeOd);
+
+      if (potencijalnoOdIsBeforeOd) {
+        const postojiPreklapanje = potencijalnoVremeDo.isAfter(vremeOd);
+        return postojiPreklapanje;
+      } else {
+        const postojiPreklapanje = potencijalnoVremeOd.isBefore(vremeDo);
+        return postojiPreklapanje;
+      }
+
+    });
+    console.log(preklapanje);
+
+    if (preklapanje.length) {
+      this.errorInSelection = 'Vec postoje konsultacije u tom vremenskom okviru';
+    } else {
+      this.konsultacija.vremeDo = potencijalnoVremeDo.format('HH:mm');
+    }
+  }
+
+  onVremeOdChange(novoVreme) {
+    this.errorInSelection = undefined;
+    this.changeTrajanje(null);
+  }
+
+  getMinVremeOd() {
+    const date = this.konsultacija.datumKonsultacijaZaView;
+    const currentSpan = this.sveKonsultacijeNastavnika.filter(k => {
+      return k.danUNedelji.toString() === moment(`${date.day}/${date.month}/${date.year}`, 'DD/MM/YYYY').format('e');
+    });
+
+    return currentSpan ? moment.utc(currentSpan[0].vremeOd).local().format('HH:mm') : null;
+  }
+
+  getMaxVremeOd() {
+    const date = this.konsultacija.datumKonsultacijaZaView;
+    const currentSpan = this.sveKonsultacijeNastavnika.filter(k => {
+      return k.danUNedelji.toString() === moment(`${date.day}/${date.month}/${date.year}`, 'DD/MM/YYYY').format('e');
+    });
+
+    return currentSpan ? moment.utc(currentSpan[0].vremeDo).local().format('HH:mm') : null;
   }
 
   changeRazlog($event) {
@@ -118,12 +236,8 @@ export class StudentKonsultacijaComponent implements OnInit {
     }
   }
 
-  changeNastavnik($event) {
+  changeTerminKonsultacija($event) {
     this.konsultacija.nastavnikId = $event.target.value;
-  }
-
-  changeStudent($event) {
-    this.konsultacija.studentId = $event.target.value;
   }
 
   cancel() {
@@ -134,24 +248,11 @@ export class StudentKonsultacijaComponent implements OnInit {
     }
   }
 
-  convertTicksToDate(time, format) {
-    const t = new Date(time);
-    const tf = function (i) { return (i < 10 ? '0' : '') + i; };
-    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-      switch (a) {
-        case 'yyyy':
-          return tf(t.getFullYear());
-        case 'MM':
-          return tf(t.getMonth() + 1);
-        case 'mm':
-          return tf(t.getMinutes());
-        case 'dd':
-          return tf(t.getDate());
-        case 'HH':
-          return tf(t.getHours());
-        case 'ss':
-          return tf(t.getSeconds());
-      }
+  changeNastavnik($event) {
+    this.konsultacija.nastavnikId = $event.target.value;
+    this.nastavnikService.getAllKonsultacijeByNastavnikId(this.konsultacija.nastavnikId).subscribe(response => {
+      this.terminiKonsultacije = response.map(x => x.danUNedelji);
+      this.sveKonsultacijeNastavnika = response;
     });
   }
 }

@@ -39,16 +39,13 @@ namespace StudentsConsultations.Controllers
         }
 
 
-        //[HttpPost("getkonsultacija/{studentId}/{nastavnikId}")]
-        //public IActionResult GetKonsultacija(int studentId, int nastavnikId, [FromBody]DatumKonsultacijaRequest request)
-        //{
-        //    DateTime datumTicks = new DateTime(datumKonsultacija);
-        //    String datum = datumTicks.ToString("yyyy-MM-dd");
+        [HttpPost("getkonsultacija/{id}")]
+        public IActionResult GetKonsultacija(int id)
+        {
+            var konsultacija = _iKonsultacijeService.GetKonsultacija(id);
 
-        //    var konsultacija = _iKonsultacijeService.GetKonsultacija(studentId, nastavnikId, DateTime.Parse(request.DatumString));
-
-        //    return Ok(_mapper.Map<StudentKonsultacijaRowDto>(konsultacija));
-        //}
+            return Ok(_mapper.Map<StudentKonsultacijaRowDto>(konsultacija));
+        }
 
         [HttpGet("bystudent/{studentId}")]
         public IActionResult GetAllByStudent(int studentId)
@@ -66,6 +63,16 @@ namespace StudentsConsultations.Controllers
             var konsultacije = _iKonsultacijeService.GetAllKonsultacijeByNastavnik(nastavnikId);
 
             var konsultacijeRowDtos = _mapper.Map<List<StudentKonsultacijaRowDto>>(konsultacije);
+
+            return Ok(konsultacijeRowDtos);
+        }
+
+        [HttpPost("zakzanekonsultacijebynastavnik")]
+        public IActionResult GetAllZakazaneKonsultacijeByNastavnik([FromBody] ZakazaneKonsultacijeRequest request)
+        {
+            var konsultacije = _iKonsultacijeService.GetAllZakazaneKonsultacijeKonsultacijeByNastavnik(request.NastavnikId, request.ZeljeniDatum);
+
+            var konsultacijeRowDtos = _mapper.Map<List<ZakazaneKonsultacijeRowDto>>(konsultacije);
 
             return Ok(konsultacijeRowDtos);
         }
@@ -130,10 +137,8 @@ namespace StudentsConsultations.Controllers
 
             var konsultacije = _mapper.Map<StudentKonsultacija>(request);
 
-            request.DatumKonsultacija = DateTime.Parse(request.DatumString);
-
             konsultacije.RazlogId = razlogId;
-            _iKonsultacijeService.Insert(konsultacije, request.DatumKonsultacija);
+            _iKonsultacijeService.Insert(konsultacije);
 
             return Ok();
         }
@@ -144,22 +149,22 @@ namespace StudentsConsultations.Controllers
             var razlogZaUpdate = _mapper.Map<Razlog>(request.Razlog);
             _iRazlogService.Update(razlogZaUpdate);
 
-            var konsultacijaIzBaze = _iKonsultacijeService.GetKonsultacija(request.StudentId, request.NastavnikId, request.DatumKonsultacija);
+            var konsultacijaIzBaze = _iKonsultacijeService.GetKonsultacija(request.Id);
 
             if (konsultacijaIzBaze == null)
             {
                 return new NotFoundResult();
             }
 
-            konsultacijaIzBaze.Nastavnik.Id = request.NastavnikId;
-            konsultacijaIzBaze.Student.Id = request.StudentId;
+            // konsultacijaIzBaze.Nastavnik.Id = request.NastavnikId;
             konsultacijaIzBaze.Odrzane = request.Odrzane;
+            konsultacijaIzBaze.VremeOd = DateTime.Parse(request.VremeOd);
+            konsultacijaIzBaze.VremeDo = DateTime.Parse(request.VremeDo);
 
             _iKonsultacijeService.Update(konsultacijaIzBaze);
 
             return Ok();
         }
-
 
         [HttpPost("pretragaponastavniku/{studentId}")]
         public IActionResult SearchByNastavnik([FromBody]SearchRequest request, int studentId)

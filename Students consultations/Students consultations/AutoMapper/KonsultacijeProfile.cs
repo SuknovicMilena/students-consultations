@@ -17,6 +17,8 @@ namespace StudentsConsultations.AutoMapper
 
             CreateMap<Konsultacija, KonsultacijeRowDto>();
 
+            CreateMap<Konsultacija, ZakazaneKonsultacijeRowDto>();
+
             CreateMap<KonsultacijaRequest, Konsultacija>().AfterMap((src, dest) =>
             {
                 var vremeOd = TimeSpan.Parse(src.VremeOd);

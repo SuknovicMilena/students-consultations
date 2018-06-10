@@ -12,6 +12,8 @@ namespace StudentsConsultations.Models.Konsultacije
 {
     public class StudentKonsultacijaRequest
     {
+        public int Id { get; set; }
+
         public int StudentId { get; set; }
 
         public int NastavnikId { get; set; }
@@ -20,9 +22,13 @@ namespace StudentsConsultations.Models.Konsultacije
 
         public bool Odrzane { get; set; }
 
-        public string DatumString { get; set; }
+        public string VremeOd { get; set; }
 
-        public DateTime DatumKonsultacija { get; set; }
+        public string VremeDo { get; set; }
+
+        public int KonsultacijaId { get; set; }
+
+        public KonsultacijaDto Konsultacija { get; set; }
 
         public RazlogRequest Razlog { get; set; }
     }

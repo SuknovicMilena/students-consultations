@@ -10,10 +10,6 @@
 <div class="form">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 com-md-offset-2 form-center">
     <div class="form-group">
-      <label for="exampleInputEmail1">Datum konsultacija</label>
-      <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDate"></my-date-picker>
-    </div>
-    <div class="form-group">
       <label for="razlog">Razlog</label>
       <select class="form-control" (change)="changeRazlog($event)">
         <option selected="true" disabled="disabled">Izaberite razlog konsultacija</option>
@@ -49,14 +45,57 @@
         <option *ngFor="let nastavnik of nastavnici" [value]="nastavnik.id">{{nastavnik.ime}} {{nastavnik.prezime}}</option>
       </select>
     </div>
-    <div *ngIf="userType==UserType.Nastavnik" class="form-group">
-      <label for="nastavnik">Student</label>
-      <select class="form-control" (change)="changeStudent($event)">
-        <option selected="true" disabled="disabled">Izaberite studenta</option>
+
+    <div *ngIf="sveKonsultacijeNastavnika">
+      <label>Nastavnik  drzi konsultacije: </label>
+      <div *ngFor="let konsultacija of sveKonsultacijeNastavnika">
+        <label> Vreme od {{konsultacija.vremeOd | dateFormat: 'HH:mm'}}</label>
+        <label> Vreme od {{konsultacija.vremeDo | dateFormat: 'HH:mm'}}</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Datum konsultacija</label>
+      <div class="input-group">
+
+        <input class="form-control" [(ngModel)]="konsultacija.datumKonsultacijaZaView" (ngModelChange)="onDateSelection($event)" placeholder="dd-mm-yyyy" name="dp" [markDisabled]="isDisabled" [displayMonths]="displayMonths"
+          [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" firstDayOfWeek="1" ngbDatepicker #d="ngbDatepicker">
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="../../../assets/img/images.jpg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+          </button>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+      <label for="konsultacije">Izaberite termin konsultacija</label>
+      <select class="form-control" (change)="changeTerminKonsultacija($event)">
+        <option selected="true" disabled="disabled">Izaberite termin</option>
         <option *ngFor="let student of studenti" [value]="student.id">{{student.ime}} {{student.prezime}}</option>
       </select>
+    </div> -->
+      <div *ngIf="konsultacija.datumKonsultacijaZaView">
+
+        <div class="form-group">
+          <label>Vreme do</label>
+          <input id="vremeOd" type="time" [attr.min]="getMinVremeOd()" [attr.max]="getMaxVremeOd()" [(ngModel)]="konsultacija.vremeOd" (ngModelChange)="onVremeOdChange($event)">
+          <span></span>
+        </div>
+
+        <div class="form-group" *ngIf="konsultacija.vremeOd">
+          <label for="trajanje">Trajanje konsultacija</label>
+          <select #trajanjeSelect class="form-control" (change)="changeTrajanje($event)">
+            <option selected="true" disabled="disabled">Izaberite trajanje</option>
+            <option [value]="15">15m</option>
+            <option [value]="30">30m</option>
+          </select>
+        </div>
+
+        <div class="text-danger">{{ errorInSelection }}</div>
+
+      </div>
+
+      <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="save()">Sacuvaj</button>
+      <button class="btn btn-outline-warning my-2 my-sm-0" (click)="cancel()">Odustani</button>
     </div>
-    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="save()">Sacuvaj</button>
-    <button class="btn btn-outline-warning my-2 my-sm-0" (click)="cancel()">Odustani</button>
   </div>
-</div>

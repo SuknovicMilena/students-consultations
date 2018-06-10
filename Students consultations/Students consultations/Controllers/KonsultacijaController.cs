@@ -25,7 +25,6 @@ namespace StudentsConsultations.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet("{id}")]
         public IActionResult GetKonsultacija(int id)
         {

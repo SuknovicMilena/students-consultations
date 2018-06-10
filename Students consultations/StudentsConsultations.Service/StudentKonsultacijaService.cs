@@ -83,7 +83,7 @@ namespace StudentsConsultations.Service
         {
             var konsultacijeZaStudenta = GetAllKonsultacijeByStudentId(studentId);
 
-            IEnumerable<IGrouping<object, StudentKonsultacija>> groups = konsultacijeZaStudenta.GroupBy(x => new {  });
+            IEnumerable<IGrouping<object, StudentKonsultacija>> groups = konsultacijeZaStudenta.GroupBy(x => new { });
             IEnumerable<StudentKonsultacija> konsultacije = groups.SelectMany(group => group);
             return konsultacije.ToList();
         }
@@ -123,6 +123,11 @@ namespace StudentsConsultations.Service
             return konsultacije;
         }
 
+        public List<StudentKonsultacija> GetAllZakazaneKonsultacijeKonsultacijeByNastavnik(int nastavnikId, DateTime zeljeniDatum)
+        {
+            return _databaseManager.StudentKonsultacijaRepository.GetAll(x => x.NastavnikId == nastavnikId && x.VremeOd.Date == zeljeniDatum.Date).ToList();
+        }
+
         public List<StudentKonsultacija> GetAllKonsultacijeByNastavnik(int nastavnikId)
         {
             var konsultacije = _databaseManager.StudentKonsultacijaRepository.GetAll(x => x.NastavnikId == nastavnikId).ToList();
@@ -160,9 +165,10 @@ namespace StudentsConsultations.Service
             return groups.SelectMany(group => group).OrderBy(x => x.Odrzane).ToList();
         }
 
-        public void Insert(StudentKonsultacija entity)
+        public void Insert(StudentKonsultacija konsultacija)
         {
-            throw new NotImplementedException();
+            _databaseManager.StudentKonsultacijaRepository.Insert(konsultacija);
+            _databaseManager.SaveChanges();
         }
 
         public List<StudentKonsultacija> SearchByNastavnik(string searchText, int studentId)
@@ -177,17 +183,17 @@ namespace StudentsConsultations.Service
             || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
         }
 
-        public StudentKonsultacija GetKonsultacija(int studentId, int nastavnikId, DateTime datum)
+        public StudentKonsultacija GetKonsultacija(int id)
         {
 
-            var nastavnik = _databaseManager.NastavnikRepository.GetById(nastavnikId);
-            var student = _databaseManager.StudentRepository.GetById(studentId);
+            //var nastavnik = _databaseManager.NastavnikRepository.GetById(nastavnikId);
+            //var student = _databaseManager.StudentRepository.GetById(studentId);
 
 
-            var konsultacija = _databaseManager.StudentKonsultacijaRepository.GetAll(x => x.NastavnikId == nastavnikId && x.StudentId == studentId).FirstOrDefault();
+            var konsultacija = _databaseManager.StudentKonsultacijaRepository.GetAll(x => x.Id == id).FirstOrDefault();
 
-            konsultacija.Nastavnik = nastavnik;
-            konsultacija.Student = student;
+            //konsultacija.Nastavnik = nastavnik;
+            //konsultacija.Student = student;
 
             var razlog = _databaseManager.RazlogRepository.GetById(konsultacija.RazlogId);
 

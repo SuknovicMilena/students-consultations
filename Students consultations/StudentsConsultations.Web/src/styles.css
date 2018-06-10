@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 * {
-    font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+.row {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
 }

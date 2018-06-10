@@ -19,10 +19,12 @@
       </div>
       <label for="exampleInputEmail1">Vreme od</label>
       <input id="vremeOd" type="time" [(ngModel)]="konsultacija.vremeOd">
+        <label>PM</label>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Vreme do</label>
       <input id="vremeDo" type="time" [(ngModel)]="konsultacija.vremeDo">
+      <label>PM</label>
     </div>
     <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="update()">Izmeni</button>
     <button class="btn btn-outline-danger my-2 my-sm-0" (click)="delete()">Obrisi</button>
