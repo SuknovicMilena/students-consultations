@@ -21,6 +21,7 @@ export class StudentKonsultacije {
 
   vremeOd: string;
   vremeDo: string;
+  konsultacijaId: number;
 }
 
 export class Razlog {

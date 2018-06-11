@@ -22,10 +22,10 @@ namespace StudentsConsultations.AutoMapper
             CreateMap<KonsultacijaRequest, Konsultacija>().AfterMap((src, dest) =>
             {
                 var vremeOd = TimeSpan.Parse(src.VremeOd);
-                dest.VremeOd = DateTime.Today.Add(vremeOd);
+                dest.VremeOd = DateTime.Today.Add(vremeOd).ToUniversalTime();
 
                 var vremeDo = TimeSpan.Parse(src.VremeDo);
-                dest.VremeDo = DateTime.Today.Add(vremeDo);
+                dest.VremeDo = DateTime.Today.Add(vremeDo).ToUniversalTime();
             });
         }
 

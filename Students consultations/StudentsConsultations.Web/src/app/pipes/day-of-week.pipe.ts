@@ -5,25 +5,25 @@ export class DayOfWeekPipe implements PipeTransform {
 
   transform(dayNumber: number): string {
     switch (dayNumber) {
-      case 0: {
+      case 1: {
         return 'Ponedeljak';
       }
-      case 1: {
+      case 2: {
         return 'Utorak';
       }
-      case 2: {
+      case 3: {
         return 'Sreda';
       }
-      case 3: {
+      case 4: {
         return 'Cetvrtak';
       }
-      case 4: {
+      case 5: {
         return 'Petak';
       }
-      case 5: {
+      case 6: {
         return 'Subota';
       }
-      case 6: {
+      case 7: {
         return 'Nedelja';
       }
     }

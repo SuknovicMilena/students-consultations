@@ -21,9 +21,6 @@ export class StudentKonsultacijeComponent implements OnInit {
 
   konsultacijeZaStudenta: Array<StudentKonsultacije>;
 
-  calendarOptions: Options;
-  @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
-
   constructor(private studentService: StudentService,
     private authService: AuthService,
     private utilService: UtilService,

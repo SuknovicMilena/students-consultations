@@ -8,5 +8,6 @@ namespace StudentsConsultations.Service.Interfaces
     public interface IKonsultacijaService : IBaseService<Konsultacija>
     {
         List<Konsultacija> GetAllByNastavnik(int nastavnikId);
+        Konsultacija GetByNastavnikIdAndDanUNedelji(int nastavnikId, int danUNedelji);
     }
 }

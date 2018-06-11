@@ -33,6 +33,14 @@ namespace StudentsConsultations.Controllers
             return Ok(_mapper.Map<KonsultacijaDto>(konsultacija));
         }
 
+        [HttpGet("nastavnikId/{nastavnikId}/danUNedelji/{danUNedelji}")]
+        public IActionResult GetKonsultacijaByNastavnikIdAndDanUNedelji(int nastavnikId, int danUNedelji)
+        {
+            var konsultacija = _iKonsultacijeService.GetByNastavnikIdAndDanUNedelji(nastavnikId, danUNedelji);
+
+            return Ok(_mapper.Map<KonsultacijaDto>(konsultacija));
+        }
+
         [HttpGet("getallbynastavnik/{nastavnikId}")]
         public IActionResult GetAll(int nastavnikId)
         {

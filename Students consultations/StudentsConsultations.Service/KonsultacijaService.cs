@@ -27,6 +27,11 @@ namespace StudentsConsultations.Service
             return _databaseManager.KonsultacijaRepository.GetById(id);
         }
 
+        public Konsultacija GetByNastavnikIdAndDanUNedelji(int nastavnikId, int danUNedelji)
+        {
+            return _databaseManager.KonsultacijaRepository.GetBy(x => x.NastavnikId == nastavnikId && x.DanUNedelji == danUNedelji);
+        }
+
         public List<Konsultacija> GetAllByNastavnik(int nastavnikId)
         {
             return _databaseManager.KonsultacijaRepository.GetAll(x => x.NastavnikId == nastavnikId).ToList();

@@ -45,6 +45,7 @@ export class StudentKonsultacijaComponent implements OnInit {
   isProjekat: boolean;
   userType: UserType;
   UserType = UserType;
+  trenutnoIzabraniDanUNedelji: number;
 
   @ViewChild('trajanjeSelect') trajanjeSelect: ElementRef;
 
@@ -68,14 +69,11 @@ export class StudentKonsultacijaComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private toastrService: ToastrService,
-    private dateFormatPipe: DateFormatPipe,
     private route: ActivatedRoute,
     private utilService: UtilService,
     config: NgbDatepickerConfig
   ) {
     const userType = route.snapshot.params.userType;
-    const nastavnikId = route.snapshot.params.nastavnikId;
-    const datumKonsultacija = route.snapshot.params.datumKonsultacija;
 
     this.minDate = new Date();
     this.maxDate = moment().add(1, 'month').toDate();
@@ -118,16 +116,18 @@ export class StudentKonsultacijaComponent implements OnInit {
     } else {
       this.konsultacija.nastavnikId = this.utilService.getNastavnikId();
     }
+    this.nastavnikService.getKonsultacijaByNastavnikIdAndDanUNedelji(+this.konsultacija.nastavnikId, this.trenutnoIzabraniDanUNedelji).subscribe((response) => {
+      this.konsultacija.konsultacijaId = response.id;
+      this.konsultacija.razlog = this.razlog;
+      this.studentService.insertKonsultacije(this.konsultacija).subscribe(response => {
+        this.toastrService.success('Konsultacija dodata!', 'Uspesno!');
 
-    this.konsultacija.razlog = this.razlog;
-    this.studentService.insertKonsultacije(this.konsultacija).subscribe(response => {
-      this.toastrService.success('Konsultacija dodata!', 'Uspesno!');
-
-      if (this.userType === UserType.Student) {
-        this.router.navigate(['/student-konsultacije']);
-      } else {
-        this.router.navigate(['/nastavnik-konsultacije']);
-      }
+        if (this.userType === UserType.Student) {
+          this.router.navigate(['/student-konsultacije']);
+        } else {
+          this.router.navigate(['/nastavnik-konsultacije']);
+        }
+      });
     });
   }
 
@@ -137,6 +137,9 @@ export class StudentKonsultacijaComponent implements OnInit {
     const zakazaneKonsultacijeRequest = new ZakazaneKonsultacijeRequest();
     zakazaneKonsultacijeRequest.nastavnikId = this.konsultacija.nastavnikId;
     zakazaneKonsultacijeRequest.zeljeniDatum = new Date(Date.UTC(newDate.year, newDate.month - 1, newDate.day));
+
+    this.trenutnoIzabraniDanUNedelji = moment(zakazaneKonsultacijeRequest.zeljeniDatum).day();
+    console.log(this.trenutnoIzabraniDanUNedelji);
 
     this.studentService.getAllZakazaneKonsultacijeByNastavnikId(zakazaneKonsultacijeRequest).subscribe((konsultacije) => {
       this.zakazaneKonsultacije = konsultacije;
@@ -178,6 +181,7 @@ export class StudentKonsultacijaComponent implements OnInit {
       }
 
     });
+    this.konsultacija.datumKonsultacija = vremeOdSaDatumom;
     console.log(preklapanje);
 
     if (preklapanje.length) {

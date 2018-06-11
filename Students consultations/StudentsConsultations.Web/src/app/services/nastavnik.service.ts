@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Search } from '../models/search';
 import { DatumKonsultacija } from '../models/datum-konsultacija';
 import { NastavnikKonsultacije } from '../models/nastavnik-konsultacije';
+import * as moment from 'moment';
 
 @Injectable()
 export class NastavnikService {
@@ -37,6 +38,10 @@ export class NastavnikService {
 
   getKonsultacija(id: number): Observable<NastavnikKonsultacije> {
     return this.http.get<NastavnikKonsultacije>(`http://localhost:63561/konsultacije/${id}`);
+  }
+
+  getKonsultacijaByNastavnikIdAndDanUNedelji(nastavnikId: number, danUNedelji: number): Observable<NastavnikKonsultacije> {
+    return this.http.get<NastavnikKonsultacije>(`http://localhost:63561/konsultacije/nastavnikId/${nastavnikId}/danUNedelji/${danUNedelji}`);
   }
 
   getPdf(searchRequest: Search, nastavnikId: number): Observable<Blob> {
