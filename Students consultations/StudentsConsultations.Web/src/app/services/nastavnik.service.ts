@@ -6,6 +6,7 @@ import { Search } from '../models/search';
 import { DatumKonsultacija } from '../models/datum-konsultacija';
 import { NastavnikKonsultacije } from '../models/nastavnik-konsultacije';
 import * as moment from 'moment';
+import { StudentKonsultacije } from '../models/student-konsultacije';
 
 @Injectable()
 export class NastavnikService {
@@ -20,9 +21,9 @@ export class NastavnikService {
     return this.http.get<NastavnikKonsultacije[]>(`http://localhost:63561/konsultacije/getallbynastavnik/${nastavnikId}`);
   }
 
-  // searchByStudent(searchRequest: Search, nastavnikId: number) {
-  //   return this.http.post<Konsultacije[]>(`http://localhost:63561/konsultacije/pretragapostudentu/${nastavnikId}`, searchRequest);
-  // }
+  searchByStudent(searchRequest: Search, nastavnikId: number) {
+    return this.http.post<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/pretragapostudentu/${nastavnikId}`, searchRequest);
+  }
 
   deleteKonsultacija(id: number): Observable<void> {
     return this.http.delete<void>(`http://localhost:63561/konsultacije/${id}`);
@@ -45,7 +46,7 @@ export class NastavnikService {
   }
 
   getPdf(searchRequest: Search, nastavnikId: number): Observable<Blob> {
-    return this.http.post(`http://localhost:63561/konsultacije/generatepdffornastavnik/${nastavnikId}`, searchRequest, {
+    return this.http.post(`http://localhost:63561/student-konsultacije/generatepdffornastavnik/${nastavnikId}`, searchRequest, {
       responseType: 'blob'
     });
   }

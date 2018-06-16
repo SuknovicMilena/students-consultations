@@ -107,15 +107,19 @@ namespace StudentsConsultations.Service
             paragraphForStudent.Font = FontFactory.GetFont(FontFactory.TIMES_ITALIC, 15f, BaseColor.Green);
             document.Add(paragraphForStudent);
 
-            PdfPTable table = new PdfPTable(3);
+            PdfPTable table = new PdfPTable(4);
 
             PdfPCell cellNastavnik = new PdfPCell(new Phrase("Student"));
             cellNastavnik.FixedHeight = 20;
             table.AddCell(cellNastavnik);
 
-            PdfPCell cellDatum = new PdfPCell(new Phrase("Datum konsultacija"));
-            cellDatum.FixedHeight = 20;
-            table.AddCell(cellDatum);
+            PdfPCell cellVremeOd = new PdfPCell(new Phrase("Vreme od"));
+            cellVremeOd.FixedHeight = 20;
+            table.AddCell(cellVremeOd);
+
+            PdfPCell cellVremeDo = new PdfPCell(new Phrase("Vreme do"));
+            cellVremeDo.FixedHeight = 20;
+            table.AddCell(cellVremeDo);
 
             PdfPCell cellOdrzane = new PdfPCell(new Phrase("Odrzane?"));
             cellOdrzane.FixedHeight = 20;
@@ -125,6 +129,10 @@ namespace StudentsConsultations.Service
             {
 
                 table.AddCell(k.Student.Ime + " " + k.Student.Prezime);
+
+                table.AddCell(k.VremeOd.ToLocalTime().ToString());
+
+                table.AddCell(k.VremeDo.ToLocalTime().ToString());
 
                 if (k.Odrzane)
                 {

@@ -40,42 +40,47 @@
 
 <div class="konsultacije">
   <ul class="list-group">
-    <!-- <div *ngFor="let konsultacija of konsultacijeKojeNisuOdrzaneINisuIstekle">
+    <div *ngFor="let konsultacija of konsultacijeKojeNisuOdrzaneINisuIstekle">
       <li class="list-group-item list-group-item-warning" (click)="updateKonsultaciju(konsultacija.id)">
         <ul>
           <li>
             Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
           </li>
           <li>
-            Datum odrzavanja konsultacija: {{konsultacija.datumKonsultacija | date}}
+            Vreme od: {{konsultacija.vremeOd | dateTimeFormat}}
+          </li>
+          <li>
+            Vreme do: {{konsultacija.vremeDo | dateTimeFormat}}
           </li>
         </ul>
       </li>
-    </div> -->
-    <div *ngFor="let konsultacija of konsultacije">
-      <li *ngIf="konsultacija.odrzane" class="list-group-item list-group-item-success" (click)="updateKonsultaciju(konsultacija.id)">
+    </div>
+    <div *ngFor="let konsultacija of istekleKonsultacijeKojeNisuOdrzane">
+      <li class="list-group-item list-group-item-danger" (click)="updateKonsultaciju(konsultacija.id)">
         <ul>
           <li>
-            Dan u nedelji: {{konsultacija.danUNedelji}}
+            Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
           </li>
           <li>
-            Vreme od {{konsultacija.vremeOd}} PM
+            Vreme od: {{konsultacija.vremeOd | dateTimeFormat}}
           </li>
           <li>
-            Vreme do {{konsultacija.vremeDo}} PM
+            Vreme do: {{konsultacija.vremeDo | dateTimeFormat}}
           </li>
         </ul>
       </li>
-      <li *ngIf="!konsultacija.odrzane" class="list-group-item list-group-item-danger" (click)="updateKonsultaciju(konsultacija.id)">
+    </div>
+    <div *ngFor="let konsultacija of istekleKonsultacijeKojeSuOdrzane">
+      <li class="list-group-item list-group-item-success" (click)="updateKonsultaciju(konsultacija.id)">
         <ul>
           <li>
-            Dan u nedelji: {{konsultacija.danUNedelji}}
+            Student: {{konsultacija.student.ime}} {{konsultacija.student.prezime}}
           </li>
           <li>
-            Vreme od {{konsultacija.vremeOd}} PM
+            Vreme od: {{konsultacija.vremeOd | dateTimeFormat}}
           </li>
           <li>
-            Vreme do {{konsultacija.vremeDo}} PM
+            Vreme do: {{konsultacija.vremeDo | dateTimeFormat}}
           </li>
         </ul>
       </li>

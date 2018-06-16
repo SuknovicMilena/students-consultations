@@ -20,8 +20,8 @@
         <p class="card-text">Datum: {{konsultacija.vremeOd | dateFormat }}</p>
         <p class="card-text">Vreme od: {{konsultacija.vremeOd | timeFormat }}</p>
         <p class="card-text">Vreme do: {{konsultacija.vremeDo | timeFormat }}</p>
-        <div class="btn btn-outline-success my-2 my-sm-0" (click)="odrzane(); $event.stopPropagation();">Odrzane</div>
-        <div class="btn btn-outline-danger my-2 my-sm-0" (click)="obrisi(); $event.stopPropagation();">Obrisi</div>
+        <div class="btn btn-outline-success my-2 my-sm-0" (click)="odrzane(); $event.stopPropagation();">Održane</div>
+        <div class="btn btn-outline-danger my-2 my-sm-0" (click)="obrisi(); $event.stopPropagation();">Obriši</div>
       </div>
     </div>
     <div *ngIf="konsultacija.odrzane" class="card">
@@ -31,7 +31,7 @@
         <p class="card-text">Datum: {{konsultacija.vremeOd | dateFormat }}</p>
         <p class="card-text">Vreme od: {{konsultacija.vremeOd | timeFormat }}</p>
         <p class="card-text">Vreme do: {{konsultacija.vremeDo | timeFormat }}</p>
-        <div class="btn btn-outline-danger my-2 my-sm-0" (click)="obrisi(); $event.stopPropagation();">Obrisi</div>
+        <div class="btn btn-outline-danger my-2 my-sm-0" (click)="obrisi(); $event.stopPropagation();">Obriši</div>
       </div>
     </div>
   </div>

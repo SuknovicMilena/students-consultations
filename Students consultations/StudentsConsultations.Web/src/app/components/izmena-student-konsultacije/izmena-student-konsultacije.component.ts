@@ -24,7 +24,7 @@ export class IzmenaStudentKonsultacijeComponent implements OnInit {
   nastavnici: Nastavnik[];
   studenti: Student[];
 
-  razlozi: any[] = [{ id: 0, naziv: 'Ispit' }, { id: 1, naziv: 'Zavrsni rad' }, { id: 2, naziv: 'Projekat' }];
+  razlozi: any[] = [{ id: 0, naziv: 'Ispit' }, { id: 1, naziv: 'Završni rad' }, { id: 2, naziv: 'Projekat' }];
 
   konsultacija = new StudentKonsultacije();
   razlog = new Razlog();

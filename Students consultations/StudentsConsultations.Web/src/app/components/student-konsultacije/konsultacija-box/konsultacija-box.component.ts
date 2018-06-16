@@ -31,7 +31,7 @@ export class KonsultacijaBoxComponent implements OnInit {
   }
 
   updateKonsultaciju(konsultacija: StudentKonsultacije) {
-    this.router.navigate(['/izmeni-konsultaciju', UserType.Student, 'nastavnikId', konsultacija.nastavnikId, 'datumKonsultacija', moment.utc(konsultacija.datumKonsultacija).local().format()]);
+    // this.router.navigate(['/izmeni-konsultaciju', UserType.Student, 'nastavnikId', konsultacija.nastavnikId, 'datumKonsultacija', moment.utc(konsultacija.datumKonsultacija).local().format()]);
   }
 
   obrisi() {

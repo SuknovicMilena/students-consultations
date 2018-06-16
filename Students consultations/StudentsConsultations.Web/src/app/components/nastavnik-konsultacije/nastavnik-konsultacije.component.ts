@@ -11,6 +11,8 @@ import { AuthService } from '../../services/auth.service';
 import { NastavnikKonsultacije } from '../../models/nastavnik-konsultacije';
 import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
 import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { Student } from '../../models/student';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
@@ -21,10 +23,14 @@ import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 export class NastavnikKonsultacijeComponent implements OnInit {
 
   nastavnikTerminiKonsultacija: Array<NastavnikKonsultacije>;
-  konsultacijeKojeNisuOdrzaneINisuIstekle: Array<NastavnikKonsultacije> = new Array<NastavnikKonsultacije>();
+  konsultacijeKojeNisuOdrzaneINisuIstekle: Array<StudentKonsultacije> = new Array<StudentKonsultacije>();
+  istekleKonsultacijeKojeSuOdrzane: Array<StudentKonsultacije> = new Array<StudentKonsultacije>();
+  istekleKonsultacijeKojeNisuOdrzane: Array<StudentKonsultacije> = new Array<StudentKonsultacije>();
+  konsultacijeZaStudente: Array<StudentKonsultacije>;
 
   constructor(private nastavnikService: NastavnikService,
     private utilService: UtilService,
+    private studentService: StudentService,
     private authService: AuthService,
     private router: Router) { }
 
@@ -33,10 +39,16 @@ export class NastavnikKonsultacijeComponent implements OnInit {
       this.nastavnikTerminiKonsultacija = response;
       console.log(this.nastavnikTerminiKonsultacija);
       // narandzaste
-      // this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
-      // console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
-      // this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date() || x.odrzane);
-      // console.log(this.konsultacije);
+    });
+    this.studentService.getAllKonsultacijeByNastavnikId(this.utilService.getNastavnikId()).subscribe((response) => {
+      this.konsultacijeZaStudente = response;
+      console.log(this.konsultacijeZaStudente);
+      this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) > new Date() && !x.odrzane);
+      console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
+      this.istekleKonsultacijeKojeSuOdrzane = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) < new Date() && x.odrzane);
+      console.log(this.istekleKonsultacijeKojeSuOdrzane);
+      this.istekleKonsultacijeKojeNisuOdrzane = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) < new Date() && !x.odrzane);
+      console.log(this.istekleKonsultacijeKojeSuOdrzane);
     });
   }
 
@@ -47,18 +59,19 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   pretrazi(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    // this.nastavnikService.searchByStudent(search, this.utilService.getNastavnikId()).subscribe(response => {
-    //   this.konsultacije = response;
-    //   // narandzaste
-    //   this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacije.filter(x => new Date(x.datumKonsultacija) > new Date() && !x.odrzane);
-    //   console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
-    //   this.konsultacije = this.konsultacije.filter(x => new Date(x.datumKonsultacija) <= new Date() || x.odrzane);
-    //   console.log(this.konsultacije);
-    // });
+    this.nastavnikService.searchByStudent(search, this.utilService.getNastavnikId()).subscribe(response => {
+      this.konsultacijeZaStudente = response;
+      this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) > new Date() && !x.odrzane);
+      console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);
+      this.istekleKonsultacijeKojeSuOdrzane = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) < new Date() && x.odrzane);
+      console.log(this.istekleKonsultacijeKojeSuOdrzane);
+      this.istekleKonsultacijeKojeNisuOdrzane = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) < new Date() && !x.odrzane);
+      console.log(this.istekleKonsultacijeKojeSuOdrzane);
+    });
   }
 
   updateKonsultaciju(id: number) {
-    this.router.navigate(['/izmeni-nastavnik-konsultaciju', id]);
+    // this.router.navigate(['/izmeni-nastavnik-konsultaciju', id]);
   }
 
   konsultacijeToPDF(searchText: string) {

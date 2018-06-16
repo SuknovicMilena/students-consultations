@@ -32,7 +32,7 @@ export class StudentKonsultacijaComponent implements OnInit {
   nastavnici: Nastavnik[];
   studenti: Student[];
 
-  razlozi: any[] = [{ id: 0, naziv: 'Ispit' }, { id: 1, naziv: 'Zavrsni rad' }, { id: 2, naziv: 'Projekat' }];
+  razlozi: any[] = [{ id: 0, naziv: 'Ispit' }, { id: 1, naziv: 'Završni rad' }, { id: 2, naziv: 'Projekat' }];
 
   konsultacija = new StudentKonsultacije();
   terminiKonsultacije = new Array<number>();
@@ -58,7 +58,7 @@ export class StudentKonsultacijaComponent implements OnInit {
       { id: 1, naziv: 'Ponedeljak' },
       { id: 2, naziv: 'Utorak' },
       { id: 3, naziv: 'Sreda' },
-      { id: 4, naziv: 'Cetvrtak' },
+      { id: 4, naziv: 'Četvrtak' },
       { id: 5, naziv: 'Petak' },
       { id: 6, naziv: 'Subota' },
       { id: 7, naziv: 'Nedelja' }

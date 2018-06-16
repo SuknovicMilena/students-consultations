@@ -18,7 +18,7 @@ export class DodavanjeNastavnikKonsultacijaComponent implements OnInit {
       { id: 1, naziv: 'Ponedeljak' },
       { id: 2, naziv: 'Utorak' },
       { id: 3, naziv: 'Sreda' },
-      { id: 4, naziv: 'Cetvrtak' },
+      { id: 4, naziv: 'Četvrtak' },
       { id: 5, naziv: 'Petak' },
       { id: 6, naziv: 'Subota' },
       { id: 7, naziv: 'Nedelja' }

@@ -36,6 +36,7 @@ import { NastavnikService } from './services/nastavnik.service';
 import { StudentService } from './services/student.service';
 import { UtilService } from './services/util.service';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { DateTimeFormatPipe } from './pipes/date-and-time-format.pipe';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/prijavljivanje', pathMatch: 'full' },
@@ -66,7 +67,8 @@ const appRoutes: Routes = [
     // pipes
     TimeFormatPipe,
     DateFormatPipe,
-    DayOfWeekPipe
+    DayOfWeekPipe,
+    DateTimeFormatPipe
   ],
   imports: [
     NgbModule.forRoot(),
@@ -89,7 +91,7 @@ const appRoutes: Routes = [
       appRoutes
     )
   ],
-  providers: [StudentService, NastavnikService, AuthService, AnonymousGuardService, AuthGuardService, UtilService, DayOfWeekPipe, TimeFormatPipe, DateFormatPipe,
+  providers: [StudentService, NastavnikService, AuthService, AnonymousGuardService, AuthGuardService, UtilService, DayOfWeekPipe, TimeFormatPipe, DateFormatPipe, DateTimeFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

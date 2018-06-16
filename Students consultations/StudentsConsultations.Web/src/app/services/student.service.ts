@@ -19,6 +19,10 @@ export class StudentService {
     return this.http.get<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/bystudent/${studentId}`);
   }
 
+  getAllKonsultacijeByNastavnikId(nastavnikId: number): Observable<StudentKonsultacije[]> {
+    return this.http.get<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/bynastavnik/${nastavnikId}`);
+  }
+
   getAllZakazaneKonsultacijeByNastavnikId(zakazaneKonsultacijeRequest: ZakazaneKonsultacijeRequest): Observable<ZakazaneKonsultacijeResponse[]> {
     return this.http.post<ZakazaneKonsultacijeResponse[]>(`http://localhost:63561/student-konsultacije/zakzanekonsultacijebynastavnik/`, zakazaneKonsultacijeRequest);
   }
