@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { AlertModule, BsDatepickerModule } from 'ngx-bootstrap';
@@ -29,12 +29,13 @@ import { StudentKonsultacijeComponent } from './components/student-konsultacije/
 import { AnonymousGuardService } from './guards/anonymous.guard';
 import { AuthGuardService } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { DateFormatPipe } from './pipes/date.pipe';
+import { TimeFormatPipe } from './pipes/time-format.pipe';
 import { DayOfWeekPipe } from './pipes/day-of-week.pipe';
 import { AuthService } from './services/auth.service';
 import { NastavnikService } from './services/nastavnik.service';
 import { StudentService } from './services/student.service';
 import { UtilService } from './services/util.service';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/prijavljivanje', pathMatch: 'full' },
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     DodavanjeNastavnikKonsultacijaComponent,
     IzmenaNastavnikKonsultacijaComponent,
     // pipes
+    TimeFormatPipe,
     DateFormatPipe,
     DayOfWeekPipe
   ],
@@ -87,12 +89,13 @@ const appRoutes: Routes = [
       appRoutes
     )
   ],
-  providers: [StudentService, NastavnikService, AuthService, AnonymousGuardService, AuthGuardService, UtilService, DayOfWeekPipe, DateFormatPipe,
+  providers: [StudentService, NastavnikService, AuthService, AnonymousGuardService, AuthGuardService, UtilService, DayOfWeekPipe, TimeFormatPipe, DateFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }],
+    },
+  ],
   bootstrap: [AppComponent]
 })
 

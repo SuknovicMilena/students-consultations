@@ -6,7 +6,7 @@ import { StudentKonsultacije, Razlog, RazlogType } from '../../models/student-ko
 import { NastavnikService } from '../../services/nastavnik.service';
 import { StudentService } from '../../services/student.service';
 import { DatePipe } from '@angular/common';
-import { DateFormatPipe } from '../../pipes/date.pipe';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import { UserType } from '../../enums/userType.enum';
 import { Student } from '../../models/student';
 import { Search } from '../../models/search';
@@ -14,10 +14,12 @@ import { DatumKonsultacija } from '../../models/datum-konsultacija';
 import { UtilService } from '../../services/util.service';
 import { NastavnikKonsultacije } from '../../models/nastavnik-konsultacije';
 import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
-import { NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerConfig, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ZakazaneKonsultacijeResponse } from '../../models/zakazane-konsultacije-response';
 import { ZakazaneKonsultacijeRequest } from '../../models/zakazane-konsultacije-reguest';
+import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { DatePickerComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-konsultacija',
@@ -49,6 +51,8 @@ export class StudentKonsultacijaComponent implements OnInit {
 
   @ViewChild('trajanjeSelect') trajanjeSelect: ElementRef;
 
+  @ViewChild('d') d: NgbInputDatepicker;
+
   daniUNedelji: any[] =
     [
       { id: 1, naziv: 'Ponedeljak' },
@@ -71,10 +75,10 @@ export class StudentKonsultacijaComponent implements OnInit {
     private toastrService: ToastrService,
     private route: ActivatedRoute,
     private utilService: UtilService,
-    config: NgbDatepickerConfig
+    config: NgbDatepickerConfig,
+    private dateFormat: DateFormatPipe
   ) {
     const userType = route.snapshot.params.userType;
-
     this.minDate = new Date();
     this.maxDate = moment().add(1, 'month').toDate();
 
@@ -98,6 +102,7 @@ export class StudentKonsultacijaComponent implements OnInit {
     this.studentService.getAllStudenti().subscribe(response => {
       this.studenti = response;
     });
+
   }
 
   isDisabledStub(date: NgbDateStruct, current: { month: number }): boolean {

@@ -10,13 +10,13 @@ import { UtilService } from '../../services/util.service';
 import { AuthService } from '../../services/auth.service';
 import { NastavnikKonsultacije } from '../../models/nastavnik-konsultacije';
 import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
-import { DateFormatPipe } from '../../pipes/date.pipe';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 
 @Component({
   selector: 'app-nastavnik-konsultacije',
   templateUrl: './nastavnik-konsultacije.component.html',
   styleUrls: ['./nastavnik-konsultacije.component.scss'],
-  providers: [DateFormatPipe]
+  providers: [TimeFormatPipe]
 })
 export class NastavnikKonsultacijeComponent implements OnInit {
 

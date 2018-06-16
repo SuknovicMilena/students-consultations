@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UtilService } from '../../services/util.service';
 import { ToastrService } from 'ngx-toastr';
 import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
-import { DateFormatPipe } from '../../pipes/date.pipe';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 
 @Component({
   selector: 'app-izmena-nastavnik-konsultacija',
@@ -28,14 +28,14 @@ export class IzmenaNastavnikKonsultacijaComponent implements OnInit {
     ];
 
   constructor(private route: ActivatedRoute, private nastavnikService: NastavnikService, private utilService: UtilService, private router: Router,
-    private toastrService: ToastrService, private dateTimePipe: DateFormatPipe) {
+    private toastrService: ToastrService, private timeFormatPipe: TimeFormatPipe) {
     const id = +this.route.snapshot.params.id;
     this.nastavnikService.getKonsultacija(id).subscribe(response => {
       this.konsultacija.nastavnikId = response.nastavnikId;
       this.konsultacija.danUNedelji = response.danUNedelji;
       this.konsultacija.id = response.id;
-      this.konsultacija.vremeDo = this.dateTimePipe.transform(response.vremeDo);
-      this.konsultacija.vremeOd = this.dateTimePipe.transform(response.vremeOd);
+      this.konsultacija.vremeDo = this.timeFormatPipe.transform(response.vremeDo);
+      this.konsultacija.vremeOd = this.timeFormatPipe.transform(response.vremeOd);
     });
   }
 

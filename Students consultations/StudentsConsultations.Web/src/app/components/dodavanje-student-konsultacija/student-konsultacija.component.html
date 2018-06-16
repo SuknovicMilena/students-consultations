@@ -46,11 +46,12 @@
       </select>
     </div>
 
-    <div *ngIf="sveKonsultacijeNastavnika">
-      <label>Nastavnik  drzi konsultacije: </label>
+    <div *ngIf="sveKonsultacijeNastavnika" class="form-group">
+      <label class="form-group">Termini konsultacija: </label>
       <div *ngFor="let konsultacija of sveKonsultacijeNastavnika">
-        <label> Vreme od {{konsultacija.vremeOd | dateFormat: 'HH:mm'}}</label>
-        <label> Vreme od {{konsultacija.vremeDo | dateFormat: 'HH:mm'}}</label>
+        <label class="form-group"> Dan u nedelji {{konsultacija.danUNedelji | dayOfWeek}}</label>;
+        <label class="form-group"> Vreme od {{konsultacija.vremeOd | timeFormat: 'HH:mm'}}</label>;
+        <label class="form-group"> Vreme do {{konsultacija.vremeDo | timeFormat: 'HH:mm'}}</label>
       </div>
     </div>
 
@@ -58,8 +59,8 @@
       <label>Datum konsultacija</label>
       <div class="input-group">
 
-        <input class="form-control" [(ngModel)]="konsultacija.datumKonsultacijaZaView" (ngModelChange)="onDateSelection($event)" placeholder="dd-mm-yyyy" name="dp" [markDisabled]="isDisabled" [displayMonths]="displayMonths"
-          [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" firstDayOfWeek="1" ngbDatepicker #d="ngbDatepicker">
+        <input class="form-control" [(ngModel)]="konsultacija.datumKonsultacijaZaView" (ngModelChange)="onDateSelection($event)" name="dp" [markDisabled]="isDisabled" [displayMonths]="displayMonths" [navigation]="navigation"
+          [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers" firstDayOfWeek="1" ngbDatepicker #d="ngbDatepicker">
 
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">

@@ -6,7 +6,7 @@ import { Razlog, RazlogType, StudentKonsultacije } from '../../models/student-ko
 import { NastavnikService } from '../../services/nastavnik.service';
 import { StudentService } from '../../services/student.service';
 import { DatePipe } from '@angular/common';
-import { DateFormatPipe } from '../../pipes/date.pipe';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import { UserType } from '../../enums/userType.enum';
 import { Student } from '../../models/student';
 import { Search } from '../../models/search';
@@ -47,7 +47,7 @@ export class IzmenaStudentKonsultacijeComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private toastrService: ToastrService,
-    private dateFormatPipe: DateFormatPipe,
+    private timeFormatPipe: TimeFormatPipe,
     private route: ActivatedRoute,
     private utilService: UtilService
   ) {
@@ -125,7 +125,7 @@ export class IzmenaStudentKonsultacijeComponent implements OnInit {
   }
 
   onDateChanged($event) {
-    this.konsultacija.datumKonsultacija = new Date(this.dateFormatPipe.transform($event.date));
+    this.konsultacija.datumKonsultacija = new Date(this.timeFormatPipe.transform($event.date));
     console.log(this.konsultacija.datumKonsultacija);
   }
 

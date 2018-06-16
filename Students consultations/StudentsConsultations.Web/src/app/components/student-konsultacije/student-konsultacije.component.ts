@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarComponent } from 'ng-fullcalendar';
-import { data } from 'jquery';
-import { Options } from 'fullcalendar';
 import { StudentKonsultacije } from '../../models/student-konsultacije';
 import { StudentService } from '../../services/student.service';
-import { debug } from 'util';
 import { Router } from '@angular/router';
 import { UserType } from '../../enums/userType.enum';
 import { Search } from '../../models/search';
@@ -72,5 +68,11 @@ export class StudentKonsultacijeComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  refreshKonsultacije(){
+      this.studentService.getAllKonsultacijeByStudentId(this.utilService.getStudentId()).subscribe((response: Array<StudentKonsultacije>) =>
+      this.konsultacijeZaStudenta = response
+    );
   }
 }

@@ -17,15 +17,21 @@
       <div class="card-body text-danger">
         <h5 class="card-title"> &#x274C;</h5>
         <p class="card-text">Prof. {{konsultacija.nastavnik.ime}} {{konsultacija.nastavnik.prezime}}</p>
-        <p class="card-text">{{konsultacija.datumKonsultacija | date}}</p>
+        <p class="card-text">Datum: {{konsultacija.vremeOd | dateFormat }}</p>
+        <p class="card-text">Vreme od: {{konsultacija.vremeOd | timeFormat }}</p>
+        <p class="card-text">Vreme do: {{konsultacija.vremeDo | timeFormat }}</p>
         <div class="btn btn-outline-success my-2 my-sm-0" (click)="odrzane(); $event.stopPropagation();">Odrzane</div>
+        <div class="btn btn-outline-danger my-2 my-sm-0" (click)="obrisi(); $event.stopPropagation();">Obrisi</div>
       </div>
     </div>
     <div *ngIf="konsultacija.odrzane" class="card">
       <div class="card-body text-success">
         <h5 class="card-title">&#9989;</h5>
         <p class="card-text">Prof. {{konsultacija.nastavnik.ime}} {{konsultacija.nastavnik.prezime}}</p>
-        <p class="card-text">{{konsultacija.datumKonsultacija | date}}</p>
+        <p class="card-text">Datum: {{konsultacija.vremeOd | dateFormat }}</p>
+        <p class="card-text">Vreme od: {{konsultacija.vremeOd | timeFormat }}</p>
+        <p class="card-text">Vreme do: {{konsultacija.vremeDo | timeFormat }}</p>
+        <div class="btn btn-outline-danger my-2 my-sm-0" (click)="obrisi(); $event.stopPropagation();">Obrisi</div>
       </div>
     </div>
   </div>

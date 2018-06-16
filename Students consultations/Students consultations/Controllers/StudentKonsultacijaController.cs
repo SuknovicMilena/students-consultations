@@ -158,8 +158,8 @@ namespace StudentsConsultations.Controllers
 
             // konsultacijaIzBaze.Nastavnik.Id = request.NastavnikId;
             konsultacijaIzBaze.Odrzane = request.Odrzane;
-            konsultacijaIzBaze.VremeOd = DateTime.Parse(request.VremeOd);
-            konsultacijaIzBaze.VremeDo = DateTime.Parse(request.VremeDo);
+            konsultacijaIzBaze.VremeOd = DateTime.Parse(request.VremeOd).ToUniversalTime();
+            konsultacijaIzBaze.VremeDo = DateTime.Parse(request.VremeDo).ToUniversalTime();
 
             _iKonsultacijeService.Update(konsultacijaIzBaze);
 
@@ -187,9 +187,14 @@ namespace StudentsConsultations.Controllers
         [HttpPost("delete")]
         public IActionResult Delete([FromBody]StudentKonsultacijaRequest request)
         {
-            var konsultacija = _mapper.Map<StudentKonsultacija>(request);
+            var konsultacijaIzBaze = _iKonsultacijeService.GetKonsultacija(request.Id);
 
-            _iKonsultacijeService.Delete(konsultacija);
+            if (konsultacijaIzBaze == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _iKonsultacijeService.Delete(konsultacijaIzBaze);
 
             return Ok();
         }
