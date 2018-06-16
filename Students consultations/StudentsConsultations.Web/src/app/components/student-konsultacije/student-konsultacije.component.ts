@@ -70,8 +70,8 @@ export class StudentKonsultacijeComponent implements OnInit {
     this.authService.logout();
   }
 
-  refreshKonsultacije(){
-      this.studentService.getAllKonsultacijeByStudentId(this.utilService.getStudentId()).subscribe((response: Array<StudentKonsultacije>) =>
+  refreshKonsultacije() {
+    this.studentService.getAllKonsultacijeByStudentId(this.utilService.getStudentId()).subscribe((response: Array<StudentKonsultacije>) =>
       this.konsultacijeZaStudenta = response
     );
   }

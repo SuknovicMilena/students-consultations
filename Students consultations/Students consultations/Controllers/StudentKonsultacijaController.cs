@@ -158,8 +158,10 @@ namespace StudentsConsultations.Controllers
 
             // konsultacijaIzBaze.Nastavnik.Id = request.NastavnikId;
             konsultacijaIzBaze.Odrzane = request.Odrzane;
-            konsultacijaIzBaze.VremeOd = DateTime.Parse(request.VremeOd).ToUniversalTime();
-            konsultacijaIzBaze.VremeDo = DateTime.Parse(request.VremeDo).ToUniversalTime();
+            konsultacijaIzBaze.VremeOd = request.VremeOd.ToUniversalTime();
+            //DateTime.Parse(request.VremeOd).ToUniversalTime();
+            konsultacijaIzBaze.VremeDo = request.VremeDo.ToUniversalTime();
+            //DateTime.Parse(request.VremeDo).ToUniversalTime();
 
             _iKonsultacijeService.Update(konsultacijaIzBaze);
 

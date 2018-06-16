@@ -22,9 +22,9 @@ namespace StudentsConsultations.Models.Konsultacije
 
         public bool Odrzane { get; set; }
 
-        public string VremeOd { get; set; }
+        public DateTime VremeOd { get; set; }
 
-        public string VremeDo { get; set; }
+        public DateTime VremeDo { get; set; }
 
         public int KonsultacijaId { get; set; }
 

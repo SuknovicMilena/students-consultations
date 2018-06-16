@@ -162,12 +162,12 @@ export class StudentKonsultacijaComponent implements OnInit {
     if (!trajanje) {
       return;
     }
-
     const vremeOdSaDatumom = moment(this.konsultacija.vremeOd, 'HH:mm').toDate();
     vremeOdSaDatumom.setDate(this.konsultacija.datumKonsultacijaZaView.day);
     vremeOdSaDatumom.setMonth(this.konsultacija.datumKonsultacijaZaView.month - 1);
     vremeOdSaDatumom.setFullYear(this.konsultacija.datumKonsultacijaZaView.year);
 
+    this.konsultacija.vremeOd = vremeOdSaDatumom;
     const potencijalnoVremeOd = moment(vremeOdSaDatumom);
     const potencijalnoVremeDo = potencijalnoVremeOd.clone().add(trajanje, 'minutes');
 
@@ -192,7 +192,7 @@ export class StudentKonsultacijaComponent implements OnInit {
     if (preklapanje.length) {
       this.errorInSelection = 'Vec postoje konsultacije u tom vremenskom okviru';
     } else {
-      this.konsultacija.vremeDo = potencijalnoVremeDo.format('HH:mm');
+      this.konsultacija.vremeDo = potencijalnoVremeDo.toDate();
     }
   }
 

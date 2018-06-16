@@ -84,7 +84,7 @@ namespace StudentsConsultations.Service
 
                 table.AddCell(k.VremeOd.ToLocalTime().ToString());
 
-                table.AddCell(k.VremeOd.ToLocalTime().ToString());
+                table.AddCell(k.VremeDo.ToLocalTime().ToString());
 
                 if (k.Odrzane)
                 {

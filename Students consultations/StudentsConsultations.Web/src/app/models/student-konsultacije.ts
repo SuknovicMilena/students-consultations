@@ -19,8 +19,8 @@ export class StudentKonsultacije {
   nastavnik: Nastavnik;
   razlog: Razlog;
 
-  vremeOd: string;
-  vremeDo: string;
+  vremeOd: Date;
+  vremeDo: Date;
   konsultacijaId: number;
 }
 
