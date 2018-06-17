@@ -40,7 +40,7 @@ import { DateTimeFormatPipe } from './pipes/date-and-time-format.pipe';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/prijavljivanje', pathMatch: 'full' },
-  { path: 'registracija', component: RegistracijaComponent, canActivate: [AnonymousGuardService] },
+  { path: 'registracija/:userType', component: RegistracijaComponent, canActivate: [AnonymousGuardService] },
   { path: 'prijavljivanje', component: PrijavljivanjeComponent, canActivate: [AnonymousGuardService] },
   { path: 'student-konsultacije', component: StudentKonsultacijeComponent, canActivate: [AuthGuardService] },
   { path: 'dodaj-nastavnik-konsultaciju/:userType', component: DodavanjeNastavnikKonsultacijaComponent, canActivate: [AuthGuardService] },

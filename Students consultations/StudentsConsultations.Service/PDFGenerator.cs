@@ -27,7 +27,7 @@ namespace StudentsConsultations.Service
 
                 DateTime today = DateTime.Now;
 
-                Paragraph paragraphForDate = new Paragraph("Spisak konsultacija na dan: " + " " + today);
+                Paragraph paragraphForDate = new Paragraph("Spisak konsultacija na dan: " + " " + today.ToString("dd-MM-yyyy, HH:mm"));
                 paragraphForDate.SpacingBefore = 10;
                 paragraphForDate.SpacingAfter = 10;
                 paragraphForDate.Alignment = Element.ALIGN_CENTER;
@@ -73,7 +73,7 @@ namespace StudentsConsultations.Service
             cellVremeDo.FixedHeight = 20;
             table.AddCell(cellVremeDo);
 
-            PdfPCell cellOdrzane = new PdfPCell(new Phrase("Odrzane?"));
+            PdfPCell cellOdrzane = new PdfPCell(new Phrase("Održane?"));
             cellOdrzane.FixedHeight = 20;
             table.AddCell(cellOdrzane);
 
@@ -82,9 +82,9 @@ namespace StudentsConsultations.Service
 
                 table.AddCell(k.Nastavnik.Ime + " " + k.Nastavnik.Prezime);
 
-                table.AddCell(k.VremeOd.ToLocalTime().ToString());
+                table.AddCell(k.VremeOd.ToLocalTime().ToString("dd-MM-yyyy, HH:mm"));
 
-                table.AddCell(k.VremeDo.ToLocalTime().ToString());
+                table.AddCell(k.VremeDo.ToLocalTime().ToString("dd-MM-yyyy, HH:mm"));
 
                 if (k.Odrzane)
                 {
@@ -121,7 +121,7 @@ namespace StudentsConsultations.Service
             cellVremeDo.FixedHeight = 20;
             table.AddCell(cellVremeDo);
 
-            PdfPCell cellOdrzane = new PdfPCell(new Phrase("Odrzane?"));
+            PdfPCell cellOdrzane = new PdfPCell(new Phrase("Održane?"));
             cellOdrzane.FixedHeight = 20;
             table.AddCell(cellOdrzane);
 
@@ -130,9 +130,9 @@ namespace StudentsConsultations.Service
 
                 table.AddCell(k.Student.Ime + " " + k.Student.Prezime);
 
-                table.AddCell(k.VremeOd.ToLocalTime().ToString());
+                table.AddCell(k.VremeOd.ToLocalTime().ToString("dd-MM-yyyy, HH:mm"));
 
-                table.AddCell(k.VremeDo.ToLocalTime().ToString());
+                table.AddCell(k.VremeDo.ToLocalTime().ToString("dd-MM-yyyy, HH:mm"));
 
                 if (k.Odrzane)
                 {

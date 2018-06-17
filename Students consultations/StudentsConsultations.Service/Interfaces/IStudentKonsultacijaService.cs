@@ -21,7 +21,7 @@ namespace StudentsConsultations.Service.Interfaces
 
         void Insert(StudentKonsultacija konsultacije, DateTime datum);
 
-        List<StudentKonsultacija> SearchByNastavnik(string searchText, int studentId);
+        List<StudentKonsultacija> SearchByNastavnikAndDate(string searchText, int studentId);
 
         List<StudentKonsultacija> SearchByStudent(string searchText, int nastavnikId);
 

@@ -168,10 +168,10 @@ namespace StudentsConsultations.Controllers
             return Ok();
         }
 
-        [HttpPost("pretragaponastavniku/{studentId}")]
-        public IActionResult SearchByNastavnik([FromBody]SearchRequest request, int studentId)
+        [HttpPost("pretragaponastavnikuidatumu/{studentId}")]
+        public IActionResult SearchByNastavnikAndDatum([FromBody]SearchRequest request, int studentId)
         {
-            var konsultacije = _iKonsultacijeService.SearchByNastavnik(request.SearchText, studentId);
+            var konsultacije = _iKonsultacijeService.SearchByNastavnikAndDate(request.SearchText, studentId);
             var konsultacijeRowDtos = _mapper.Map<List<StudentKonsultacijaRowDto>>(konsultacije);
 
             return Ok(konsultacijeRowDtos);

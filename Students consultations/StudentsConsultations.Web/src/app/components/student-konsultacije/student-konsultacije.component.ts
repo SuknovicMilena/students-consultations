@@ -53,7 +53,7 @@ export class StudentKonsultacijeComponent implements OnInit {
   pretrazi(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    this.studentService.searchByNastavnik(search, this.utilService.getStudentId()).subscribe(response => {
+    this.studentService.searchByNastavnikAndDate(search, this.utilService.getStudentId()).subscribe(response => {
       this.konsultacijeZaStudenta = response;
     });
   }

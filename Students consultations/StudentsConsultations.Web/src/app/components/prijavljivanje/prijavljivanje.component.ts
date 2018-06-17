@@ -22,7 +22,11 @@ export class PrijavljivanjeComponent implements OnInit {
   }
 
   registrujSe() {
-    this.router.navigate(['/registracija']);
+    if (this.userType === UserType.Student) {
+      this.router.navigate(['/registracija', UserType.Student]);
+    } else {
+      this.router.navigate(['/registracija', UserType.Nastavnik]);
+    }
   }
 
   prijaviSe() {

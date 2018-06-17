@@ -48,8 +48,8 @@ export class StudentService {
     return this.http.get<Student[]>('http://localhost:63561/studenti');
   }
 
-  searchByNastavnik(searchRequest: Search, studentId: number) {
-    return this.http.post<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/pretragaponastavniku/${studentId}`, searchRequest);
+  searchByNastavnikAndDate(searchRequest: Search, studentId: number) {
+    return this.http.post<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/pretragaponastavnikuidatumu/${studentId}`, searchRequest);
   }
 
   getKonsultacija(studentId: number, nastavnikId: number, datumKonsultacija: DatumKonsultacija): Observable<StudentKonsultacije> {

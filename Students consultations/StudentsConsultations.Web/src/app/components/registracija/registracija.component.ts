@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegistracijaStudenta, RegistracijaNastavnika } from '../../models/registracija';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registracija',
@@ -18,12 +18,20 @@ export class RegistracijaComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private toastService: ToastrService,
+    private route: ActivatedRoute,
     private router: Router) {
     this.registracijaStudenta = new RegistracijaStudenta();
     this.registracijaNastavnika = new RegistracijaNastavnika();
   }
 
   ngOnInit() {
+    const userType = this.route.snapshot.params.userType;
+
+    if (userType === '0') {
+      this.izaberiRegKaoStudent();
+    } else {
+      this.izaberiRegKaoNastavnik();
+    }
   }
 
   izaberiRegKaoStudent() {

@@ -3,6 +3,7 @@ using StudentsConsultations.Data.Interface;
 using StudentsConsultations.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -171,10 +172,21 @@ namespace StudentsConsultations.Service
             _databaseManager.SaveChanges();
         }
 
-        public List<StudentKonsultacija> SearchByNastavnik(string searchText, int studentId)
+        public List<StudentKonsultacija> SearchByNastavnikAndDate(string searchText, int studentId)
         {
-            return GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
-            || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+            DateTime datetime;
+
+            bool checkIfIsDate = DateTime.TryParseExact(searchText, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out datetime);
+
+            if (checkIfIsDate)
+            {
+                return GetAllKonsultacijeByStudentId(studentId).Where(x => x.VremeOd.Date == DateTime.ParseExact(searchText, "dd-MM-yyyy", null)).ToList();
+            }
+            else
+            {
+                return GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
+          || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+            }
         }
 
         public List<StudentKonsultacija> SearchByStudent(string searchText, int nastavnikId)
@@ -227,8 +239,19 @@ namespace StudentsConsultations.Service
 
             if (!String.IsNullOrEmpty(searchText))
             {
-                return konsultacije = GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
-            || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+                DateTime datetime;
+
+                bool checkIfIsDate = DateTime.TryParseExact(searchText, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out datetime);
+
+                if (checkIfIsDate)
+                {
+                    return GetAllKonsultacijeByStudentId(studentId).Where(x => x.VremeOd.Date == DateTime.ParseExact(searchText, "dd-MM-yyyy", null)).ToList();
+                }
+                else
+                {
+                    return GetAllKonsultacijeByStudentId(studentId).Where(x => x.Nastavnik.Ime.ToLower().StartsWith(searchText.ToLower())
+              || x.Nastavnik.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+                }
             }
             else
             {
