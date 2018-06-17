@@ -21,8 +21,8 @@ export class NastavnikService {
     return this.http.get<NastavnikKonsultacije[]>(`http://localhost:63561/konsultacije/getallbynastavnik/${nastavnikId}`);
   }
 
-  searchByStudent(searchRequest: Search, nastavnikId: number) {
-    return this.http.post<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/pretragapostudentu/${nastavnikId}`, searchRequest);
+  searchByStudentAndDate(searchRequest: Search, nastavnikId: number) {
+    return this.http.post<StudentKonsultacije[]>(`http://localhost:63561/student-konsultacije/pretragapostudentuidatumu/${nastavnikId}`, searchRequest);
   }
 
   deleteKonsultacija(id: number): Observable<void> {

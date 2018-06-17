@@ -23,7 +23,7 @@ namespace StudentsConsultations.Service.Interfaces
 
         List<StudentKonsultacija> SearchByNastavnikAndDate(string searchText, int studentId);
 
-        List<StudentKonsultacija> SearchByStudent(string searchText, int nastavnikId);
+        List<StudentKonsultacija> SearchByStudentAndDate(string searchText, int nastavnikId);
 
         List<StudentKonsultacija> GeneratePDFForStudent(string searchText, int nastavnikId);
 

@@ -59,7 +59,7 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   pretrazi(searchText: string) {
     const search = new Search();
     search.searchText = searchText;
-    this.nastavnikService.searchByStudent(search, this.utilService.getNastavnikId()).subscribe(response => {
+    this.nastavnikService.searchByStudentAndDate(search, this.utilService.getNastavnikId()).subscribe(response => {
       this.konsultacijeZaStudente = response;
       this.konsultacijeKojeNisuOdrzaneINisuIstekle = this.konsultacijeZaStudente.filter(x => new Date(x.vremeOd) > new Date() && !x.odrzane);
       console.log(this.konsultacijeKojeNisuOdrzaneINisuIstekle);

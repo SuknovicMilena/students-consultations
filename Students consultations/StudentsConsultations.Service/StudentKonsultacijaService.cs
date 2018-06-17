@@ -189,10 +189,21 @@ namespace StudentsConsultations.Service
             }
         }
 
-        public List<StudentKonsultacija> SearchByStudent(string searchText, int nastavnikId)
+        public List<StudentKonsultacija> SearchByStudentAndDate(string searchText, int nastavnikId)
         {
-            return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
+            DateTime datetime;
+
+            bool checkIfIsDate = DateTime.TryParseExact(searchText, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out datetime);
+
+            if (checkIfIsDate)
+            {
+                return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.VremeOd.Date == DateTime.ParseExact(searchText, "dd-MM-yyyy", null)).ToList();
+            }
+            else
+            {
+                return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
             || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+            }
         }
 
         public StudentKonsultacija GetKonsultacija(int id)
@@ -265,8 +276,19 @@ namespace StudentsConsultations.Service
 
             if (!String.IsNullOrEmpty(searchText))
             {
-                return konsultacije = GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
-            || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+                DateTime datetime;
+
+                bool checkIfIsDate = DateTime.TryParseExact(searchText, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out datetime);
+
+                if (checkIfIsDate)
+                {
+                    return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.VremeOd.Date == DateTime.ParseExact(searchText, "dd-MM-yyyy", null)).ToList();
+                }
+                else
+                {
+                    return GetAllKonsultacijeByNastavnik(nastavnikId).Where(x => x.Student.Ime.ToLower().StartsWith(searchText.ToLower())
+                || x.Student.Prezime.ToLower().StartsWith(searchText.ToLower())).ToList();
+                }
             }
             else
             {

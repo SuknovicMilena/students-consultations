@@ -177,10 +177,10 @@ namespace StudentsConsultations.Controllers
             return Ok(konsultacijeRowDtos);
         }
 
-        [HttpPost("pretragapostudentu/{nastavnikId}")]
+        [HttpPost("pretragapostudentuidatumu/{nastavnikId}")]
         public IActionResult SearchByStudent([FromBody]SearchRequest request, int nastavnikId)
         {
-            var konsultacije = _iKonsultacijeService.SearchByStudent(request.SearchText, nastavnikId);
+            var konsultacije = _iKonsultacijeService.SearchByStudentAndDate(request.SearchText, nastavnikId);
             var konsultacijeRowDtos = _mapper.Map<List<StudentKonsultacijaRowDto>>(konsultacije);
 
             return Ok(konsultacijeRowDtos);
