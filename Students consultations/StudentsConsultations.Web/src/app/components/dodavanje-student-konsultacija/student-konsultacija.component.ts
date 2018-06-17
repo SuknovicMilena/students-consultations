@@ -162,7 +162,7 @@ export class StudentKonsultacijaComponent implements OnInit {
     if (!trajanje) {
       return;
     }
-    const vremeOdSaDatumom = moment(this.konsultacija.vremeOd, 'HH:mm').toDate();
+    const vremeOdSaDatumom = moment(this.konsultacija.vremeOdString, 'HH:mm').toDate();
     vremeOdSaDatumom.setDate(this.konsultacija.datumKonsultacijaZaView.day);
     vremeOdSaDatumom.setMonth(this.konsultacija.datumKonsultacijaZaView.month - 1);
     vremeOdSaDatumom.setFullYear(this.konsultacija.datumKonsultacijaZaView.year);

@@ -72,12 +72,12 @@
       <div class="form-group" *ngIf="konsultacija.datumKonsultacijaZaView">
 
         <div class="form-group">
-          <label>Vreme do</label>
-          <input id="vremeOd" type="time" [attr.min]="getMinVremeOd()" [attr.max]="getMaxVremeOd()" [(ngModel)]="konsultacija.vremeOd" (ngModelChange)="onVremeOdChange($event)">
+          <label>Vreme od</label>
+          <input id="vremeOd" type="time" [attr.min]="getMinVremeOd()" placeholder="Izaberite dan konsultacija" [attr.max]="getMaxVremeOd()" [(ngModel)]="konsultacija.vremeOdString" (ngModelChange)="onVremeOdChange($event)">
           <span></span>
         </div>
 
-        <div class="form-group" *ngIf="konsultacija.vremeOd">
+        <div class="form-group" *ngIf="konsultacija.vremeOdString">
           <label for="trajanje">Trajanje konsultacija</label>
           <select #trajanjeSelect class="form-control" (change)="changeTrajanje($event)">
             <option selected="true" disabled="disabled">Izaberite trajanje</option>
