@@ -71,7 +71,7 @@ export class NastavnikKonsultacijeComponent implements OnInit {
   }
 
   updateKonsultaciju(id: number) {
-    // this.router.navigate(['/izmeni-nastavnik-konsultaciju', id]);
+     this.router.navigate(['/izmeni-nastavnik-konsultaciju', id]);
   }
 
   konsultacijeToPDF(searchText: string) {

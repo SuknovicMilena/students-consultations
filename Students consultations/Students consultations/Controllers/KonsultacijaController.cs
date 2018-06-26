@@ -70,8 +70,8 @@ namespace StudentsConsultations.Controllers
             }
 
             konsultacijaIzBaze.DanUNedelji = request.DanUNedelji;
-            konsultacijaIzBaze.VremeOd = DateTime.Parse(request.VremeOd);
-            konsultacijaIzBaze.VremeDo = DateTime.Parse(request.VremeDo);
+            konsultacijaIzBaze.VremeOd = DateTime.Parse(request.VremeOd).ToUniversalTime();
+            konsultacijaIzBaze.VremeDo = DateTime.Parse(request.VremeDo).ToUniversalTime();
 
             _iKonsultacijeService.Update(konsultacijaIzBaze);
 
