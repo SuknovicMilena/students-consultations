@@ -6,3 +6,5 @@ export class NastavnikKonsultacije {
   odrzane: boolean;
   nastavnikId: number;
 }
+
+// test
